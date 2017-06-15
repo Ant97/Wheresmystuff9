@@ -1,7 +1,5 @@
 package com.example.jaggia.wheresmystuff9.controllers;
 import com.example.jaggia.wheresmystuff9.R;
-//import com.example.jaggia.wheresmystuff9.model.Model;
-//import com.example.jaggia.wheresmystuff9.model.User;
 
 import android.content.Intent;
 import android.os.Bundle;
