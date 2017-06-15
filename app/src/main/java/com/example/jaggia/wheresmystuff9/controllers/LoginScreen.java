@@ -22,14 +22,13 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
+        setContentView(R.layout.activity_login);
 
-        final EditText loginName = (EditText) findViewById(R.id.loginName);
-        final EditText loginPW = (EditText) findViewById(R.id.loginPW);
+        final EditText loginName = (EditText) findViewById(R.id.userName);
+        final EditText loginPW = (EditText) findViewById(R.id.password);
 
-        final Button login = (Button) findViewById(R.id.login);
-        final Button cancelLogin = (Button) findViewById(R.id.cancel1);
-        final TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
+        final Button login = (Button) findViewById(R.id.ButtonLogin);
+        final Button cancelLogin = (Button) findViewById(R.id.ButtonCancel);
 
         cancelLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +57,6 @@ public class LoginScreen extends AppCompatActivity {
                     builder.setMessage("Login Failed: UserName or PW incorrect")
                             .setNegativeButton("Retry", null)
                             .create().show();
-                    checkLogin.setText("Username or PW incorrect");
                 }
             }
         });

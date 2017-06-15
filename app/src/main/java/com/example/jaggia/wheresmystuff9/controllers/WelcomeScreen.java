@@ -22,9 +22,9 @@ public class WelcomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        final TextView title = (TextView) findViewById(R.id.title);
-        final Button registerbtn = (Button) findViewById(R.id.registerbtn);
-        final Button loginbtn = (Button) findViewById(R.id.loginbtn);
+        final TextView title = (TextView) findViewById(R.id.welcome);
+        final Button registerbtn = (Button) findViewById(R.id.register);
+        final Button loginbtn = (Button) findViewById(R.id.login);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override

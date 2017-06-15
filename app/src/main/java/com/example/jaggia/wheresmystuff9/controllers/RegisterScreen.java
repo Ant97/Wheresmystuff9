@@ -21,19 +21,19 @@ public class RegisterScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_screen);
+        setContentView(R.layout.activity_register);
 
         final EditText registerName =
-                (EditText) findViewById(R.id.registerName);
+                (EditText) findViewById(R.id.nameRegistering);
         final EditText registerUsername =
-                (EditText) findViewById(R.id.registerUserName);
+                (EditText) findViewById(R.id.userNameRegistering);
         final EditText registerPW =
-                (EditText) findViewById(R.id.registerPW);
+                (EditText) findViewById(R.id.passwordRegister);
         final EditText registerPW1 =
-                (EditText) findViewById(R.id.registerPW1);
+                (EditText) findViewById(R.id.password);
 
-        final Button register = (Button) findViewById(R.id.register1);
-        final Button cancelRegister = (Button) findViewById(R.id.cancel2);
+        final Button register = (Button) findViewById(R.id.ButtonRegisterReg);
+        final Button cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);
 
         cancelRegister.setOnClickListener(new View.OnClickListener() {
             @Override
