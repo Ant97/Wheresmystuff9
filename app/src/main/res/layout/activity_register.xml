@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorAccent"
-    tools:context="com.example.jaggia.wheresmystuff.LoginActivity">
+    tools:context="com.example.jaggia.wheresmystuff9.controllers.RegisterScreen">
 
     <!-- Login progress -->
     <ProgressBar
@@ -71,7 +71,7 @@
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:textColor="@color/button1"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:maxLines="1" />
 
 
@@ -86,7 +86,7 @@
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:textColor="@color/button2"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:maxLines="1" />
 
             <LinearLayout
