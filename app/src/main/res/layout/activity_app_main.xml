@@ -4,12 +4,11 @@
     android:background="@color/colorAccent"
     android:layout_height="match_parent">
 
-    <EditText
+    <TextView
         android:id="@+id/welcome"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="15dp"
         android:text="@string/welcome"

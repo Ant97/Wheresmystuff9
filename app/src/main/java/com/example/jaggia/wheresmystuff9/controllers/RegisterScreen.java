@@ -32,8 +32,8 @@ public class RegisterScreen extends AppCompatActivity {
         final EditText registerPW1 =
                 (EditText) findViewById(R.id.password);
 
-        final Button register = (Button) findViewById(R.id.ButtonRegisterReg);
-        final Button cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);
+        Button register = (Button) findViewById(R.id.ButtonRegisterReg);
+        Button cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);
 
         cancelRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,15 +47,14 @@ public class RegisterScreen extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String name = registerName.getText().toString();
-                final String username = registerUsername.getText().toString();
-                final String pw = registerPW.getText().toString();
-                final String pw1 = registerPW1.getText().toString();
+                 String name = registerName.getText().toString();
+                 String username = registerUsername.getText().toString();
+                 String pw = registerPW.getText().toString();
+                 String pw1 = registerPW1.getText().toString();
 
-                User newUser = new User(name, pw);
+                User newUser = new User(name, username, pw);
 
-                if (Model.registerNewUser(newUser) &&
-                        Model.validatePassword(pw, pw1)) {
+                if (Model.validatePassword(pw, pw1) && Model.registerNewUser(newUser)) {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
                     builder.setMessage("Register Successful")
@@ -64,10 +63,16 @@ public class RegisterScreen extends AppCompatActivity {
                     Intent registerIntent =
                             new Intent(RegisterScreen.this, LoginScreen.class);
                     RegisterScreen.this.startActivity(registerIntent);
+                } else if(Model.validatePassword(pw, pw1)){
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(RegisterScreen.this);
+                    builder.setMessage("Register failed because username has been taken")
+                            .setNegativeButton("Retry", null)
+                            .create().show();
                 } else {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Register Failed")
+                    builder.setMessage("Register failed because the passwords do not match")
                             .setNegativeButton("Retry", null)
                             .create().show();
                 }

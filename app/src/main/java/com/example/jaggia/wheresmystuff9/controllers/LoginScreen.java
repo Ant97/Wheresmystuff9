@@ -26,8 +26,8 @@ public class LoginScreen extends AppCompatActivity {
         final EditText loginName = (EditText) findViewById(R.id.userName);
         final EditText loginPW = (EditText) findViewById(R.id.password);
 
-        final Button login = (Button) findViewById(R.id.ButtonLogin);
-        final Button cancelLogin = (Button) findViewById(R.id.ButtonCancel);
+        Button login = (Button) findViewById(R.id.ButtonLogin);
+        Button cancelLogin = (Button) findViewById(R.id.ButtonCancel);
 
         cancelLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,12 +41,10 @@ public class LoginScreen extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String name = loginName.getText().toString();
-                final String pw = loginPW.getText().toString();
+                 String name = loginName.getText().toString();
+                 String pw = loginPW.getText().toString();
 
-                User user = new User(name, pw);
-
-                if (Model.validateUser(user)) {
+                if (Model.validateUser(name, pw)) {
                     Intent loginIntent =
                             new Intent(LoginScreen.this, mainApp.class);
                     LoginScreen.this.startActivity(loginIntent);

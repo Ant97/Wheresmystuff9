@@ -19,6 +19,8 @@ public class User implements Parcelable{
 
     /**unique id number*/
     private int _id;
+    /**The users real life name*/
+    private String _name;
     /**unique username*/
     private String _username;
     /**the user's password*/
@@ -28,7 +30,7 @@ public class User implements Parcelable{
 
     /**no parameter constructor for controller*/
     public User(){
-        this("default username" , "default password");
+        this("default name" , "default username" , "default password");
     }
 
     /** makes a new User
@@ -41,7 +43,7 @@ public class User implements Parcelable{
      *                      ILLEGALPASSWORD means the password given is illegal
      *                      SUCCESS means the user was created with no issues
      */
-    public User(String username, String password){
+    public User(String name, String username, String password){
        /* if(null == username){
             _errorCode = ErrorCode.ILLEGALUSERNAME;
         }else if(null == password){
@@ -49,6 +51,7 @@ public class User implements Parcelable{
         }
         _errorCode = ErrorCode.SUCCESS;*/
         _id = Next_ID++;
+        _name = name;
         _username = username;
         _password = password;
     }
@@ -65,6 +68,7 @@ public class User implements Parcelable{
     public String getPassword(){
         return _password;
     }
+    public String getName() {return _name;};
     //public ErrorCode getErrorCode() {return _errorCode; }
 
     public void setUsername(String username){
@@ -73,6 +77,7 @@ public class User implements Parcelable{
     public void setPassword(String password){
         _password = password;
     }
+    public void setName(String name){_name = name; };
 
     /* ********************************************
      * Overridden methods
@@ -92,6 +97,7 @@ public class User implements Parcelable{
     //method for parcel
     @Override
     public void writeToParcel(Parcel dest, int flags){
+        dest.writeString(_name);
         dest.writeString(_username);
         dest.writeString(_password);
         dest.writeInt(_id);
@@ -99,6 +105,7 @@ public class User implements Parcelable{
 
     //method for parcel
     private User(Parcel in){
+        _name = in.readString();
         _username = in.readString();
         _password = in.readString();
         _id = in.readInt();

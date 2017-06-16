@@ -47,17 +47,18 @@ public class UserDataBase {
 
     /**
      * method to validate whether or not a user is in the system
-     * @param user the user desired to be checked
+     * @param username the username typed by the user
+     * @param password the password typed by the user
      * @return returns true if user is found and has correct password,
      *         returns false if not found or password incorrect, or if null user is passed
      */
-    public ErrorCode validateUser(User user) {
-        if(null == user){
-            return ErrorCode.NULLUSER;
+    public ErrorCode validateUser(String username, String password) {
+        if(null == username){
+            return ErrorCode.ILLEGALUSERNAME;
         }
         for (User u : _users) {
-            if (u.getUsername().equals(user.getUsername())) {
-                if (u.getPassword().equals(user.getPassword())) {
+            if (u.getUsername().equals(username)) {
+                if (u.getPassword().equals(password)) {
                     return ErrorCode.SUCCESS;
                 } else {
                     //can be simplified but is left for later development

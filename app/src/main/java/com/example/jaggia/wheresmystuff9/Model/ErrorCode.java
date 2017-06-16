@@ -9,7 +9,7 @@ package com.example.jaggia.wheresmystuff9.Model;
  */
 
 public enum ErrorCode {
-    SUCCESS ("Succes" , 0), //The method completed successfully
+    SUCCESS ("Success" , 0), //The method completed successfully
     NULLUSER ("Null User", 1), //The user passed in was NULL
     ILLEGALUSERNAME ("Null Username" , 2), //The user was not given a legal username
     ILLEGALPASSWORD ("Null Password" , 3), //The user was not given a legal password

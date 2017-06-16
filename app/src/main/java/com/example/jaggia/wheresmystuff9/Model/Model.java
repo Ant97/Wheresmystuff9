@@ -56,12 +56,13 @@ public class Model {
 
     /**
      * Validate a user's username and password
-     * @param user user to be validated
+     * @param username username typed by the user
+     * @param password password typed by the user
      * @return returns true if user is in the database
      *          returns false if the user is not in the database
      */
-    public static boolean validateUser(User user){
-        if(_database.validateUser(user) == ErrorCode.SUCCESS) {
+    public static boolean validateUser(String username, String password){
+        if(_database.validateUser(username, password) == ErrorCode.SUCCESS) {
             return true;
         }
         return false;
