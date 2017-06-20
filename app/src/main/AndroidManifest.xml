@@ -27,6 +27,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".controllers.mainApp" />
+        <activity
+            android:name=".controllers.MainUserScreen"
+            android:label="@string/title_activity_main_user_screen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".controllers.MakeAPost"
+            android:label="@string/title_activity_make_apost"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".controllers.LostItemPost"
+            android:label="@string/title_activity_lost_item_post"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".controllers.ViewPosts"
+            android:label="@string/title_activity_view_posts"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
