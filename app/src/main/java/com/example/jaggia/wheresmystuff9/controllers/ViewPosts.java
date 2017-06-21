@@ -1,5 +1,6 @@
 package com.example.jaggia.wheresmystuff9.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -83,11 +84,17 @@ public class ViewPosts extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            Intent makePostIntent =
+                    new Intent(ViewPosts.this, MakeAPost.class);
+            ViewPosts.this.startActivity(makePostIntent);
         } else if (id == R.id.nav_gallery) {
-
+            Intent viewPostIntent =
+                    new Intent(ViewPosts.this, ViewPosts.class);
+            ViewPosts.this.startActivity(viewPostIntent);
         } else if (id == R.id.nav_slideshow) {
-
+            Intent logoutIntent =
+                    new Intent(ViewPosts.this, LoginScreen.class);
+            ViewPosts.this.startActivity(logoutIntent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
