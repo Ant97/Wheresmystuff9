@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
+
+import java.util.List;
+
+import static com.example.jaggia.wheresmystuff9.R.id.list_view;
 
 public class ViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +53,30 @@ public class ViewPosts extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        populateListView();
+        registerClick();
+    }
+
+    private void populateListView() {
+        //List posts = Model.getItemList();
+        String[] posts = {"hello", "hi", "bye"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_view_posts, posts);
+        ListView list = (ListView) findViewById(list_view);
+        list.setAdapter(adapter);
+    }
+
+    private void registerClick() {
+        ListView list = (ListView) findViewById(R.id.list_view);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
+                Intent viewPostIntent =
+                        new Intent(ViewPosts.this, newPost.class);
+                ViewPosts.this.startActivity(viewPostIntent);
+
+            }
+        });
     }
 
     @Override
@@ -107,4 +141,6 @@ public class ViewPosts extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
