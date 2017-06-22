@@ -10,14 +10,30 @@ import java.util.LinkedList;
 public class ItemList {
     LinkedList<Item> itemList = new LinkedList<>();
 
+    /**
+     * Add the item to the linkedList itemList
+     *
+     * @param item
+     */
     public void addItem(Item item) {
         itemList.add(item);
     }
 
+    /**
+     * Remove the item from the linkedList itemList
+     *
+     * @param item
+     */
     public void removeItem(Item item) {
         itemList.remove(item);
     }
 
+    /**
+     * Search for the item from the linkedList itemList
+     *
+     * @param itemName the string name of the item
+     * @return The item if found, null if not
+     */
     public Item searchList(String itemName) {
         Iterator itr = itemList.iterator();
         while (itr.hasNext()) {
