@@ -28,6 +28,8 @@ public class User implements Parcelable{
     /*ErrorCode returned when creating the user*/
     //private ErrorCode _errorCode;
 
+    private boolean _isAdmin;
+
     /**no parameter constructor for controller*/
     public User(){
         this("default name" , "default username" , "default password");
@@ -35,6 +37,7 @@ public class User implements Parcelable{
 
     /** makes a new User
      *
+     * @param name the user's real life name
      * @param username the user's public name
      * @param password the user's password
      * _id is a unique identifier for the user
@@ -54,29 +57,71 @@ public class User implements Parcelable{
         _name = name;
         _username = username;
         _password = password;
+        _isAdmin = false;
+    }
+    /** makes a new User
+     *
+     * @param name the user's real life name
+     * @param username the user's public name
+     * @param password the user's password
+     * @param isAdmin boolean controlling whether the user is an Admin
+     * _id is a unique identifier for the user
+     *                 ErrorCodes:
+     *                      ILLEGALUSERNAME means the username given is illegal
+     *                      ILLEGALPASSWORD means the password given is illegal
+     *                      SUCCESS means the user was created with no issues
+     */
+    public User(String name, String username, String password, boolean isAdmin){
+        this(name, username,password);
+        _isAdmin = isAdmin;
     }
 
     /** ********************************************
-     * the getters and setters
+     * Getters and Setters
+     * @return the user's id
      */
     public int getId(){
         return _id;
     }
+
+    /**
+     *
+     * @return the user's username
+     */
     public String getUsername(){
         return _username;
     }
+    /**
+     *
+     * @return the user's password
+     */
     public String getPassword(){
         return _password;
     }
+    /**
+     *
+     * @return the user's real name
+     */
     public String getName() {return _name;};
     //public ErrorCode getErrorCode() {return _errorCode; }
-
+    /**
+     *
+     * @param username name to set as the user's username
+     */
     public void setUsername(String username){
         _username = username;
     }
+    /**
+     *
+     * @param password name to set as the user's password
+     */
     public void setPassword(String password){
         _password = password;
     }
+    /**
+     *
+     * @param name name to set as the user's real name
+     */
     public void setName(String name){_name = name; };
 
     /* ********************************************

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,6 +38,12 @@ public class RegisterScreen extends AppCompatActivity {
         Button register = (Button) findViewById(R.id.ButtonRegisterReg);
         Button cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);
 
+        String userTypes[] = {"User", "Admin"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, userTypes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        registerUserType.setAdapter(adapter);
+
         cancelRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,8 +60,10 @@ public class RegisterScreen extends AppCompatActivity {
                 String username = registerUsername.getText().toString();
                 String pw = registerPW.getText().toString();
                 String pw1 = registerPW1.getText().toString();
-                String userType = registerUserType.getSelectedItem().toString();
-
+                boolean userType = false;
+                if(registerUserType.getSelectedItem().toString() == "Admin"){
+                    userType = true;
+                }
                 User newUser = new User(name, username, pw, userType);
 
                 if (Model.validatePassword(pw, pw1) && Model.registerNewUser(newUser)) {

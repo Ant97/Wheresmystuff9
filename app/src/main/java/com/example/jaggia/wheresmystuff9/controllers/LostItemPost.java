@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -36,8 +37,35 @@ public class LostItemPost extends AppCompatActivity {
         final Spinner lostDateYear = (Spinner) findViewById(R.id.lostDateYear);
 
         Button cancelPost = (Button) findViewById(R.id.ButtonCancelPost);
-        Button post = (Button) findViewById(R.id.ButtonCPost);
+        Button post = (Button) findViewById(R.id.ButtonPost);
 
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostCategory.setAdapter(adapter);
+
+        String days[] = new String[31];
+        for(int i = 0; i<days.length; i++){
+            days[i] = Integer.toString(i+1);
+        }
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, days);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostDateDay.setAdapter(adapter2);
+
+        String months[] = {"January", "Feburary", "March", "April","May","June","July","August","Septemeber", "October","November","December"};
+        ArrayAdapter<String> adapter3 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, months);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostDateMonth.setAdapter(adapter3);
+
+        String years[] = new String[100];
+        for(int i = 0; i<years.length; i++){
+            years[i] = Integer.toString(i + 1990);
+        }
+
+        ArrayAdapter<String> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostDateYear.setAdapter(adapter4);
 
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
