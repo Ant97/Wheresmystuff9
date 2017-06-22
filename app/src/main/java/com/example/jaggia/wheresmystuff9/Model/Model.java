@@ -17,8 +17,13 @@ public class Model {
     /** the user database */
     private static UserDataBase _database;
     /**the current user logged in */
-    private User _currentUser;
+    private static User _currentUser;
 
+    private static Item _currentItem;
+
+    private static ItemList _lostList = new ItemList();
+
+    private static ItemList _foundList = new ItemList();
     /**
      * make a new model
      */
@@ -30,15 +35,21 @@ public class Model {
      * Getters and Setters
      *
      */
-    public UserDataBase getDataBase(){
+    public static UserDataBase getDataBase(){
         return _database;
     }
-    public User getCurrentUser(){
+    public static ItemList getLostList(){ return _lostList; }
+    public static ItemList getFoundList() { return _foundList; }
+
+    public static User getCurrentUser(){
         return _currentUser;
     }
-    public void setCurrentUser(User currentUser){
+    public static void setCurrentUser(User currentUser){
         _currentUser = currentUser;
     }
+
+    public static Item getCurrentItem(){return _currentItem; }
+    public static void setCurrentItem(Item currentItem){ _currentItem = currentItem; }
 
 
     /**
@@ -72,5 +83,10 @@ public class Model {
             return true;
         }
         return false;
+    }
+
+    public static boolean addItem(Item item){
+        _lostList.addItem(item);
+        return true;
     }
 }

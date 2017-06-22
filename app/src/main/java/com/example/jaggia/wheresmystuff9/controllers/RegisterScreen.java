@@ -20,6 +20,7 @@ import android.widget.Spinner;
 
 public class RegisterScreen extends AppCompatActivity {
 
+    Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class RegisterScreen extends AppCompatActivity {
                 (EditText) findViewById(R.id.passwordRegister);
         final EditText registerPW1 =
                 (EditText) findViewById(R.id.password);
-        final Spinner registerUserType = (Spinner) findViewById(R.id.userType);
+        final Spinner registerUserType = (Spinner) findViewById(R.id.typeSpinner);
 
         Button register = (Button) findViewById(R.id.ButtonRegisterReg);
         Button cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);

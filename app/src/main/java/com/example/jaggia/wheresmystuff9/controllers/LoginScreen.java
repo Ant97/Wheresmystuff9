@@ -17,7 +17,7 @@ import android.widget.EditText;
  * @version 1.0
  */
 public class LoginScreen extends AppCompatActivity {
-
+    Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

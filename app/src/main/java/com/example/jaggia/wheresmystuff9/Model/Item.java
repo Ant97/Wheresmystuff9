@@ -9,19 +9,31 @@ import java.util.Date;
 
 public class Item {
 
-    private enum ItemStatus { RESOLVED, UNRESOLVED};
-    private enum ItemType { LOST, FOUND};
-    private enum ItemCategory { ELECTRONICS, PERSONAL, ACCESSORY};
+    public enum ItemStatus { RESOLVED, UNRESOLVED};
+    public enum ItemType { LOST, FOUND};
+    public enum ItemCategory { ELECTRONICS, PERSONAL, ACCESSORY};
 
     private User user;
     private String name;
     private String description;
     private Date date;
     private Location location;
-    private int reward;
+    private String reward;
     private ItemStatus status;
     private ItemType type;
     private ItemCategory category;
+
+    public Item(User user, String name, String description, Date date, Location location, String reward, ItemStatus status, ItemType type, ItemCategory category){
+        this.user = user;
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.location = location;
+        this.reward = reward;
+        this.status = status;
+        this.type = type;
+        this.category = category;
+    }
 
     /**
      * @return current User
@@ -102,20 +114,10 @@ public class Item {
     public void setLocation(Location location) {
         this.location = location;
     }
-
-    /**
-     * Set current Item category to the paramater 'category'
-     *
-     * @param category
-     */
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     /**
      * @return current reward for the Item
      */
-    public int getReward() {
+    public String getReward() {
         return reward;
     }
 
@@ -124,7 +126,7 @@ public class Item {
      *
      * @param reward
      */
-    public void setReward(int reward) {
+    public void setReward(String reward) {
         this.reward = reward;
     }
 
@@ -166,6 +168,14 @@ public class Item {
      */
     public ItemCategory getCategory() {
         return category;
+    }
+
+    /**
+     *
+     * @return ItemCategory values
+     */
+    public  static ItemCategory[] getItemCategoryValues(){
+        return ItemCategory.values();
     }
 
     /**

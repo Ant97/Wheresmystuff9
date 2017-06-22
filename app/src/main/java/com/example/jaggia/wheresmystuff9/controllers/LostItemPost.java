@@ -14,56 +14,66 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.jaggia.wheresmystuff9.Model.*;
+
 import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
 
-public class LostItemPost extends AppCompatActivity {
+import java.util.Date;
 
+public class LostItemPost extends AppCompatActivity {
+    final Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_item_post);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final EditText lostName = (EditText) findViewById(R.id.lostName);
-        final EditText lostDescription = (EditText) findViewById(R.id.lostDescription);
-        final EditText lostLocationLat = (EditText) findViewById(R.id.lostLocationLat);
-        final EditText lostLocationLng = (EditText) findViewById(R.id.lostLocationLng);
-        final Spinner lostCategory = (Spinner) findViewById(R.id.lostCategory);
-        final EditText lostReward = (EditText) findViewById(R.id.lostReward);
-        final Spinner lostDateDay = (Spinner) findViewById(R.id.lostDateDay);
-        final Spinner lostDateMonth = (Spinner) findViewById(R.id.lostDateMonth);
-        final Spinner lostDateYear = (Spinner) findViewById(R.id.lostDateYear);
-
-        Button cancelPost = (Button) findViewById(R.id.ButtonCancelPost);
-        Button post = (Button) findViewById(R.id.ButtonPost);
+        //setSupportActionBar(toolbar);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        final EditText lostName = (EditText) findViewById(R.id.itemName);
+        final EditText lostDescription = (EditText) findViewById(R.id.itemDescription);
+        final EditText lostLocationLat = (EditText) findViewById(R.id.longitude);
+        final EditText lostLocationLng = (EditText) findViewById(R.id.latitude);
+        final Spinner lostCategory = (Spinner) findViewById(R.id.categorySpinner);
+        final EditText lostReward = (EditText) findViewById(R.id.reward);
+        final Spinner lostDateDay = (Spinner) findViewById(R.id.daySpinner);
+        final Spinner lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
+        final Spinner lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
+
+        Button cancelPost = (Button) findViewById(R.id.createButton);
+        Button post = (Button) findViewById(R.id.cancelLost);
+
+
+        ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostCategory.setAdapter(adapter);
 
-        String days[] = new String[31];
+        Integer days[] = new Integer[31];
         for(int i = 0; i<days.length; i++){
-            days[i] = Integer.toString(i+1);
+            days[i] = (i+1);
         }
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<Integer> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, days);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateDay.setAdapter(adapter2);
 
-        String months[] = {"January", "Feburary", "March", "April","May","June","July","August","Septemeber", "October","November","December"};
-        ArrayAdapter<String> adapter3 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, months);
+        //String months[] = {"January", "Feburary", "March", "April","May","June","July","August","Septemeber", "October","November","December"};
+        Integer months[] = new Integer[12];
+        for(int i = 0; i<months.length; i++){
+            months[i] = (i+1);
+        }
+
+        ArrayAdapter<Integer> adapter3 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, months);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateMonth.setAdapter(adapter3);
 
-        String years[] = new String[100];
+        Integer years[] = new Integer[100];
         for(int i = 0; i<years.length; i++){
-            years[i] = Integer.toString(i + 1990);
+            years[i] = (i + 1990);
         }
 
-        ArrayAdapter<String> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<Integer> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateYear.setAdapter(adapter4);
 
@@ -80,22 +90,24 @@ public class LostItemPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                User user = mdl.getCurrentUser();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
                 Location location = new Location("itemLocation");
                 location.setLatitude(Double.parseDouble(lostLocationLat.getText().toString()));
                 location.setLongitude(Double.parseDouble(lostLocationLng.getText().toString()));
-                ItemStatus status = lostStatus.getSelectedItem().toString();
-                String category = lostCategory.getSelectedItem().toString();
+                Item.ItemStatus status = Item.ItemStatus.UNRESOLVED;
+                Item.ItemCategory category = (Item.ItemCategory) lostCategory.getSelectedItem();
                 String reward = lostReward.getText().toString();
-                ItemType type = "lost";
-                String dateDay = lostDateDay.getSelectedItem().toString();
-                String dateMonth = lostDateMonth.getSelectedItem().toString();
-                String dateYear = lostDateYear.getSelectedItem().toString();
+                Item.ItemType type = Item.ItemType.LOST;
+                int dateDay = (int) lostDateDay.getSelectedItem();
+                int dateMonth = (int) lostDateMonth.getSelectedItem();
+                int dateYear = (int) lostDateYear.getSelectedItem();
+                Date date = new Date(dateYear, dateMonth, dateDay);
 
-                Item newItem = new Item(name, description,location,status,category,reward,type, date);
+                Item newItem = new Item(user, name, description,date, location,reward,status,type, category);
 
-                if(Model.lostItems.addItem(newItem)){
+                if(Model.addItem(newItem)){
                     //the item was created and added to the lostItems
                     AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
                     builder.setMessage("Item was created successfully!").setNegativeButton("OK", null).create().show();
