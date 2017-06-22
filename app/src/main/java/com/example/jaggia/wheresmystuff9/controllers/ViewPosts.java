@@ -19,23 +19,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jaggia.wheresmystuff9.Model.Model;
+import com.example.jaggia.wheresmystuff9.Model.*;
 import com.example.jaggia.wheresmystuff9.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.jaggia.wheresmystuff9.R.id.list_view;
 
 public class ViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    final Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_posts);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        //setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,10 +59,21 @@ public class ViewPosts extends AppCompatActivity
     }
 
     private void populateListView() {
-        //List posts = Model.getItemList();
-        String[] posts = {"hello", "hi", "bye"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_view_posts, posts);
-        ListView list = (ListView) findViewById(list_view);
+        ItemList posts = Model.getLostList();
+
+        List<String> postNames = new ArrayList<>();
+        int count = 0;
+        for(Item i : posts.getItemList()){
+            postNames.add(i.getName());
+            System.out.println(postNames.get(count));
+            count++;
+        }
+        List<String> post = new ArrayList<>();
+        post.add("hi");
+        post.add("hello");
+        post.add("bye");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, postNames);
+        ListView list = (ListView) findViewById(R.id.list_view);
         list.setAdapter(adapter);
     }
 
@@ -117,26 +128,19 @@ public class ViewPosts extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.make_post) {
             Intent makePostIntent =
                     new Intent(ViewPosts.this, MakeAPost.class);
             ViewPosts.this.startActivity(makePostIntent);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.view_posts) {
             Intent viewPostIntent =
                     new Intent(ViewPosts.this, ViewPosts.class);
             ViewPosts.this.startActivity(viewPostIntent);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.logout) {
             Intent logoutIntent =
                     new Intent(ViewPosts.this, LoginScreen.class);
             ViewPosts.this.startActivity(logoutIntent);
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

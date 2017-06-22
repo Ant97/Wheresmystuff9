@@ -8,8 +8,14 @@ import java.util.LinkedList;
  */
 
 public class ItemList {
-    LinkedList<Item> itemList = new LinkedList<>();
+    private LinkedList<Item> itemList;
 
+    public ItemList(){
+        itemList = new LinkedList<>();
+    }
+
+
+    public LinkedList<Item> getItemList(){return itemList; }
     /**
      * Add the item to the linkedList itemList
      *

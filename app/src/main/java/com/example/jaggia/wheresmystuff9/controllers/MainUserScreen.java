@@ -24,7 +24,7 @@ public class MainUserScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_user_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,26 +83,19 @@ public class MainUserScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.make_post) {
             Intent makePostIntent =
                     new Intent(MainUserScreen.this, MakeAPost.class);
             MainUserScreen.this.startActivity(makePostIntent);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.view_posts) {
             Intent viewPostIntent =
                     new Intent(MainUserScreen.this, ViewPosts.class);
             MainUserScreen.this.startActivity(viewPostIntent);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.logout) {
             Intent logoutIntent =
                     new Intent(MainUserScreen.this, LoginScreen.class);
             MainUserScreen.this.startActivity(logoutIntent);
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

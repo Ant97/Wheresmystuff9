@@ -28,7 +28,7 @@ public class MakeAPost extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_apost);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         Button foundPost = (Button) findViewById(R.id.ButtonFound);
         Button lostPost = (Button) findViewById(R.id.ButtonLost);
@@ -105,26 +105,19 @@ public class MakeAPost extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.make_post) {
             Intent makePostIntent =
                     new Intent(MakeAPost.this, MakeAPost.class);
             MakeAPost.this.startActivity(makePostIntent);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.view_posts) {
             Intent viewPostIntent =
                     new Intent(MakeAPost.this, ViewPosts.class);
             MakeAPost.this.startActivity(viewPostIntent);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.logout) {
             Intent logoutIntent =
                     new Intent(MakeAPost.this, LoginScreen.class);
             MakeAPost.this.startActivity(logoutIntent);
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
