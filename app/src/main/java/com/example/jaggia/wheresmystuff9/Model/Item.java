@@ -11,16 +11,17 @@ public class Item {
 
     private enum ItemStatus { RESOLVED, UNRESOLVED};
     private enum ItemType { LOST, FOUND};
+    private enum ItemCategory { ELECTRONICS, PERSONAL, ACCESSORY};
 
     private User user;
     private String name;
     private String description;
     private Date date;
     private Location location;
-    private String category;
     private int reward;
     private ItemStatus status;
     private ItemType type;
+    private ItemCategory category;
 
     /**
      * @return current User
@@ -103,13 +104,6 @@ public class Item {
     }
 
     /**
-     * @return current category for the Item
-     */
-    public String getCategory() {
-        return category;
-    }
-
-    /**
      * Set current Item category to the paramater 'category'
      *
      * @param category
@@ -165,6 +159,22 @@ public class Item {
      */
     public void setType(ItemType type) {
         this.type = type;
+    }
+
+    /**
+     * @return current Item Category
+     */
+    public ItemCategory getCategory() {
+        return category;
+    }
+
+    /**
+     * Set current Item Category to the paramater 'category'
+     *
+     * @param category
+     */
+    public void setCategory(ItemCategory category) {
+        this.category = category;
     }
 
     /**
