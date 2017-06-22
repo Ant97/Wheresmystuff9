@@ -27,5 +27,6 @@
     <string name="title_activity_make_apost">MakeAPost</string>
     <string name="title_activity_lost_item_post">LostItemPost</string>
     <string name="title_activity_view_posts">ViewPosts</string>
+    <string name="new_post">Make a new post for a...</string>
 
 </resources>

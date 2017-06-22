@@ -46,7 +46,7 @@ public class LoginScreen extends AppCompatActivity {
 
                 if (Model.validateUser(name, pw)) {
                     Intent loginIntent =
-                            new Intent(LoginScreen.this, mainApp.class);
+                            new Intent(LoginScreen.this, MainUserScreen.class);
                     LoginScreen.this.startActivity(loginIntent);
                 } else {
                     AlertDialog.Builder builder =
