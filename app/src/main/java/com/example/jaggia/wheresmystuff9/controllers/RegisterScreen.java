@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 /**
  * This is controller for Register Screen
@@ -31,6 +32,7 @@ public class RegisterScreen extends AppCompatActivity {
                 (EditText) findViewById(R.id.passwordRegister);
         final EditText registerPW1 =
                 (EditText) findViewById(R.id.password);
+        final Spinner registerUserType = (Spinner) findViewById(R.id.userType);
 
         Button register = (Button) findViewById(R.id.ButtonRegisterReg);
         Button cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);
@@ -47,12 +49,13 @@ public class RegisterScreen extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 String name = registerName.getText().toString();
-                 String username = registerUsername.getText().toString();
-                 String pw = registerPW.getText().toString();
-                 String pw1 = registerPW1.getText().toString();
+                String name = registerName.getText().toString();
+                String username = registerUsername.getText().toString();
+                String pw = registerPW.getText().toString();
+                String pw1 = registerPW1.getText().toString();
+                String userType = registerUserType.getSelectedItem().toString();
 
-                User newUser = new User(name, username, pw);
+                User newUser = new User(name, username, pw, userType);
 
                 if (Model.validatePassword(pw, pw1) && Model.registerNewUser(newUser)) {
                     AlertDialog.Builder builder =
