@@ -41,8 +41,8 @@ public class LostItemPost extends AppCompatActivity {
         final Spinner lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
         final Spinner lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
 
-        Button cancelPost = (Button) findViewById(R.id.createButton);
-        Button post = (Button) findViewById(R.id.cancelLost);
+        Button post = (Button) findViewById(R.id.createButton);
+        Button cancelPost = (Button) findViewById(R.id.cancelLost);
 
 
         ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
@@ -90,7 +90,7 @@ public class LostItemPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                User user = mdl.getCurrentUser();
+                User user = Model.getCurrentUser();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
                 Location location = new Location("itemLocation");
