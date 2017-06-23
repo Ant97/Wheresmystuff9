@@ -2,6 +2,7 @@ package com.example.jaggia.wheresmystuff9.controllers;
 import com.example.jaggia.wheresmystuff9.Model.*;
 import com.example.jaggia.wheresmystuff9.R;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -32,7 +33,7 @@ public class RegisterScreen extends AppCompatActivity {
                 (EditText) findViewById(R.id.userNameRegistering);
         final EditText registerPW =
                 (EditText) findViewById(R.id.passwordRegister);
-        final EditText registerPW1 =
+        final EditText registerPW2 =
                 (EditText) findViewById(R.id.password);
         final Spinner registerUserType = (Spinner) findViewById(R.id.typeSpinner);
 
@@ -60,22 +61,34 @@ public class RegisterScreen extends AppCompatActivity {
                 String name = registerName.getText().toString();
                 String username = registerUsername.getText().toString();
                 String pw = registerPW.getText().toString();
-                String pw1 = registerPW1.getText().toString();
+                String pw1 = registerPW2.getText().toString();
                 boolean userType = false;
-                if(registerUserType.getSelectedItem().toString() == "Admin"){
+                String success = "Registration Successful";
+                if(registerUserType.getSelectedItem().toString().equals("Admin")){
                     userType = true;
+                    success = "Registration as Admin Successful";
                 }
-                User newUser = new User(name, username, pw, userType);
-
+                User newUser = Model.createNewUser(name, username, pw, userType);
                 if (Model.validatePassword(pw, pw1) && Model.registerNewUser(newUser)) {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Register Successful")
-                            .setNegativeButton("OK", null)
-                            .create().show();
-                    Intent registerIntent =
-                            new Intent(RegisterScreen.this, LoginScreen.class);
-                    RegisterScreen.this.startActivity(registerIntent);
+                    builder.setMessage(success)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent registerIntent =
+                                            new Intent(RegisterScreen.this, LoginScreen.class);
+                                    RegisterScreen.this.startActivity(registerIntent);
+                                }
+                            })
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    Intent registerIntent =
+                                            new Intent(RegisterScreen.this, LoginScreen.class);
+                                    RegisterScreen.this.startActivity(registerIntent);
+                                }
+                            }).create().show();
                 } else if(Model.validatePassword(pw, pw1)){
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);

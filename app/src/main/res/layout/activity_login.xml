@@ -42,7 +42,6 @@
                 android:inputType="textVisiblePassword|textNoSuggestions"
                 android:textColor="@color/button1"
                 android:maxLines="1"
-                android:text="username"
                 android:textSize="30sp"/>
 
             <EditText
@@ -58,7 +57,6 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:textColor="@color/button2"
-                android:text="password"
                 android:maxLines="1" />
 
             <LinearLayout

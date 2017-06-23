@@ -26,7 +26,7 @@ import com.example.jaggia.wheresmystuff9.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.jaggia.wheresmystuff9.R.id.list_view;
+//import static com.example.jaggia.wheresmystuff9.R.id.list_view;
 
 public class ViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,13 +66,13 @@ public class ViewPosts extends AppCompatActivity
         for(Item i : posts.getItemList()){
             postNames.add(i.getName());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, postNames);
-        ListView list = (ListView) findViewById(R.id.list_view);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, postNames);
+        ListView list = (ListView) findViewById(R.id.postlist);
         list.setAdapter(adapter);
     }
 
     private void registerClick() {
-        ListView list = (ListView) findViewById(R.id.list_view);
+        ListView list = (ListView) findViewById(R.id.postlist);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
@@ -142,3 +142,7 @@ public class ViewPosts extends AppCompatActivity
 
 
 }
+/*<ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>*/

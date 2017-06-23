@@ -41,18 +41,9 @@ public class User implements Parcelable{
      * @param username the user's public name
      * @param password the user's password
      * _id is a unique identifier for the user
-     *                 ErrorCodes:
-     *                      ILLEGALUSERNAME means the username given is illegal
-     *                      ILLEGALPASSWORD means the password given is illegal
-     *                      SUCCESS means the user was created with no issues
      */
     public User(String name, String username, String password){
-       /* if(null == username){
-            _errorCode = ErrorCode.ILLEGALUSERNAME;
-        }else if(null == password){
-            _errorCode = ErrorCode.ILLEGALPASSWORD;
-        }
-        _errorCode = ErrorCode.SUCCESS;*/
+
         _id = Next_ID++;
         _name = name;
         _username = username;
@@ -66,10 +57,6 @@ public class User implements Parcelable{
      * @param password the user's password
      * @param isAdmin boolean controlling whether the user is an Admin
      * _id is a unique identifier for the user
-     *                 ErrorCodes:
-     *                      ILLEGALUSERNAME means the username given is illegal
-     *                      ILLEGALPASSWORD means the password given is illegal
-     *                      SUCCESS means the user was created with no issues
      */
     public User(String name, String username, String password, boolean isAdmin){
         this(name, username,password);
