@@ -1,5 +1,6 @@
 package com.example.jaggia.wheresmystuff9.controllers;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -81,7 +82,7 @@ public class LostItemPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent cancelIntent =
-                        new Intent(LostItemPost.this, MainUserScreen.class);
+                        new Intent(LostItemPost.this, MakeAPost.class);
                 LostItemPost.this.startActivity(cancelIntent);
             }
         });
@@ -93,34 +94,56 @@ public class LostItemPost extends AppCompatActivity {
                 User user = Model.getCurrentUser();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
-                Location location = new Location("itemLocation");
-                location.setLatitude(Double.parseDouble(lostLocationLat.getText().toString()));
-                location.setLongitude(Double.parseDouble(lostLocationLng.getText().toString()));
+                String latitude = lostLocationLat.getText().toString();
+                String longitude = lostLocationLng.getText().toString();
                 Item.ItemStatus status = Item.ItemStatus.UNRESOLVED;
                 Item.ItemCategory category = (Item.ItemCategory) lostCategory.getSelectedItem();
                 String reward = lostReward.getText().toString();
                 Item.ItemType type = Item.ItemType.LOST;
-                int dateDay = (int) lostDateDay.getSelectedItem();
-                int dateMonth = (int) lostDateMonth.getSelectedItem();
-                int dateYear = (int) lostDateYear.getSelectedItem();
-                Date date = new Date(dateYear, dateMonth, dateDay);
-
-                Item newItem = new Item(user, name, description,date, location,reward,status,type, category);
-
-                if(Model.addItem(newItem)){
-                    //the item was created and added to the lostItems
+                if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
-                    builder.setMessage("Item was created successfully!").setNegativeButton("OK", null).create().show();
-                    Intent postIntent = new Intent(LostItemPost.this, MainUserScreen.class);
-                    LostItemPost.this.startActivity(postIntent);
+                    builder.setMessage("Item was not create: Please fill in required information");
+                    builder.setNegativeButton("Retry", null).create().show();
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
-                    builder.setMessage("Item was not created").setNegativeButton("Retry", null).create().show();
+                    Location location = new Location("itemLocation");
+                    location.setLatitude(Double.parseDouble(latitude));
+                    location.setLongitude(Double.parseDouble(longitude));
 
+                    int dateDay = (int) lostDateDay.getSelectedItem();
+                    int dateMonth = (int) lostDateMonth.getSelectedItem();
+                    int dateYear = (int) lostDateYear.getSelectedItem();
+                    Date date = new Date(dateYear, dateMonth, dateDay);
+
+                    Item newItem = Model.createNewItem(user, name, description, date, location, reward, status, type, category);
+
+                    if (Model.addItem(Model.getLostList(), newItem)) {
+                        //the item was created and added to the lostItems
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                        builder.setMessage("Item was created successfully!");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
+                                LostItemPost.this.startActivity(postIntent);
+                            }
+                        });
+                        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
+                                LostItemPost.this.startActivity(postIntent);
+                            }
+                        }).create().show();
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                        builder.setMessage("Item was not created").setNegativeButton("Retry", null).create().show();
+
+                    }
                 }
             }
 
         });
+
     }
 
 }
