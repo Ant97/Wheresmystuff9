@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -62,16 +63,9 @@ public class ViewPosts extends AppCompatActivity
         ItemList posts = Model.getLostList();
 
         List<String> postNames = new ArrayList<>();
-        int count = 0;
         for(Item i : posts.getItemList()){
             postNames.add(i.getName());
-            System.out.println(postNames.get(count));
-            count++;
         }
-        List<String> post = new ArrayList<>();
-        post.add("hi");
-        post.add("hello");
-        post.add("bye");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, postNames);
         ListView list = (ListView) findViewById(R.id.list_view);
         list.setAdapter(adapter);
