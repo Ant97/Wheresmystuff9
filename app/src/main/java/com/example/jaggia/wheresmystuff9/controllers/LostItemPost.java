@@ -109,11 +109,9 @@ public class LostItemPost extends AppCompatActivity {
                     location.setLongitude(Double.parseDouble(longitude));
 
                     int dateDay = (int) lostDateDay.getSelectedItem();
-                    System.out.println(dateDay);
                     int dateMonth = (int) lostDateMonth.getSelectedItem();
                     int dateYear = (int) lostDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
-                    //Date date2 = new Date()
 
 
                     if (Model.addItem(Model.getLostList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category))) {
