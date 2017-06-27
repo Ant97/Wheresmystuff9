@@ -180,6 +180,6 @@ public class Model {
     }
 
     public static User findUser(String username){
-        return findUser(username);
+        return _database.findUser(username);
     }
 }

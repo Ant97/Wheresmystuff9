@@ -45,7 +45,7 @@ public class LoginScreen extends AppCompatActivity {
                  String pw = loginPW.getText().toString();
 
                 if (Model.validateUser(name, pw)) {
-                   // Model.setCurrentUser(Model.findUser(name));
+                    Model.setCurrentUser(Model.findUser(name));
                     Intent loginIntent =
                             new Intent(LoginScreen.this, MainUserScreen.class);
                     LoginScreen.this.startActivity(loginIntent);
