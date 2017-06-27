@@ -1,7 +1,9 @@
 package com.example.jaggia.wheresmystuff9.Model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by jaggia on 6/21/17.
@@ -14,7 +16,11 @@ public class ItemList {
         itemList = new LinkedList<>();
     }
 
-
+    /**
+     * Get the itemList
+     *
+     * @return return the itemList
+     */
     public LinkedList<Item> getItemList(){return itemList; }
     /**
      * Add the item to the linkedList itemList
@@ -49,6 +55,18 @@ public class ItemList {
             }
         }
         return null;
+    }
+
+    /**
+     *
+     * @return returns a string list of the list of items
+     */
+    public List listItems(){
+        List<String> list = new ArrayList<>();
+        for (Item i: itemList) {
+            list.add(i.toString());
+        }
+        return list;
     }
 
 }

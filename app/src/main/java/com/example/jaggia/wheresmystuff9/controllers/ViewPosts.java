@@ -20,7 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jaggia.wheresmystuff9.Model.*;
+import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
 
 import java.util.ArrayList;
@@ -36,7 +36,6 @@ public class ViewPosts extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_posts);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +59,9 @@ public class ViewPosts extends AppCompatActivity
     }
 
     private void populateListView() {
-        ItemList posts = Model.getLostList();
 
-        List<String> postNames = new ArrayList<>();
-        for(Item i : posts.getItemList()){
-            postNames.add(i.getName());
-        }
+        List<String> postNames = Model.listItems(Model.getLostList());
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, postNames);
         ListView list = (ListView) findViewById(R.id.postlist);
         list.setAdapter(adapter);
@@ -142,7 +138,3 @@ public class ViewPosts extends AppCompatActivity
 
 
 }
-/*<ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>*/

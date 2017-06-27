@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 
-import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
 
 public class MakeAPost extends AppCompatActivity
@@ -28,7 +27,6 @@ public class MakeAPost extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_apost);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         Button foundPost = (Button) findViewById(R.id.ButtonFound);
         Button lostPost = (Button) findViewById(R.id.ButtonLost);

@@ -1,5 +1,6 @@
 package com.example.jaggia.wheresmystuff9.controllers;
-import com.example.jaggia.wheresmystuff9.Model.*;
+
+
 import com.example.jaggia.wheresmystuff9.R;
 
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.jaggia.wheresmystuff9.Model.Model;
 /**
  * This is controller for Register Screen
  * @author AnT. & Annette
@@ -68,8 +70,8 @@ public class RegisterScreen extends AppCompatActivity {
                     userType = true;
                     success = "Registration as Admin Successful";
                 }
-                User newUser = Model.createNewUser(name, username, pw, userType);
-                if (Model.validatePassword(pw, pw1) && Model.registerNewUser(newUser)) {
+
+                if (Model.validatePassword(pw, pw1) && Model.registerNewUser( Model.createNewUser(name, username, pw, userType))) {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
                     builder.setMessage(success)
