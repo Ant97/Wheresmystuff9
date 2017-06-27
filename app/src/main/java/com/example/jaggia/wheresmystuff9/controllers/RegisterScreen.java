@@ -71,7 +71,7 @@ public class RegisterScreen extends AppCompatActivity {
                     success = "Registration as Admin Successful";
                 }
 
-                if (Model.validatePassword(pw, pw1) && Model.registerNewUser( Model.createNewUser(name, username, pw, userType))) {
+                if (Model.validatePassword(pw, pw1) && Model.registerNewUser(Model.createNewUser(name, username, pw, userType))) {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
                     builder.setMessage(success)

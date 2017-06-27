@@ -85,7 +85,7 @@ public class UserDataBase {
 
     public User findUser(String username){
         for(User u: _users){
-            if(u.equals(username)){
+            if(u.getUsername().equals(username)){
                 return u;
             }
         }
