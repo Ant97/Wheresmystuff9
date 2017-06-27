@@ -50,6 +50,13 @@ public class Item {
         this.category = category;
     }
 
+    /**
+     * toString method for item
+     * @return return the string name
+     */
+    public String toString(){
+        return name + "    Found: " +  date.getMonth() + "/" + date.getDate() + "/" + date.getYear();
+    }
 
 
     /**

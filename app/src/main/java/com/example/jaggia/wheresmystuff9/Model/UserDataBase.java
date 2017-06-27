@@ -82,5 +82,14 @@ public class UserDataBase {
         }
         return ErrorCode.PASSWORDMISMATCH;
     }
+
+    public User findUser(String username){
+        for(User u: _users){
+            if(u.equals(username)){
+                return u;
+            }
+        }
+        return null;
+    }
 }
 

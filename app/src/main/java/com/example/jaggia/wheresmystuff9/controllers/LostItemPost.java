@@ -15,11 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.jaggia.wheresmystuff9.Model.*;
-
 import com.example.jaggia.wheresmystuff9.Model.Model;
+import com.example.jaggia.wheresmystuff9.Model.Item;
+
 import com.example.jaggia.wheresmystuff9.R;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class LostItemPost extends AppCompatActivity {
@@ -29,7 +30,6 @@ public class LostItemPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_item_post);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
 
         final EditText lostName = (EditText) findViewById(R.id.itemName);
@@ -91,7 +91,6 @@ public class LostItemPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                User user = Model.getCurrentUser();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
                 String latitude = lostLocationLat.getText().toString();
@@ -110,13 +109,14 @@ public class LostItemPost extends AppCompatActivity {
                     location.setLongitude(Double.parseDouble(longitude));
 
                     int dateDay = (int) lostDateDay.getSelectedItem();
+                    System.out.println(dateDay);
                     int dateMonth = (int) lostDateMonth.getSelectedItem();
                     int dateYear = (int) lostDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
+                    //Date date2 = new Date()
 
-                    Item newItem = Model.createNewItem(user, name, description, date, location, reward, status, type, category);
 
-                    if (Model.addItem(Model.getLostList(), newItem)) {
+                    if (Model.addItem(Model.getLostList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category))) {
                         //the item was created and added to the lostItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
                         builder.setMessage("Item was created successfully!");

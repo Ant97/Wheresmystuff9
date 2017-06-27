@@ -3,6 +3,7 @@ package com.example.jaggia.wheresmystuff9.Model;
 import android.location.Location;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by James on 6/15/2017.
@@ -35,25 +36,59 @@ public class Model {
         _database = new UserDataBase();
     }
 
-    /** *****************************************
+    /* *****************************************
      * Getters and Setters
      *
+     */
+    /**
+     *
+     * @return  the user database
      */
     public static UserDataBase getDataBase(){
         return _database;
     }
+
+    /**
+     *
+     * @return the lostList
+     */
     public static ItemList getLostList(){ return _lostList; }
+
+    /**
+     *
+     * @return the found list
+     */
     public static ItemList getFoundList() { return _foundList; }
 
+    /**
+     *
+     * @return the current user
+     */
     public static User getCurrentUser(){
         return _currentUser;
     }
+
+    /**
+     *
+     * @param currentUser set the current user
+     */
     public static void setCurrentUser(User currentUser){
         _currentUser = currentUser;
     }
 
+    /**
+     *
+     * @return get the current item
+     */
     public static Item getCurrentItem(){return _currentItem; }
+
+    /**
+     *
+     * @param currentItem set the current item
+     */
     public static void setCurrentItem(Item currentItem){ _currentItem = currentItem; }
+
+
 
     /**
      *
@@ -106,6 +141,10 @@ public class Model {
         return false;
     }
 
+
+
+
+
     /**
      * Constructor for an item
      * @param user The user creating the item
@@ -120,7 +159,7 @@ public class Model {
      */
     public static Item createNewItem(User user, String name, String description, Date date, Location location,
                                      String reward, Item.ItemStatus status, Item.ItemType type, Item.ItemCategory category){
-        return new Item(user, name, description, date ,location, reward, status, type, category);
+        return new Item(user, name, description, date, location, reward, status, type, category);
     }
     /**
      * addItem to an item list
@@ -131,5 +170,16 @@ public class Model {
     public static boolean addItem(ItemList itemList, Item item){
         itemList.addItem(item);
         return true;
+    }
+    /**
+     *@param itemList the list of items to be listed
+     * @return returns a string list of the list of items in itemList
+     */
+    public static List listItems(ItemList itemList){
+        return itemList.listItems();
+    }
+
+    public static User findUser(String username){
+        return findUser(username);
     }
 }
