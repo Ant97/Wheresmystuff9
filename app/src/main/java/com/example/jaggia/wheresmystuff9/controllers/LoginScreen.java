@@ -17,13 +17,13 @@ import android.widget.EditText;
  * @version 1.0
  */
 public class LoginScreen extends AppCompatActivity {
-
+    Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final EditText loginName = (EditText) findViewById(R.id.userName);
+        final EditText loginUsername = (EditText) findViewById(R.id.userName);
         final EditText loginPW = (EditText) findViewById(R.id.password);
 
         Button login = (Button) findViewById(R.id.ButtonLogin);
@@ -41,10 +41,11 @@ public class LoginScreen extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 String name = loginName.getText().toString();
+                 String username = loginUsername.getText().toString();
                  String pw = loginPW.getText().toString();
 
-                if (Model.validateUser(name, pw)) {
+                if (Model.validateUser(username, pw)) {
+                    Model.setCurrentUser(Model.findUser(username));
                     Intent loginIntent =
                             new Intent(LoginScreen.this, MainUserScreen.class);
                     LoginScreen.this.startActivity(loginIntent);

@@ -1,8 +1,11 @@
 package com.example.jaggia.wheresmystuff9.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,19 +15,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import static com.example.jaggia.wheresmystuff9.R.id.list_view;
 
 public class ViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    final Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_posts);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +53,31 @@ public class ViewPosts extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        populateListView();
+        registerClick();
+    }
+
+    private void populateListView() {
+
+        List<String> postNames = Model.listItems(Model.getLostList());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, postNames);
+        ListView list = (ListView) findViewById(R.id.postlist);
+        list.setAdapter(adapter);
+    }
+
+    private void registerClick() {
+        ListView list = (ListView) findViewById(R.id.postlist);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> paret, View viewClicked, int position, long id) {
+                Intent viewPostIntent =
+                        new Intent(ViewPosts.this, newPost.class);
+                ViewPosts.this.startActivity(viewPostIntent);
+
+            }
+        });
     }
 
     @Override
@@ -82,22 +118,23 @@ public class ViewPosts extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.make_post) {
+            Intent makePostIntent =
+                    new Intent(ViewPosts.this, MakeAPost.class);
+            ViewPosts.this.startActivity(makePostIntent);
+        } else if (id == R.id.view_posts) {
+            Intent viewPostIntent =
+                    new Intent(ViewPosts.this, ViewPosts.class);
+            ViewPosts.this.startActivity(viewPostIntent);
+        } else if (id == R.id.logout) {
+            Intent logoutIntent =
+                    new Intent(ViewPosts.this, LoginScreen.class);
+            ViewPosts.this.startActivity(logoutIntent);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

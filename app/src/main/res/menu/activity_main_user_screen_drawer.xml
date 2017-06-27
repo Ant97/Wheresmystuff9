@@ -4,12 +4,17 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/make_post"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_gallery"
             android:title="Make a post" />
         <item
             android:id="@+id/view_posts"
             android:icon="@drawable/ic_menu_gallery"
             android:title="View posts" />
+        <item
+            android:id="@+id/logout"
+            android:icon = "@drawable/ic_menu_gallery"
+            android:title="Logout"
+            />
     </group>
 
     <item android:title="Communicate">

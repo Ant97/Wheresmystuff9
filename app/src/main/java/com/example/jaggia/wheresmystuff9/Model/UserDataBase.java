@@ -68,11 +68,28 @@ public class UserDataBase {
         }
         return ErrorCode.USERNAMENOTFOUND;
     }
+
+    /**
+     * Validates that two passwords are the same
+     * @param password1 the first password
+     * @param password2 the second password
+     * @return ErrorCode SUCCESS if successful, PASSWORDMISMATCH if not
+     *
+     */
     public ErrorCode validatePassword(String password1, String password2){
         if(password1.equals(password2)){
             return ErrorCode.SUCCESS;
         }
         return ErrorCode.PASSWORDMISMATCH;
+    }
+
+    public User findUser(String username){
+        for(User u: _users){
+            if(u.getUsername().equals(username)){
+                return u;
+            }
+        }
+        return null;
     }
 }
 
