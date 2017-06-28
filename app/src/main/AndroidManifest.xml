@@ -46,7 +46,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.newPost"></activity>
+        <activity android:name=".controllers.newPost" />
+        <activity android:name=".controllers.FoundItemPost"></activity>
     </application>
 
 </manifest>
