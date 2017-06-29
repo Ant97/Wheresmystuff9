@@ -45,7 +45,7 @@ public class MakeAPost extends AppCompatActivity
         foundPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent foundPostIntent = new Intent(MakeAPost.this, LostItemPost.class);
+                Intent foundPostIntent = new Intent(MakeAPost.this, FoundItemPost.class);
                 MakeAPost.this.startActivity(foundPostIntent);
             }
         });
