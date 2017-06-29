@@ -56,6 +56,7 @@ public class Item {
      */
     public String toString(){
         return name + "    Found: " +  date.getMonth() + "/" + date.getDate() + "/" + date.getYear() + " By: " + user.getName();
+//        return name;
     }
 
 
