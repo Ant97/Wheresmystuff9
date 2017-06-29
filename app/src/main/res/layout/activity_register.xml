@@ -48,7 +48,6 @@
                 android:maxLines="1" />
 
 
-
             <EditText
                 android:id="@+id/userNameRegistering"
                 android:layout_width="match_parent"
@@ -60,6 +59,18 @@
                 android:hint="Username"
                 android:inputType="textVisiblePassword|textNoSuggestions"
                 android:maxLines="1" />
+
+            <EditText
+                android:id="@+id/emailRegistering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/button2"
+                android:hint="Email"
+                android:inputType="textVisiblePassword|textEmailAddress"
+                android:maxLines="1" />/>
 
 
 
