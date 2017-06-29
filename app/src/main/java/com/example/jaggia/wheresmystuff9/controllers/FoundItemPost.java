@@ -4,11 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-<<<<<<< Updated upstream
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-=======
->>>>>>> Stashed changes
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,16 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-<<<<<<< Updated upstream
-import com.example.jaggia.wheresmystuff9.Model.Model;
-import com.example.jaggia.wheresmystuff9.Model.Item;
-
-import com.example.jaggia.wheresmystuff9.R;
-
-import java.util.Calendar;
-import java.util.Date;
-
-=======
 import com.example.jaggia.wheresmystuff9.Model.Item;
 import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
@@ -38,29 +23,11 @@ import java.util.Date;
  * Created by jaggia on 6/27/17.
  */
 
->>>>>>> Stashed changes
 public class FoundItemPost extends AppCompatActivity {
     final Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< Updated upstream
-        setContentView(R.layout.activity_found_item_post);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
-        final EditText foundName = (EditText) findViewById(R.id.itemName1);
-        final EditText foundDescription = (EditText) findViewById(R.id.itemDescription1);
-        final EditText foundLocationLat = (EditText) findViewById(R.id.longitude1);
-        final EditText foundLocationLng = (EditText) findViewById(R.id.latitude1);
-        final Spinner foundCategory = (Spinner) findViewById(R.id.categorySpinner1);
-        final Spinner foundDateDay = (Spinner) findViewById(R.id.daySpinner1);
-        final Spinner foundDateMonth = (Spinner) findViewById(R.id.monthSpinner1);
-        final Spinner foundDateYear = (Spinner) findViewById(R.id.yearSpinner1);
-
-        Button createFound = (Button) findViewById(R.id.createFound);
-        Button cancelFound = (Button) findViewById(R.id.cancelFound);
-=======
         //setContentView(R.layout.activity_found_item_post);//for view people
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -77,7 +44,6 @@ public class FoundItemPost extends AppCompatActivity {
 
         Button post = (Button) findViewById(R.id.createButton);
         //Button cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
->>>>>>> Stashed changes
 
 
         ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
@@ -112,8 +78,7 @@ public class FoundItemPost extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundDateYear.setAdapter(adapter4);
 
-<<<<<<< Updated upstream
-        cancelFound.setOnClickListener(new View.OnClickListener() {
+        cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent cancelIntent =
@@ -122,19 +87,7 @@ public class FoundItemPost extends AppCompatActivity {
             }
         });
 
-        createFound.setOnClickListener(new View.OnClickListener() {
-=======
-//        cancelPost.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent cancelIntent =
-//                        new Intent(FoundItemPost.this, MakeAPost.class);
-//                FoundItemPost.this.startActivity(cancelIntent);
-//            }
-//        });
-
         post.setOnClickListener(new View.OnClickListener() {
->>>>>>> Stashed changes
             @Override
             public void onClick(View v) {
 
@@ -144,12 +97,8 @@ public class FoundItemPost extends AppCompatActivity {
                 String longitude = foundLocationLng.getText().toString();
                 Item.ItemStatus status = Item.ItemStatus.UNRESOLVED;
                 Item.ItemCategory category = (Item.ItemCategory) foundCategory.getSelectedItem();
-<<<<<<< Updated upstream
-                Item.ItemType type = Item.ItemType.FOUND;
-=======
                 //String reward = foundReward.getText().toString();
                 Item.ItemType type = Item.ItemType.LOST;
->>>>>>> Stashed changes
                 if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                     builder.setMessage("Item was not create: Please fill in required information");
@@ -165,13 +114,8 @@ public class FoundItemPost extends AppCompatActivity {
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
 
-<<<<<<< Updated upstream
-                    if (Model.addItem(Model.getLostList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, null, status, type, category))) {
-                        //the item was created and added to the lostItems
-=======
                     if (Model.addItem(Model.getFoundList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, "", status, type, category))) {
                         //the item was created and added to the foundItems
->>>>>>> Stashed changes
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
