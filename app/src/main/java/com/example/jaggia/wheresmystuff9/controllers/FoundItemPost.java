@@ -28,7 +28,7 @@ public class FoundItemPost extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_found_item_post);//for view people
+        setContentView(R.layout.activity_found_item_post);//for view people
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
@@ -42,13 +42,15 @@ public class FoundItemPost extends AppCompatActivity {
         final Spinner foundDateMonth = (Spinner) findViewById(R.id.monthSpinner);
         final Spinner foundDateYear = (Spinner) findViewById(R.id.yearSpinner);
 
-        Button post = (Button) findViewById(R.id.createButton);
-        //Button cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
+        Button post = (Button) findViewById(R.id.createFound);
+        Button cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
 
 
         ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundCategory.setAdapter(adapter);
+
+       // ArrayAdapter<Item.ItemCategory> adapter1 = new ArrayAdapter<Item.ItemCategory>()
 
         Integer days[] = new Integer[31];
         for(int i = 0; i<days.length; i++){

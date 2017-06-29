@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_lost_item_post">
 
     <LinearLayout
-        android:id="@+id/found_post_form"
+        android:id="@+id/lost_post_form"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteX="8dp">
 
         <TextView
-            android:id="@+id/create_found_text"
+            android:id="@+id/create_lost_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp"
@@ -30,7 +30,7 @@
 
 
         <EditText
-            android:id="@+id/itemName1"
+            android:id="@+id/itemName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -42,7 +42,7 @@
             android:inputType="textVisiblePassword|textNoSuggestions"
             android:maxLines="1" />
         <EditText
-            android:id="@+id/itemDescription1"
+            android:id="@+id/itemDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -55,12 +55,12 @@
             android:maxLines="4" />
 
         <LinearLayout
-            android:id="@+id/locationlayout1"
+            android:id="@+id/locationlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <EditText
-                android:id="@+id/longitude1"
+                android:id="@+id/longitude"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
@@ -73,7 +73,7 @@
 
                 />
             <EditText
-                android:id="@+id/latitude1"
+                android:id="@+id/latitude"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
@@ -87,13 +87,13 @@
                 />
         </LinearLayout>
         <LinearLayout
-            android:id ="@+id/categorylayout1"
+            android:id ="@+id/categorylayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/categoryText1"
+                android:id="@+id/categoryText"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="55dp"
@@ -102,7 +102,7 @@
                 android:textSize="17sp"
                 />
             <Spinner
-                android:id= "@+id/categorySpinner1"
+                android:id= "@+id/categorySpinner"
                 android:layout_width="190dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -112,13 +112,13 @@
             </Spinner>
         </LinearLayout>
         <LinearLayout
-            android:id = "@+id/dateLayout1"
+            android:id = "@+id/dateLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/monthText1"
+                android:id="@+id/monthText"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="55dp"
@@ -127,7 +127,7 @@
                 android:textSize="14sp"
                 />
             <Spinner
-                android:id= "@+id/monthSpinner1"
+                android:id= "@+id/monthSpinner"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
@@ -135,7 +135,7 @@
                 >
             </Spinner>
             <TextView
-                android:id="@+id/dayText1"
+                android:id="@+id/dayText"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="12dp"
@@ -144,7 +144,7 @@
                 android:textSize="14sp"
                 />
             <Spinner
-                android:id= "@+id/daySpinner1"
+                android:id= "@+id/daySpinner"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
@@ -152,7 +152,7 @@
                 >
             </Spinner>
             <TextView
-                android:id="@+id/yearText1"
+                android:id="@+id/yearText"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="12dp"
@@ -161,7 +161,7 @@
                 android:textSize="14sp"
                 />
             <Spinner
-                android:id= "@+id/yearSpinner1"
+                android:id= "@+id/yearSpinner"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
@@ -170,7 +170,7 @@
             </Spinner>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/buttonsLayout1"
+            android:id="@+id/buttonsLayout"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -201,5 +201,6 @@
         </LinearLayout>
 
     </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
