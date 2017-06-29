@@ -4,8 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,40 +13,44 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.Model.Item;
-
+import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
 
-import java.util.Calendar;
 import java.util.Date;
 
-public class LostItemPost extends AppCompatActivity {
+/**
+ * Created by jaggia on 6/27/17.
+ */
+
+public class FoundItemPost extends AppCompatActivity {
     final Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lost_item_post);
+        setContentView(R.layout.activity_found_item_post);//for view people
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        final EditText lostName = (EditText) findViewById(R.id.itemName);
-        final EditText lostDescription = (EditText) findViewById(R.id.itemDescription);
-        final EditText lostLocationLat = (EditText) findViewById(R.id.longitude);
-        final EditText lostLocationLng = (EditText) findViewById(R.id.latitude);
-        final Spinner lostCategory = (Spinner) findViewById(R.id.categorySpinner);
-        final EditText lostReward = (EditText) findViewById(R.id.reward);
-        final Spinner lostDateDay = (Spinner) findViewById(R.id.daySpinner);
-        final Spinner lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
-        final Spinner lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
+        final EditText foundName = (EditText) findViewById(R.id.itemName);
+        final EditText foundDescription = (EditText) findViewById(R.id.itemDescription);
+        final EditText foundLocationLat = (EditText) findViewById(R.id.longitude);
+        final EditText foundLocationLng = (EditText) findViewById(R.id.latitude);
+        final Spinner foundCategory = (Spinner) findViewById(R.id.categorySpinner);
+        //final EditText foundReward = (EditText) findViewById(R.id.reward);
+        final Spinner foundDateDay = (Spinner) findViewById(R.id.daySpinner);
+        final Spinner foundDateMonth = (Spinner) findViewById(R.id.monthSpinner);
+        final Spinner foundDateYear = (Spinner) findViewById(R.id.yearSpinner);
 
-        Button post = (Button) findViewById(R.id.createButton);
-        Button cancelPost = (Button) findViewById(R.id.cancelLost);
+        Button post = (Button) findViewById(R.id.createFound);
+        Button cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
 
 
         ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostCategory.setAdapter(adapter);
+        foundCategory.setAdapter(adapter);
+
+       // ArrayAdapter<Item.ItemCategory> adapter1 = new ArrayAdapter<Item.ItemCategory>()
 
         Integer days[] = new Integer[31];
         for(int i = 0; i<days.length; i++){
@@ -57,7 +59,7 @@ public class LostItemPost extends AppCompatActivity {
 
         ArrayAdapter<Integer> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, days);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostDateDay.setAdapter(adapter2);
+        foundDateDay.setAdapter(adapter2);
 
         //String months[] = {"January", "Feburary", "March", "April","May","June","July","August","Septemeber", "October","November","December"};
         Integer months[] = new Integer[12];
@@ -67,7 +69,7 @@ public class LostItemPost extends AppCompatActivity {
 
         ArrayAdapter<Integer> adapter3 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, months);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostDateMonth.setAdapter(adapter3);
+        foundDateMonth.setAdapter(adapter3);
 
         Integer years[] = new Integer[100];
         for(int i = 0; i<years.length; i++){
@@ -76,14 +78,14 @@ public class LostItemPost extends AppCompatActivity {
 
         ArrayAdapter<Integer> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostDateYear.setAdapter(adapter4);
+        foundDateYear.setAdapter(adapter4);
 
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent cancelIntent =
-                        new Intent(LostItemPost.this, MakeAPost.class);
-                LostItemPost.this.startActivity(cancelIntent);
+                        new Intent(FoundItemPost.this, MakeAPost.class);
+                FoundItemPost.this.startActivity(cancelIntent);
             }
         });
 
@@ -91,16 +93,16 @@ public class LostItemPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String name = lostName.getText().toString();
-                String description = lostDescription.getText().toString();
-                String latitude = lostLocationLat.getText().toString();
-                String longitude = lostLocationLng.getText().toString();
+                String name = foundName.getText().toString();
+                String description = foundDescription.getText().toString();
+                String latitude = foundLocationLat.getText().toString();
+                String longitude = foundLocationLng.getText().toString();
                 Item.ItemStatus status = Item.ItemStatus.UNRESOLVED;
-                Item.ItemCategory category = (Item.ItemCategory) lostCategory.getSelectedItem();
-                String reward = lostReward.getText().toString();
+                Item.ItemCategory category = (Item.ItemCategory) foundCategory.getSelectedItem();
+                //String reward = foundReward.getText().toString();
                 Item.ItemType type = Item.ItemType.LOST;
                 if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                     builder.setMessage("Item was not create: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
                 } else {
@@ -108,32 +110,32 @@ public class LostItemPost extends AppCompatActivity {
                     location.setLatitude(Double.parseDouble(latitude));
                     location.setLongitude(Double.parseDouble(longitude));
 
-                    int dateDay = (int) lostDateDay.getSelectedItem();
-                    int dateMonth = (int) lostDateMonth.getSelectedItem();
-                    int dateYear = (int) lostDateYear.getSelectedItem();
+                    int dateDay = (int) foundDateDay.getSelectedItem();
+                    int dateMonth = (int) foundDateMonth.getSelectedItem();
+                    int dateYear = (int) foundDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
 
-                    if (Model.addItem(Model.getLostList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category))) {
-                        //the item was created and added to the lostItems
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                    if (Model.addItem(Model.getFoundList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, "", status, type, category))) {
+                        //the item was created and added to the foundItems
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
-                                LostItemPost.this.startActivity(postIntent);
+                                Intent postIntent = new Intent(FoundItemPost.this, ViewPosts.class);
+                                FoundItemPost.this.startActivity(postIntent);
                             }
                         });
                         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
-                                Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
-                                LostItemPost.this.startActivity(postIntent);
+                                Intent postIntent = new Intent(FoundItemPost.this, ViewPosts.class);
+                                FoundItemPost.this.startActivity(postIntent);
                             }
                         }).create().show();
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was not created").setNegativeButton("Retry", null).create().show();
 
                     }

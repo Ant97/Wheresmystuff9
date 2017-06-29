@@ -45,9 +45,7 @@
                 android:hint="Name"
                 android:textColor="@color/button1"
                 android:inputType="textVisiblePassword|textNoSuggestions"
-                android:text="@string/name"
                 android:maxLines="1" />
-
 
 
             <EditText
@@ -59,9 +57,20 @@
                 android:layout_marginRight="50dp"
                 android:textColor="@color/button2"
                 android:hint="Username"
-                android:text="@string/username"
                 android:inputType="textVisiblePassword|textNoSuggestions"
                 android:maxLines="1" />
+
+            <EditText
+                android:id="@+id/emailRegistering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/button2"
+                android:hint="Email"
+                android:inputType="textVisiblePassword|textEmailAddress"
+                android:maxLines="1" />/>
 
 
 
@@ -74,7 +83,6 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:imeActionId="@+id/login"
-                android:text="@string/password"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:textColor="@color/button1"
@@ -90,7 +98,6 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:hint="Retype Password"
-                android:text="@string/passwordAgain"
                 android:imeActionId="@+id/register"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
