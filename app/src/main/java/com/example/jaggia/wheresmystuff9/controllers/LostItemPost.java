@@ -22,6 +22,7 @@ import com.example.jaggia.wheresmystuff9.R;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class LostItemPost extends AppCompatActivity {
     final Model mdl = Model.getInstance();
@@ -44,6 +45,7 @@ public class LostItemPost extends AppCompatActivity {
 
         Button post = (Button) findViewById(R.id.createButton);
         Button cancelPost = (Button) findViewById(R.id.cancelLost);
+        Button map = (Button) findViewById(R.id.mapButton);
 
 
         ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
@@ -77,6 +79,16 @@ public class LostItemPost extends AppCompatActivity {
         ArrayAdapter<Integer> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateYear.setAdapter(adapter4);
+
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapIntent =
+                        new Intent(LostItemPost.this, MapsActivity.class);
+                LostItemPost.this.startActivity(mapIntent);
+            }
+        });
 
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
