@@ -28,7 +28,7 @@ public class User implements Parcelable{
     /*ErrorCode returned when creating the user*/
     //private ErrorCode _errorCode;
     /**Boolean to tell if user is an Admin*/
-    private boolean isAdmin;
+    private boolean Admin;
     /**String to hold the users's email*/
     private String email;
 
@@ -50,7 +50,7 @@ public class User implements Parcelable{
         this.name = name;
         this.username = username;
         this.password = password;
-        this.isAdmin = false;
+        this.Admin = false;
         this.email = "jamesg166@comcast.net";
     }
     /** makes a new User
@@ -63,7 +63,7 @@ public class User implements Parcelable{
      */
     public User(String name, String username, String password, boolean isAdmin){
         this(name, username,password);
-        this.isAdmin = isAdmin;
+        this.Admin = isAdmin;
         this.email = "jamesg166@comcast.net";
     }
     public User(String name, String username, String password, boolean isAdmin, String email){
@@ -102,6 +102,8 @@ public class User implements Parcelable{
     //public ErrorCode getErrorCode() {return _errorCode; }
     public String getEmail() {return this.email;}
     public void setEmail(String email) {this.email = email;}
+    public boolean getAdmin(){return this.Admin;}
+    public void setAdmin(boolean isAdmin){this.Admin = isAdmin;}
     /**
      *
      * @param username name to set as the user's username
@@ -122,11 +124,6 @@ public class User implements Parcelable{
      */
     public void setName(String name){this.name = name; };
 
-    /**
-     *
-     * @return boolean true if admim, false if not
-     */
-    public boolean getAdmin(){return this.isAdmin;}
 
     /* ********************************************
      * Overridden methods

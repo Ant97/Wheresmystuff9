@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +36,6 @@ public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth myAuth;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference();
-    DatabaseReference databaseReferenceUsers = databaseReference.child("Users");
 
     EditText loginUsername;
     EditText loginEmail;
@@ -55,41 +55,22 @@ public class LoginScreen extends AppCompatActivity {
 
         login = (Button) findViewById(R.id.ButtonLogin);
         cancelLogin = (Button) findViewById(R.id.ButtonCancel);
-        databaseReferenceUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        databaseReference.child("app").child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> usersChildren = dataSnapshot.getChildren();
-
                 for (DataSnapshot  child: usersChildren){
                     User value = child.getValue(User.class);
                     Model.registerNewUser(value);
-                    Log.v(TAG, "adding users from database to model");
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.w(TAG, databaseError.getMessage());
             }
         });
-        databaseReferenceUsers.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> usersChildren = dataSnapshot.getChildren();
-
-                for (DataSnapshot  child: usersChildren){
-                    User value = child.getValue(User.class);
-                    Model.registerNewUser(value);
-                    Log.v(TAG, "adding users from database to model");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
     }
     protected void onStart(){
         super.onStart();
@@ -107,6 +88,12 @@ public class LoginScreen extends AppCompatActivity {
                 String username = loginUsername.getText().toString();
                 String email = loginEmail.getText().toString();
                 String pw = loginPW.getText().toString();
+                Log.w(TAG, "Attempting to do stuff3");
+                if(!Model.validateUser(username, pw)){
+                    Log.w(TAG, "model did not validate user");
+                } else {
+                    Log.w(TAG, "model DID validate USER!!");
+                }
                 myAuth.signInWithEmailAndPassword(email, pw)
                         .addOnCompleteListener(LoginScreen.this, new OnCompleteListener<AuthResult>() {
                             @Override
