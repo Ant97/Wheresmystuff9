@@ -19,12 +19,14 @@ import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.Model.Item;
 
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class LostItemPost extends AppCompatActivity {
-    final Model mdl = Model.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +92,7 @@ public class LostItemPost extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DatabaseReference databaseReference = database.getReference();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
                 String latitude = lostLocationLat.getText().toString();
@@ -115,6 +117,7 @@ public class LostItemPost extends AppCompatActivity {
 
 
                     if (Model.addItem(Model.getLostList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category))) {
+                        databaseReference.child("app").child("Item").push().setValue(Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category));
                         //the item was created and added to the lostItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
                         builder.setMessage("Item was created successfully!");

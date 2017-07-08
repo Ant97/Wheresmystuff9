@@ -98,8 +98,8 @@ public class Model {
      * @param userType boolean false means not admin, true means admin
      * @return return the user to the controller
      */
-    public static User createNewUser(String name, String username, String password, boolean userType){
-        return new User(name, username, password, userType);
+    public static User createNewUser(String name, String username, String password, boolean userType, String email){
+        return new User(name, username, password, userType, email);
     }
     /**
      * Register a new user to the database
@@ -134,8 +134,15 @@ public class Model {
      * @param password2 the second password
      * @return true if successful, false if not
      */
-    public static boolean validatePassword(String password1, String password2){
-        if(_database.validatePassword(password1, password2) == ErrorCode.SUCCESS){
+    public static boolean validatePasswordMatch(String password1, String password2){
+        if(_database.validatePasswordMatch(password1, password2) == ErrorCode.SUCCESS){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean validatePassword(String password){
+        if(_database.validatePassword(password) == ErrorCode.SUCCESS){
             return true;
         }
         return false;

@@ -43,6 +43,18 @@
                 android:textColor="@color/button1"
                 android:maxLines="1"
                 android:textSize="30sp"/>
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="15dp"
+                android:hint="email"
+                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:textColor="@color/button1"
+                android:maxLines="1"
+                android:textSize="30sp"/>
+
 
             <EditText
                 android:id="@+id/password"

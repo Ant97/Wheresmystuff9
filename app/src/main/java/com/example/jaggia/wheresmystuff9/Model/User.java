@@ -18,17 +18,19 @@ public class User implements Parcelable{
     private static int Next_ID;
 
     /**unique id number*/
-    private int _id;
+    private int id;
     /**The users real life name*/
-    private String _name;
+    private String name;
     /**unique username*/
-    private String _username;
+    private String username;
     /**the user's password*/
-    private String _password;
+    private String password;
     /*ErrorCode returned when creating the user*/
     //private ErrorCode _errorCode;
-
-    private boolean _isAdmin;
+    /**Boolean to tell if user is an Admin*/
+    private boolean isAdmin;
+    /**String to hold the users's email*/
+    private String email;
 
     /**no parameter constructor for controller*/
     public User(){
@@ -44,11 +46,12 @@ public class User implements Parcelable{
      */
     public User(String name, String username, String password){
 
-        _id = Next_ID++;
-        _name = name;
-        _username = username;
-        _password = password;
-        _isAdmin = false;
+        this.id = Next_ID++;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.isAdmin = false;
+        this.email = "jamesg166@comcast.net";
     }
     /** makes a new User
      *
@@ -60,15 +63,21 @@ public class User implements Parcelable{
      */
     public User(String name, String username, String password, boolean isAdmin){
         this(name, username,password);
-        _isAdmin = isAdmin;
+        this.isAdmin = isAdmin;
+        this.email = "jamesg166@comcast.net";
     }
+    public User(String name, String username, String password, boolean isAdmin, String email){
+        this(name, username, password, isAdmin);
+        this.email = email;
+    }
+
 
     /** ********************************************
      * Getters and Setters
      * @return the user's id
      */
     public int getId(){
-        return _id;
+        return this.id;
     }
 
     /**
@@ -76,40 +85,48 @@ public class User implements Parcelable{
      * @return the user's username
      */
     public String getUsername(){
-        return _username;
+        return this.username;
     }
     /**
      *
      * @return the user's password
      */
     public String getPassword(){
-        return _password;
+        return this.password;
     }
     /**
      *
      * @return the user's real name
      */
-    public String getName() {return _name;};
+    public String getName() {return this.name;}
     //public ErrorCode getErrorCode() {return _errorCode; }
+    public String getEmail() {return this.email;}
+    public void setEmail(String email) {this.email = email;}
     /**
      *
      * @param username name to set as the user's username
      */
     public void setUsername(String username){
-        _username = username;
+        this.username = username;
     }
     /**
      *
      * @param password name to set as the user's password
      */
     public void setPassword(String password){
-        _password = password;
+        this.password = password;
     }
     /**
      *
      * @param name name to set as the user's real name
      */
-    public void setName(String name){_name = name; };
+    public void setName(String name){this.name = name; };
+
+    /**
+     *
+     * @return boolean true if admim, false if not
+     */
+    public boolean getAdmin(){return this.isAdmin;}
 
     /* ********************************************
      * Overridden methods
@@ -119,7 +136,7 @@ public class User implements Parcelable{
     //prints the user's username
     @Override
     public String toString(){
-        return _username;
+        return this.username;
     }
     //needed to implement parcel
     @Override
@@ -129,18 +146,20 @@ public class User implements Parcelable{
     //method for parcel
     @Override
     public void writeToParcel(Parcel dest, int flags){
-        dest.writeString(_name);
-        dest.writeString(_username);
-        dest.writeString(_password);
-        dest.writeInt(_id);
+        dest.writeString(name);
+        dest.writeString(username);
+        dest.writeString(password);
+        dest.writeString(email);
+        dest.writeInt(id);
     }
 
     //method for parcel
     private User(Parcel in){
-        _name = in.readString();
-        _username = in.readString();
-        _password = in.readString();
-        _id = in.readInt();
+        name = in.readString();
+        username = in.readString();
+        password = in.readString();
+        email = in.readString();
+        id = in.readInt();
     }
 
     //method for parcel

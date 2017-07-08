@@ -76,11 +76,19 @@ public class UserDataBase {
      * @return ErrorCode SUCCESS if successful, PASSWORDMISMATCH if not
      *
      */
-    public ErrorCode validatePassword(String password1, String password2){
+    public ErrorCode validatePasswordMatch(String password1, String password2){
         if(password1.equals(password2)){
             return ErrorCode.SUCCESS;
         }
         return ErrorCode.PASSWORDMISMATCH;
+    }
+
+    public ErrorCode validatePassword(String password){
+        if(password.length() > 6){
+            return ErrorCode.SUCCESS;
+        } else {
+            return ErrorCode.ILLEGALPASSWORD;
+        }
     }
 
     public User findUser(String username){
