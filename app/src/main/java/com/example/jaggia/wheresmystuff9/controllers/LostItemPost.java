@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.Model.Item;
@@ -24,7 +25,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 public class LostItemPost extends AppCompatActivity {
+    private final int REQUEST_CODE_PLACEPICKER = 1;
     final Model mdl = Model.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +89,8 @@ public class LostItemPost extends AppCompatActivity {
 
         map.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent mapIntent =
-                        new Intent(LostItemPost.this, MapsActivity.class);
-                LostItemPost.this.startActivity(mapIntent);
+            public void onClick(View view) {
+                startPlacePickerActivity();
             }
         });
 
@@ -154,6 +158,34 @@ public class LostItemPost extends AppCompatActivity {
 
         });
 
+    }
+
+    private void startPlacePickerActivity() {
+        PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+        // this would only work if you have your Google Places API working
+
+        try {
+            Intent intent = intentBuilder.build(this);
+            startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
+            displaySelectedPlaceFromPlacePicker(data);
+        }
+    }
+
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+        Place placeSelected = PlacePicker.getPlace(data, this);
+
+        String name = placeSelected.getName().toString();
+        String address = placeSelected.getAddress().toString();
+
+        TextView enterCurrentLocation = (TextView) findViewById(R.id.show_selected_location);
+        enterCurrentLocation.setText(name + ", " + address);
     }
 
 }
