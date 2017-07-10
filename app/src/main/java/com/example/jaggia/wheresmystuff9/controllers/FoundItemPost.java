@@ -19,6 +19,8 @@ import com.example.jaggia.wheresmystuff9.Model.ItemStatus;
 import com.example.jaggia.wheresmystuff9.Model.ItemType;
 import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 
@@ -27,7 +29,9 @@ import java.util.Date;
  */
 
 public class FoundItemPost extends AppCompatActivity {
-    final Model mdl = Model.getInstance();
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,14 +100,17 @@ public class FoundItemPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                DatabaseReference databaseReference = database.getReference();
+
                 String name = foundName.getText().toString();
                 String description = foundDescription.getText().toString();
                 String latitude = foundLocationLat.getText().toString();
                 String longitude = foundLocationLng.getText().toString();
                 ItemStatus status = ItemStatus.UNRESOLVED;
                 ItemCategory category = (ItemCategory) foundCategory.getSelectedItem();
-                //String reward = foundReward.getText().toString();
+                String reward = "";
                 ItemType type = ItemType.LOST;
+
                 if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                     builder.setMessage("Item was not create: Please fill in required information");
@@ -120,6 +127,7 @@ public class FoundItemPost extends AppCompatActivity {
 
 
                     if (Model.addItem(Model.getFoundList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, "", status, type, category))) {
+                        databaseReference.child("app").child("Item").push().setValue(Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category));
                         //the item was created and added to the foundItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");

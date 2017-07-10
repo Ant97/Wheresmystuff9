@@ -1,6 +1,4 @@
 package com.example.jaggia.wheresmystuff9.controllers;
-
-
 import com.example.jaggia.wheresmystuff9.R;
 
 import android.content.DialogInterface;
@@ -156,7 +154,5 @@ public class RegisterScreen extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }

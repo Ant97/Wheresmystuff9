@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.jaggia.wheresmystuff9.controllers.LostItemPost"
+    tools:context="com.example.jaggia.wheresmystuff9.controllers.FoundItemPost"
     tools:showIn="@layout/activity_lost_item_post">
 
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_marginBottom="20dp"
             android:textSize="30sp"
             android:textColor="@color/colorPrimary"
-            android:text="Create New Lost Post"/>
+            android:text="Create New Found Post"/>
 
 
 
@@ -53,19 +53,7 @@
             android:textColor="@color/button2"
             android:inputType="textMultiLine"
             android:maxLines="4" />
-        <EditText
-            android:id="@+id/reward"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:hint="Reward (Optional)"
-            android:textColorHint="@color/button1"
-            android:textColor="@color/button2"
-            android:inputType="textVisiblePassword|textNoSuggestions"
-            android:maxLines="2"
-            />
+
         <LinearLayout
             android:id="@+id/locationlayout"
             android:layout_width="match_parent"
@@ -188,7 +176,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/createButton"
+                android:id="@+id/createFound"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
@@ -200,7 +188,7 @@
                 android:textSize="20sp"></Button>
 
             <Button
-                android:id="@+id/cancelLost"
+                android:id="@+id/cancelFound"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
@@ -213,5 +201,6 @@
         </LinearLayout>
 
     </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

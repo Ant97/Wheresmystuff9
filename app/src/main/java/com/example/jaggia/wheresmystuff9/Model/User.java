@@ -73,8 +73,7 @@ public class User implements Parcelable{
 
 
     /** ********************************************
-     * Getters and Setters
-     * @return the user's id
+     * the getters and setters
      */
     public int getId(){
         return this.id;
