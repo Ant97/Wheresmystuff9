@@ -12,9 +12,6 @@ import java.util.Date;
 
 public class Item {
 
-    public enum ItemStatus { RESOLVED, UNRESOLVED}
-    public enum ItemType { LOST, FOUND}
-    public enum ItemCategory { ELECTRONICS, PERSONAL, ACCESSORY, MISC}
 
     private User user;
     private String name;

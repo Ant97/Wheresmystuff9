@@ -165,7 +165,7 @@ public class Model {
      * @param category The category the item fits into
      */
     public static Item createNewItem(User user, String name, String description, Date date, Location location,
-                                     String reward, Item.ItemStatus status, Item.ItemType type, Item.ItemCategory category){
+                                     String reward, ItemStatus status, ItemType type, ItemCategory category){
         return new Item(user, name, description, date, location, reward, status, type, category);
     }
     /**

@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.jaggia.wheresmystuff9.Model.Item;
+import com.example.jaggia.wheresmystuff9.Model.ItemCategory;
+import com.example.jaggia.wheresmystuff9.Model.ItemStatus;
+import com.example.jaggia.wheresmystuff9.Model.ItemType;
 import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.R;
 
@@ -46,7 +49,7 @@ public class FoundItemPost extends AppCompatActivity {
         Button cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
 
 
-        ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
+        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundCategory.setAdapter(adapter);
 
@@ -97,10 +100,10 @@ public class FoundItemPost extends AppCompatActivity {
                 String description = foundDescription.getText().toString();
                 String latitude = foundLocationLat.getText().toString();
                 String longitude = foundLocationLng.getText().toString();
-                Item.ItemStatus status = Item.ItemStatus.UNRESOLVED;
-                Item.ItemCategory category = (Item.ItemCategory) foundCategory.getSelectedItem();
+                ItemStatus status = ItemStatus.UNRESOLVED;
+                ItemCategory category = (ItemCategory) foundCategory.getSelectedItem();
                 //String reward = foundReward.getText().toString();
-                Item.ItemType type = Item.ItemType.LOST;
+                ItemType type = ItemType.LOST;
                 if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                     builder.setMessage("Item was not create: Please fill in required information");
