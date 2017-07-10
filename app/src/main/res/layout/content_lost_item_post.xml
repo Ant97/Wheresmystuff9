@@ -13,20 +13,19 @@
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="1dp">
 
         <TextView
             android:id="@+id/create_lost_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="30sp"
+            android:text="Create New Lost Post"
             android:textColor="@color/colorPrimary"
-            android:text="Create New Lost Post"/>
-
+            android:textSize="30sp" />
 
 
         <EditText
@@ -36,157 +35,134 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:hint="Item Name*"
-            android:text=""
-            android:textColorHint="@color/button1"
-            android:textColor="@color/button2"
             android:inputType="textVisiblePassword|textNoSuggestions"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/button2"
+            android:textColorHint="@color/button1" />
+
         <EditText
             android:id="@+id/itemDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
             android:hint="Item Description"
-            android:textColorHint="@color/button1"
-            android:textColor="@color/button2"
             android:inputType="textMultiLine"
-            android:maxLines="4" />
+            android:maxLines="4"
+            android:textColor="@color/button2"
+            android:textColorHint="@color/button1" />
+
         <EditText
             android:id="@+id/reward"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
             android:hint="Reward (Optional)"
-            android:textColorHint="@color/button1"
-            android:textColor="@color/button2"
             android:inputType="textVisiblePassword|textNoSuggestions"
             android:maxLines="2"
-            />
+            android:textColor="@color/button2"
+            android:textColorHint="@color/button1" />
+
         <LinearLayout
             android:id="@+id/locationlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/longitude"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
-                android:hint="Longitude*"
-                android:textColorHint="@color/button1"
-                android:textColor="@color/button2"
-                android:ems= "10"
-                android:inputType="numberDecimal"
-
-                />
-            <EditText
-                android:id="@+id/latitude"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="50dp"
-                android:hint="Latitude*"
-                android:textColorHint="@color/button1"
-                android:textColor="@color/button2"
-                android:ems= "10"
-                android:inputType="numberDecimal"
-                />
         </LinearLayout>
+
         <LinearLayout
-            android:id ="@+id/categorylayout"
+            android:id="@+id/categorylayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/categoryText"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="55dp"
-                android:textColor="@color/button1"
                 android:text="@string/category"
-                android:textSize="17sp"
-                />
+                android:textColor="@color/button1"
+                android:textSize="17sp" />
+
             <Spinner
-                android:id= "@+id/categorySpinner"
+                android:id="@+id/categorySpinner"
                 android:layout_width="190dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="50dp"
-                >
+                android:layout_marginRight="50dp">
 
             </Spinner>
         </LinearLayout>
+
         <LinearLayout
-            android:id = "@+id/dateLayout"
+            android:id="@+id/dateLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/monthText"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="55dp"
-                android:textColor="@color/button1"
                 android:text="@string/month"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/button1"
+                android:textSize="14sp" />
+
             <Spinner
-                android:id= "@+id/monthSpinner"
+                android:id="@+id/monthSpinner"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
-            </Spinner>
+                android:layout_marginRight="10dp"></Spinner>
+
             <TextView
                 android:id="@+id/dayText"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="12dp"
-                android:textColor="@color/button1"
                 android:text="@string/day"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/button1"
+                android:textSize="14sp" />
+
             <Spinner
-                android:id= "@+id/daySpinner"
+                android:id="@+id/daySpinner"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
-            </Spinner>
+                android:layout_marginRight="10dp"></Spinner>
+
             <TextView
                 android:id="@+id/yearText"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="12dp"
-                android:textColor="@color/button1"
                 android:text="@string/year"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/button1"
+                android:textSize="14sp" />
+
             <Spinner
-                android:id= "@+id/yearSpinner"
+                android:id="@+id/yearSpinner"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
-            </Spinner>
+                android:layout_marginRight="10dp"></Spinner>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/buttonsLayout"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/createButton"
                 android:layout_width="80dp"
@@ -207,9 +183,28 @@
                 android:layout_marginRight="50dp"
                 android:layout_weight="1"
                 android:background="@color/button2"
-                android:textSize="20sp"
+                android:text="Cancel"
                 android:textColor="@color/colorAccent"
-                android:text="Cancel"></Button>
+                android:textSize="20sp"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/mapButton"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_weight="1"
+                android:background="@color/button2"
+                android:text="Map"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"></Button>
+
         </LinearLayout>
 
     </LinearLayout>

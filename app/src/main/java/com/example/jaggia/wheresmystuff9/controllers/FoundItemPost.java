@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.jaggia.wheresmystuff9.Model.Item;
 import com.example.jaggia.wheresmystuff9.Model.ItemCategory;
@@ -22,6 +23,8 @@ import com.example.jaggia.wheresmystuff9.Model.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.Date;
 
@@ -32,6 +35,8 @@ import java.util.Date;
 public class FoundItemPost extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    private final int REQUEST_CODE_PLACEPICKER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,7 @@ public class FoundItemPost extends AppCompatActivity {
 
         Button post = (Button) findViewById(R.id.createFound);
         Button cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
-
+        Button map = (Button) findViewById(R.id.mapButton);
 
         ArrayAdapter<ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -87,6 +92,13 @@ public class FoundItemPost extends AppCompatActivity {
         ArrayAdapter<Integer> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundDateYear.setAdapter(adapter4);
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startPlacePickerActivity();
+            }
+        });
 
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,5 +169,31 @@ public class FoundItemPost extends AppCompatActivity {
         });
 
     }
+    private void startPlacePickerActivity() {
+        PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+        // this would only work if you have your Google Places API working
 
+        try {
+            Intent intent = intentBuilder.build(this);
+            startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
+            displaySelectedPlaceFromPlacePicker(data);
+        }
+    }
+
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+        Place placeSelected = PlacePicker.getPlace(data, this);
+
+        String name = placeSelected.getName().toString();
+        String address = placeSelected.getAddress().toString();
+
+        TextView enterCurrentLocation = (TextView) findViewById(R.id.show_selected_location);
+        enterCurrentLocation.setText(name + ", " + address);
+    }
 }

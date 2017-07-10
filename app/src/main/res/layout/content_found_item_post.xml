@@ -200,6 +200,33 @@
                 android:text="Cancel"></Button>
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/show_selected_location"
+                android:text="Selected location will be shown here"
+                android:layout_centerHorizontal="true"/>
+            <Button
+                android:id="@+id/mapButton"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@color/button2"
+                android:text="Map"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"></Button>
+
+        </RelativeLayout>
+
     </LinearLayout>
 
 
