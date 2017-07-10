@@ -40,5 +40,6 @@
     <string name="title_activity_view_posts">ViewPosts</string>
     <string name="new_post">Make a new post for a...</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_map_view_posts">MapViewPosts</string>
 
 </resources>
