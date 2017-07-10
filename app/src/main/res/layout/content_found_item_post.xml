@@ -8,11 +8,12 @@
     tools:context="com.example.jaggia.wheresmystuff9.controllers.FoundItemPost"
     tools:showIn="@layout/activity_lost_item_post">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lost_post_form"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@mipmap/background"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp">
 
@@ -227,7 +228,7 @@
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

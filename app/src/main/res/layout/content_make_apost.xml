@@ -8,10 +8,11 @@
     tools:context="com.example.jaggia.wheresmystuff9.controllers.MakeAPost"
     tools:showIn="@layout/app_bar_make_apost">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:background="@mipmap/background"
         android:orientation="vertical">
     <TextView
         android:id="@+id/newPost"
@@ -36,7 +37,7 @@
         android:layout_marginLeft="75dp"
         android:layout_marginTop="50dp"
         android:layout_weight="1"
-        android:background="@color/button1"
+        android:background="@drawable/bg_button"
         android:text="Lost Item"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
@@ -51,7 +52,7 @@
         android:layout_marginLeft="75dp"
         android:layout_centerInParent="true"
         android:layout_weight="1"
-        android:background="@color/button1"
+        android:background="@drawable/bg_button"
         android:text="Found Item"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"></Button>
@@ -65,9 +66,9 @@
         android:layout_marginLeft="75dp"
         android:layout_centerInParent="true"
         android:layout_weight="1"
-        android:background="@color/button1"
+        android:background="@drawable/bg_button"
         android:text="Donated Item"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"></Button>
-</LinearLayout>
+</RelativeLayout>
 </android.support.constraint.ConstraintLayout>
