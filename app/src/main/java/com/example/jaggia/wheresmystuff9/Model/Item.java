@@ -1,6 +1,6 @@
 package com.example.jaggia.wheresmystuff9.Model;
 
-import android.location.Location;
+
 import java.util.Date;
 
 /**
@@ -17,12 +17,26 @@ public class Item {
     private String name;
     private String description;
     private Date date;
-    private Location location;
+    private MyLocation location;
     private String reward;
     private ItemStatus status;
     private ItemType type;
     private ItemCategory category;
 
+    public Item(){
+        user = new User();
+        name = "default name";
+        description = "default description";
+        date = new Date();
+        location = new MyLocation("default location");
+        location.setLatitude(0.0);
+        location.setLongitude(0.0);
+        reward = "";
+        status = ItemStatus.UNRESOLVED;
+        type = ItemType.LOST;
+        category = ItemCategory.MISC;
+
+    }
     /**
      * Constructor for an item
      * @param user The user creating the item
@@ -35,7 +49,7 @@ public class Item {
      * @param type The type of item (lost, found, donated)
      * @param category The category the item fits into
      */
-    public Item(User user, String name, String description, Date date, Location location, String reward, ItemStatus status, ItemType type, ItemCategory category){
+    public Item(User user, String name, String description, Date date, MyLocation location, String reward, ItemStatus status, ItemType type, ItemCategory category){
         this.user = user;
         this.name = name;
         this.description = description;
@@ -52,7 +66,7 @@ public class Item {
      * @return return the string name
      */
     public String toString(){
-        return name + "    Posted: " +  date.getMonth() + "/" + date.getDate() + "/" + date.getYear() + " By: " + user.getName();
+        return name + "    Posted: " +  date.getMonth() + "/" + date.getDate() + "/" + date.getYear() + "By: " + user.getUsername();
     }
 
 
@@ -131,7 +145,7 @@ public class Item {
     /**
      * @return current Location for the Item
      */
-    public Location getLocation() {
+    public MyLocation getLocation() {
         return location;
     }
 
@@ -140,7 +154,7 @@ public class Item {
      *
      * @param location location to set
      */
-    public void setLocation(Location location) {
+    public void setLocation(MyLocation location) {
         this.location = location;
     }
 

@@ -69,5 +69,9 @@ public class ItemList {
         return list;
     }
 
+    public void clearItems(){
+        itemList.clear();
+    }
+
 }
 

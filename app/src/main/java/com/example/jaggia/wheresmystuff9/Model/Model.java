@@ -1,6 +1,6 @@
 package com.example.jaggia.wheresmystuff9.Model;
 
-import android.location.Location;
+
 
 import java.util.Date;
 import java.util.List;
@@ -164,7 +164,7 @@ public class Model {
      * @param type The type of item (lost, found, donated)
      * @param category The category the item fits into
      */
-    public static Item createNewItem(User user, String name, String description, Date date, Location location,
+    public static Item createNewItem(User user, String name, String description, Date date, MyLocation location,
                                      String reward, ItemStatus status, ItemType type, ItemCategory category){
         return new Item(user, name, description, date, location, reward, status, type, category);
     }
@@ -186,7 +186,12 @@ public class Model {
         return itemList.listItems();
     }
 
+    public static void clearList(ItemList itemList){
+        itemList.clearItems();
+    }
+
     public static User findUser(String username){
         return _database.findUser(username);
     }
+
 }

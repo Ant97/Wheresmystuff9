@@ -85,10 +85,9 @@ public class LoginScreen extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = loginUsername.getText().toString();
-                String email = loginEmail.getText().toString();
-                String pw = loginPW.getText().toString();
-                Log.w(TAG, "Attempting to do stuff3");
+                final String username = loginUsername.getText().toString();
+                final String email = loginEmail.getText().toString();
+                final String pw = loginPW.getText().toString();
                 if(!Model.validateUser(username, pw)){
                     Log.w(TAG, "model did not validate user");
                 } else {
@@ -101,6 +100,7 @@ public class LoginScreen extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = myAuth.getCurrentUser();
+                                    Model.setCurrentUser(Model.findUser(username));
                                     Intent loginIntent =
                                             new Intent(LoginScreen.this, MainUserScreen.class);
                                     LoginScreen.this.startActivity(loginIntent);

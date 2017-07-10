@@ -18,6 +18,7 @@ import com.example.jaggia.wheresmystuff9.Model.ItemCategory;
 import com.example.jaggia.wheresmystuff9.Model.ItemStatus;
 import com.example.jaggia.wheresmystuff9.Model.ItemType;
 import com.example.jaggia.wheresmystuff9.Model.Model;
+import com.example.jaggia.wheresmystuff9.Model.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -116,7 +117,7 @@ public class FoundItemPost extends AppCompatActivity {
                     builder.setMessage("Item was not create: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
                 } else {
-                    Location location = new Location("itemLocation");
+                    MyLocation location = new MyLocation("itemLocation");
                     location.setLatitude(Double.parseDouble(latitude));
                     location.setLongitude(Double.parseDouble(longitude));
 
@@ -127,7 +128,7 @@ public class FoundItemPost extends AppCompatActivity {
 
 
                     if (Model.addItem(Model.getFoundList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, "", status, type, category))) {
-                        databaseReference.child("app").child("Item").push().setValue(Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category));
+                        databaseReference.child("app").child("ItemFound").push().setValue(Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category));
                         //the item was created and added to the foundItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");

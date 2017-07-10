@@ -23,10 +23,18 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.jaggia.wheresmystuff9.Model.Item;
 import com.example.jaggia.wheresmystuff9.Model.Model;
+import com.example.jaggia.wheresmystuff9.Model.User;
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 //import static com.example.jaggia.wheresmystuff9.R.id.list_view;
@@ -34,6 +42,9 @@ import java.util.List;
 public class ViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public final String TAG = "ViewPosts";
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference().child("app");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +61,48 @@ public class ViewPosts extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        populateListView();
-        registerClick();
+        databaseReference.child("ItemLost").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> itemLostChildren = dataSnapshot.getChildren();
+                Model.clearList(Model.getLostList());
+                for (DataSnapshot  child: itemLostChildren){
+                    Item value = child.getValue(Item.class);
+                    Model.addItem(Model.getLostList(), value);
+                    populateListView();
+                    registerClick();
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, databaseError.getMessage());
+            }
+        });
+        databaseReference.child("ItemFound").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> itemFoundChildren = dataSnapshot.getChildren();
+                Model.clearList(Model.getFoundList());
+                for (DataSnapshot  child: itemFoundChildren){
+                    Item value = child.getValue(Item.class);
+                    Model.addItem(Model.getFoundList(), value);
+                    populateListView();
+                    registerClick();
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, databaseError.getMessage());
+            }
+        });
     }
 
     private void populateListView() {
+
 
         List<String> postNames = Model.listItems(Model.getLostList());
         List<String> postNamesFound = Model.listItems(Model.getFoundList());
