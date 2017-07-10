@@ -90,7 +90,7 @@ public class LostItemPost extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startPlacePickerActivity();
+                startPlacePicker();
             }
         });
 
@@ -160,7 +160,7 @@ public class LostItemPost extends AppCompatActivity {
 
     }
 
-    private void startPlacePickerActivity() {
+    private void startPlacePicker() {
         PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
         // this would only work if you have your Google Places API working
 
