@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.jaggia.wheresmystuff9.R;
+
 public class MapViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
