@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.example.jaggia.wheresmystuff9.model.Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -93,8 +94,8 @@ public class RegisterScreen extends AppCompatActivity {
                 final String pw = registerPW.getText().toString();
                 final String pw2 = registerPW2.getText().toString();
                 final boolean userType = false;
-
-                if (Model.validatePassword(pw) && Model.validatePasswordMatch(pw, pw2) && (null == Model.findUserByUsername(username)) ) {
+        //TODO fix this shit
+                if((username.length() > 4) && Model.validatePassword(pw) && Model.validatePasswordMatch(pw, pw2) && (null == Model.findUserByUsername(username)) ) {
                     Log.v(TAG, "It is attempting to make a new user");
                     myAuth.createUserWithEmailAndPassword(email, pw)
                             .addOnCompleteListener(RegisterScreen.this, new OnCompleteListener<AuthResult>() {
@@ -123,12 +124,13 @@ public class RegisterScreen extends AppCompatActivity {
                                                     }
                                                 }).create().show();
                                     } else {
-                                        FirebaseAuthException e = (FirebaseAuthException) task.getException();
-                                        Log.d("LoginActivity", "Failed Registration", e);
+                                        Exception e = (Exception) task.getException();
+                                        Log.w("LoginActivity", "Failed Registration", e);
+                                        firebaseDatabase.getReference().child("app").child("Errors").push().setValue(e.getMessage());
                                         AlertDialog.Builder builder =
                                                 new AlertDialog.Builder(RegisterScreen.this);
-                                        builder.setMessage("model Successful but database failed")
-                                                .setNegativeButton("Darn", null)
+                                        builder.setMessage(e.getMessage())
+                                                .setNegativeButton("Retry", null)
                                                 .create().show();
                                     }
                                 }
