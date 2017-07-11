@@ -94,6 +94,10 @@
             android:name=".controllers.MapViewPosts"
             android:label="@string/title_activity_map_view_posts"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".controllers.ViewMapPosts"
+            android:label="@string/title_activity_view_map_posts"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

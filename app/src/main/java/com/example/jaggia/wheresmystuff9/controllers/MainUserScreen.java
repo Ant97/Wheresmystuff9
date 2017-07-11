@@ -26,10 +26,6 @@ public class MainUserScreen extends AppCompatActivity
         setContentView(R.layout.activity_main_user_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,6 +53,10 @@ public class MainUserScreen extends AppCompatActivity
         } else if (id == R.id.logout) {
             Intent logoutIntent =
                     new Intent(MainUserScreen.this, LoginScreen.class);
+            MainUserScreen.this.startActivity(logoutIntent);
+        } else if (id == R.id.map_posts) {
+            Intent logoutIntent =
+                    new Intent(MainUserScreen.this, ViewMapPosts.class);
             MainUserScreen.this.startActivity(logoutIntent);
         }
 
