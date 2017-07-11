@@ -18,6 +18,7 @@ import com.example.jaggia.wheresmystuff9.model.item_system.ItemStatus;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemType;
 import com.example.jaggia.wheresmystuff9.model.Model;
 
+import com.example.jaggia.wheresmystuff9.model.item_system.LostItem;
 import com.example.jaggia.wheresmystuff9.model.item_system.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
 import com.google.android.gms.maps.model.LatLng;
@@ -140,8 +141,9 @@ public class LostItemPost extends AppCompatActivity {
                     int dateYear = (int) lostDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
+                    LostItem itemToAdd = new  LostItem.Builder(name, location).Description(description).Date(date).ItemStatus(status).ItemCategory(category).Build();
 
-                    if (Model.addItem(Model.getLostList(), Model.createNewLostItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category))) {
+                    if (Model.addItem(Model.getLostList(), itemToAdd)) {
                         databaseReference.child("app").child("LostItem").push().setValue(Model.createNewLostItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category));
                         //the item was created and added to the lostItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);

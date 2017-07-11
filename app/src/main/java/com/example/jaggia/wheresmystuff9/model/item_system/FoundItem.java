@@ -31,7 +31,7 @@ public class FoundItem implements Item {
         type = ItemType.FOUND;
         category = ItemCategory.MISC;
     }
-    public FoundItem(FoundItemBuilder b){
+    public FoundItem(Builder b){
         this.user = b.user;
         this.name = b.name;
         this.description = b.description;
@@ -136,7 +136,7 @@ public class FoundItem implements Item {
         this.category = itemCategory;
     }
 
-    public class FoundItemBuilder extends Item.ItemBuilder<FoundItemBuilder>{
+    public static class Builder{
         private User user;
         final private String name;
         private String description;
@@ -146,7 +146,7 @@ public class FoundItem implements Item {
         final private ItemType type;
         private ItemCategory category;
 
-        public FoundItemBuilder(String name, MyLocation location){
+        public Builder(String name, MyLocation location){
             this.name = name;
             this.location = location;
             this.type = ItemType.FOUND;
@@ -158,23 +158,23 @@ public class FoundItem implements Item {
             this.status = ItemStatus.UNRESOLVED;
             this.category = ItemCategory.MISC;
         }
-        public FoundItemBuilder User(User u){
+        public Builder User(User u){
             user = u;
             return this;
         }
-        public FoundItemBuilder Description(String d){
+        public Builder Description(String d){
             description = d;
             return this;
         }
-        public FoundItemBuilder Date(Date d){
+        public Builder Date(Date d){
             date = d;
             return this;
         }
-        public FoundItemBuilder ItemStatus(ItemStatus s){
+        public Builder ItemStatus(ItemStatus s){
             status = s;
             return this;
         }
-        public FoundItemBuilder ItemCategory(ItemCategory c){
+        public Builder ItemCategory(ItemCategory c){
             category = c;
             return this;
         }

@@ -40,7 +40,7 @@ public class LostItem implements Item {
         category = ItemCategory.MISC;
 
     }
-    public LostItem(LostItemBuilder b){
+    public LostItem(Builder b){
         this.user = b.user;
         this.name = b.name;
         this.description = b.description;
@@ -262,7 +262,7 @@ public class LostItem implements Item {
         this.category = category;
     }
 
-    public class LostItemBuilder extends Item.ItemBuilder<LostItemBuilder>{
+    public static class Builder{
         private User user;
         final private String name;
         private String description;
@@ -272,7 +272,7 @@ public class LostItem implements Item {
         final private ItemType type;
         private ItemCategory category;
 
-        public LostItemBuilder(String name, MyLocation location){
+        public Builder(String name, MyLocation location){
             this.name = name;
             this.location = location;
             this.type = ItemType.FOUND;
@@ -284,23 +284,23 @@ public class LostItem implements Item {
             this.status = ItemStatus.UNRESOLVED;
             this.category = ItemCategory.MISC;
         }
-        public LostItemBuilder User(User u){
+        public Builder User(User u){
             user = u;
             return this;
         }
-        public LostItemBuilder Description(String d){
+        public Builder Description(String d){
             description = d;
             return this;
         }
-        public LostItemBuilder Date(Date d){
+        public Builder Date(Date d){
             date = d;
             return this;
         }
-        public LostItemBuilder ItemStatus(ItemStatus s){
+        public Builder ItemStatus(ItemStatus s){
             status = s;
             return this;
         }
-        public LostItemBuilder ItemCategory(ItemCategory c){
+        public Builder ItemCategory(ItemCategory c){
             category = c;
             return this;
         }
@@ -308,5 +308,4 @@ public class LostItem implements Item {
             return new LostItem(this);
         }
     }
-
 }

@@ -36,22 +36,5 @@ public interface Item {
     ItemCategory getCategory();
     void setCategory(ItemCategory itemCategory);
 
-    public abstract class ItemBuilder<T extends ItemBuilder<T>>{
-        private final String name;
-        private final MyLocation location;
-        private final ItemType type;
-
-        public ItemBuilder(){
-            name = "default name";
-            location = new MyLocation();
-            type = ItemType.ILLEGAL;
-        }
-        public ItemBuilder(String name, MyLocation location, ItemType type){
-            this.name = name;
-            this.location = location;
-            this.type = type;
-        }
-    }
-
 }
 

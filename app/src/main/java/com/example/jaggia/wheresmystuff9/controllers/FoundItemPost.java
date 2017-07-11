@@ -13,11 +13,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.jaggia.wheresmystuff9.model.item_system.FoundItem;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemCategory;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemStatus;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemType;
 import com.example.jaggia.wheresmystuff9.model.Model;
 import com.example.jaggia.wheresmystuff9.model.item_system.MyLocation;
+import com.example.jaggia.wheresmystuff9.model.item_system.Item;
 import com.example.jaggia.wheresmystuff9.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
@@ -147,8 +149,9 @@ public class FoundItemPost extends AppCompatActivity {
                     int dateYear = (int) foundDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
+                    FoundItem itemToAdd = new  FoundItem.Builder(name, location).Description(description).Date(date).ItemStatus(status).ItemCategory(category).Build();
 
-                    if (Model.addItem(Model.getFoundList(), Model.createNewFoundItem(Model.getCurrentUser(), name, description, date, location, status, type, category))) {
+                    if (Model.addItem(Model.getFoundList(), itemToAdd)) {
                         databaseReference.child("app").child("FoundItem").push().setValue(Model.createNewFoundItem(Model.getCurrentUser(), name, description, date, location, status, type, category));
                         //the item was created and added to the foundItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);

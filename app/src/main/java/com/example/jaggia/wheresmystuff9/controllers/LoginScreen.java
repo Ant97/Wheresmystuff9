@@ -88,32 +88,34 @@ public class LoginScreen extends AppCompatActivity {
                 final String username = loginUsername.getText().toString();
                 final String email = loginEmail.getText().toString();
                 final String pw = loginPW.getText().toString();
-                if(!Model.validateUser(username, pw)){
-                    Log.w(TAG, "model did not validate user");
-                } else {
-                    Log.w(TAG, "model DID validate USER!!");
-                }
-                myAuth.signInWithEmailAndPassword(email, pw)
-                        .addOnCompleteListener(LoginScreen.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "signInWithEmail:success");
-                                    FirebaseUser user = myAuth.getCurrentUser();
-                                    Model.setCurrentUser(Model.findUserByUsername(username));
-                                    Intent loginIntent =
-                                            new Intent(LoginScreen.this, MainUserScreen.class);
-                                    LoginScreen.this.startActivity(loginIntent);
-                                } else {
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    AlertDialog.Builder builder =
-                                            new AlertDialog.Builder(LoginScreen.this);
-                                    builder.setMessage("Login Failed: UserName or PW incorrect")
-                                            .setNegativeButton("Retry", null)
-                                            .create().show();
+                if(Model.validateUser(username, pw)) {
+                    myAuth.signInWithEmailAndPassword(email, pw)
+                            .addOnCompleteListener(LoginScreen.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "signInWithEmail:success");
+                                        FirebaseUser user = myAuth.getCurrentUser();
+                                        Model.setCurrentUser(Model.findUserByUsername(username));
+                                        Intent loginIntent =
+                                                new Intent(LoginScreen.this, MainUserScreen.class);
+                                        LoginScreen.this.startActivity(loginIntent);
+                                    } else {
+                                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                        AlertDialog.Builder builder =
+                                                new AlertDialog.Builder(LoginScreen.this);
+                                        builder.setMessage("Login Failed: Username or PW incorrect")
+                                                .setNegativeButton("Retry", null)
+                                                .create().show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginScreen.this);
+                    builder.setMessage("Login Failed: Username or PW is incorrect")
+                            .setNegativeButton("Retry", null)
+                            .create().show();
+                }
             }
         });
     }

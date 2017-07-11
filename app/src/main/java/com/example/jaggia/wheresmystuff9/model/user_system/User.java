@@ -121,7 +121,7 @@ public class User implements Parcelable{
      *
      * @param name name to set as the user's real name
      */
-    public void setName(String name){this.name = name; };
+    public void setName(String name){this.name = name; }
 
 
     /* ********************************************
