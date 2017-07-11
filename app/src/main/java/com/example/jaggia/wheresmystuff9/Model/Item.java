@@ -66,7 +66,7 @@ public class Item {
      * @return return the string name
      */
     public String toString(){
-        return name + "    Posted: " +  date.getMonth() + "/" + date.getDate() + "/" + date.getYear() + "By: " + user.getUsername();
+        return name + " Date: " +  (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user.getUsername();
     }
 
 

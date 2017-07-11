@@ -24,6 +24,7 @@ import com.example.jaggia.wheresmystuff9.Model.Item;
 
 import com.example.jaggia.wheresmystuff9.Model.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,6 +40,15 @@ public class LostItemPost extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final int REQUEST_CODE_PLACEPICKER = 1;
 
+    EditText lostName;
+    EditText lostDescription;
+    EditText lostLocationLat;
+    EditText lostLocationLng;
+    Spinner lostCategory;
+    EditText lostReward;
+    Spinner lostDateDay;
+    Spinner lostDateMonth;
+    Spinner lostDateYear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +56,15 @@ public class LostItemPost extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        final EditText lostName = (EditText) findViewById(R.id.itemName);
-        final EditText lostDescription = (EditText) findViewById(R.id.itemDescription);
-        final EditText lostLocationLat = (EditText) findViewById(R.id.longitude);
-        final EditText lostLocationLng = (EditText) findViewById(R.id.latitude);
-        final Spinner lostCategory = (Spinner) findViewById(R.id.categorySpinner);
-        final EditText lostReward = (EditText) findViewById(R.id.reward);
-        final Spinner lostDateDay = (Spinner) findViewById(R.id.daySpinner);
-        final Spinner lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
-        final Spinner lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
+        lostName = (EditText) findViewById(R.id.itemName);
+        lostDescription = (EditText) findViewById(R.id.itemDescription);
+        lostLocationLat = (EditText) findViewById(R.id.longitude);
+        lostLocationLng = (EditText) findViewById(R.id.latitude);
+        lostCategory = (Spinner) findViewById(R.id.categorySpinner);
+        lostReward = (EditText) findViewById(R.id.reward);
+        lostDateDay = (Spinner) findViewById(R.id.daySpinner);
+        lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
+        lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
 
         Button post = (Button) findViewById(R.id.createButton);
         Button cancelPost = (Button) findViewById(R.id.cancelLost);
@@ -132,7 +142,7 @@ public class LostItemPost extends AppCompatActivity {
                     location.setLongitude(Double.parseDouble(longitude));
 
                     int dateDay = (int) lostDateDay.getSelectedItem();
-                    int dateMonth = (int) lostDateMonth.getSelectedItem();
+                    int dateMonth = ((int) lostDateMonth.getSelectedItem()) - 1;
                     int dateYear = (int) lostDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
@@ -188,7 +198,9 @@ public class LostItemPost extends AppCompatActivity {
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(data, this);
-
+        LatLng location = placeSelected.getLatLng();
+        lostLocationLat.setText(Double.toString(location.latitude));
+        lostLocationLng.setText(Double.toString(location.longitude));
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
 

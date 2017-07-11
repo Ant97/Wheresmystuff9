@@ -21,6 +21,7 @@ import com.example.jaggia.wheresmystuff9.Model.ItemType;
 import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.example.jaggia.wheresmystuff9.Model.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.gms.location.places.Place;
@@ -38,6 +39,20 @@ public class FoundItemPost extends AppCompatActivity {
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
 
+    EditText foundName;
+    EditText foundDescription;
+    EditText foundLocationLat;
+    EditText foundLocationLng;
+    Spinner foundCategory;
+    // EditText foundReward;
+    Spinner foundDateDay;
+    Spinner foundDateMonth;
+    Spinner foundDateYear;
+
+    Button post;
+    Button cancelPost;
+    Button map;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,25 +60,22 @@ public class FoundItemPost extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        final EditText foundName = (EditText) findViewById(R.id.itemName);
-        final EditText foundDescription = (EditText) findViewById(R.id.itemDescription);
-        final EditText foundLocationLat = (EditText) findViewById(R.id.longitude);
-        final EditText foundLocationLng = (EditText) findViewById(R.id.latitude);
-        final Spinner foundCategory = (Spinner) findViewById(R.id.categorySpinner);
-        //final EditText foundReward = (EditText) findViewById(R.id.reward);
-        final Spinner foundDateDay = (Spinner) findViewById(R.id.daySpinner);
-        final Spinner foundDateMonth = (Spinner) findViewById(R.id.monthSpinner);
-        final Spinner foundDateYear = (Spinner) findViewById(R.id.yearSpinner);
+        foundName = (EditText) findViewById(R.id.itemName);
+        foundDescription = (EditText) findViewById(R.id.itemDescription);
+        foundLocationLat = (EditText) findViewById(R.id.longitude);
+        foundLocationLng = (EditText) findViewById(R.id.latitude);
+        foundCategory = (Spinner) findViewById(R.id.categorySpinner);
+        foundDateDay = (Spinner) findViewById(R.id.daySpinner);
+        foundDateMonth = (Spinner) findViewById(R.id.monthSpinner);
+        foundDateYear = (Spinner) findViewById(R.id.yearSpinner);
 
-        Button post = (Button) findViewById(R.id.createFound);
-        Button cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
-        Button map = (Button) findViewById(R.id.mapButton);
+        post = (Button) findViewById(R.id.createFound);
+        cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
+        map = (Button) findViewById(R.id.mapButton);
 
         ArrayAdapter<ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundCategory.setAdapter(adapter);
-
-       // ArrayAdapter<Item.ItemCategory> adapter1 = new ArrayAdapter<Item.ItemCategory>()
 
         Integer days[] = new Integer[31];
         for(int i = 0; i<days.length; i++){
@@ -134,7 +146,7 @@ public class FoundItemPost extends AppCompatActivity {
                     location.setLongitude(Double.parseDouble(longitude));
 
                     int dateDay = (int) foundDateDay.getSelectedItem();
-                    int dateMonth = (int) foundDateMonth.getSelectedItem();
+                    int dateMonth = ((int) foundDateMonth.getSelectedItem()) - 1;
                     int dateYear = (int) foundDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
@@ -189,7 +201,9 @@ public class FoundItemPost extends AppCompatActivity {
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(data, this);
-
+        LatLng location = placeSelected.getLatLng();
+        foundLocationLat.setText(Double.toString(location.latitude));
+        foundLocationLng.setText(Double.toString(location.longitude));
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
 
