@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="Search"
+
         android:layout_alignBottom="@+id/TF_location"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
