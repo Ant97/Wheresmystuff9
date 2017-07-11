@@ -31,7 +31,16 @@ public class FoundItem implements Item {
         type = ItemType.FOUND;
         category = ItemCategory.MISC;
     }
-
+    public FoundItem(FoundItemBuilder b){
+        this.user = b.user;
+        this.name = b.name;
+        this.description = b.description;
+        this.date = b.date;
+        this.location = b.location;
+        this.status = b.status;
+        this.type = b.type;
+        this.category = b.category;
+    }
     public FoundItem(User user, String name, String description, Date date, MyLocation location, ItemStatus itemStatus, ItemType itemType, ItemCategory itemCategory){
         this.user = user;
         this.name = name;
@@ -46,7 +55,7 @@ public class FoundItem implements Item {
     public String toString() {
         return name + " Date: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user.getUsername();
     }
-    
+
     @Override
     public User getUser() {
         return user;
@@ -125,5 +134,52 @@ public class FoundItem implements Item {
     @Override
     public void setCategory(ItemCategory itemCategory) {
         this.category = itemCategory;
+    }
+
+    public class FoundItemBuilder extends Item.ItemBuilder<FoundItemBuilder>{
+        private User user;
+        final private String name;
+        private String description;
+        private Date date;
+        final private MyLocation location;
+        private ItemStatus status;
+        final private ItemType type;
+        private ItemCategory category;
+
+        public FoundItemBuilder(String name, MyLocation location){
+            this.name = name;
+            this.location = location;
+            this.type = ItemType.FOUND;
+            User tempuser = new User();
+            tempuser.setName("Default item User");
+            this.user = tempuser;
+            this.description = "Default description";
+            this.date = new Date();
+            this.status = ItemStatus.UNRESOLVED;
+            this.category = ItemCategory.MISC;
+        }
+        public FoundItemBuilder User(User u){
+            user = u;
+            return this;
+        }
+        public FoundItemBuilder Description(String d){
+            description = d;
+            return this;
+        }
+        public FoundItemBuilder Date(Date d){
+            date = d;
+            return this;
+        }
+        public FoundItemBuilder ItemStatus(ItemStatus s){
+            status = s;
+            return this;
+        }
+        public FoundItemBuilder ItemCategory(ItemCategory c){
+            category = c;
+            return this;
+        }
+        public FoundItem Build(){
+            return new FoundItem(this);
+        }
     }
 }

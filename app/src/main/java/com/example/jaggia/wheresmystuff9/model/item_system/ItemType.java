@@ -6,5 +6,6 @@ package com.example.jaggia.wheresmystuff9.model.item_system;
 
 public enum ItemType {
     LOST,
-    FOUND
+    FOUND,
+    ILLEGAL
 }

@@ -40,6 +40,16 @@ public class LostItem implements Item {
         category = ItemCategory.MISC;
 
     }
+    public LostItem(LostItemBuilder b){
+        this.user = b.user;
+        this.name = b.name;
+        this.description = b.description;
+        this.date = b.date;
+        this.location = b.location;
+        this.status = b.status;
+        this.type = b.type;
+        this.category = b.category;
+    }
 
     /**
      * Constructor for an item
@@ -252,5 +262,51 @@ public class LostItem implements Item {
         this.category = category;
     }
 
+    public class LostItemBuilder extends Item.ItemBuilder<LostItemBuilder>{
+        private User user;
+        final private String name;
+        private String description;
+        private Date date;
+        final private MyLocation location;
+        private ItemStatus status;
+        final private ItemType type;
+        private ItemCategory category;
+
+        public LostItemBuilder(String name, MyLocation location){
+            this.name = name;
+            this.location = location;
+            this.type = ItemType.FOUND;
+            User tempuser = new User();
+            tempuser.setName("Default item User");
+            this.user = tempuser;
+            this.description = "Default description";
+            this.date = new Date();
+            this.status = ItemStatus.UNRESOLVED;
+            this.category = ItemCategory.MISC;
+        }
+        public LostItemBuilder User(User u){
+            user = u;
+            return this;
+        }
+        public LostItemBuilder Description(String d){
+            description = d;
+            return this;
+        }
+        public LostItemBuilder Date(Date d){
+            date = d;
+            return this;
+        }
+        public LostItemBuilder ItemStatus(ItemStatus s){
+            status = s;
+            return this;
+        }
+        public LostItemBuilder ItemCategory(ItemCategory c){
+            category = c;
+            return this;
+        }
+        public LostItem Build(){
+            return new LostItem(this);
+        }
+    }
 
 }
