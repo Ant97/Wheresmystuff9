@@ -1,4 +1,4 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model.item_system;
 
 import android.location.Location;
 import android.os.Bundle;

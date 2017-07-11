@@ -2,7 +2,6 @@ package com.example.jaggia.wheresmystuff9.controllers;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.jaggia.wheresmystuff9.Model.Item;
-import com.example.jaggia.wheresmystuff9.Model.ItemCategory;
-import com.example.jaggia.wheresmystuff9.Model.ItemStatus;
-import com.example.jaggia.wheresmystuff9.Model.ItemType;
-import com.example.jaggia.wheresmystuff9.Model.Model;
-import com.example.jaggia.wheresmystuff9.Model.MyLocation;
+import com.example.jaggia.wheresmystuff9.model.item_system.ItemCategory;
+import com.example.jaggia.wheresmystuff9.model.item_system.ItemStatus;
+import com.example.jaggia.wheresmystuff9.model.item_system.ItemType;
+import com.example.jaggia.wheresmystuff9.model.Model;
+import com.example.jaggia.wheresmystuff9.model.item_system.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
@@ -133,12 +131,11 @@ public class FoundItemPost extends AppCompatActivity {
                 String longitude = foundLocationLng.getText().toString();
                 ItemStatus status = ItemStatus.UNRESOLVED;
                 ItemCategory category = (ItemCategory) foundCategory.getSelectedItem();
-                String reward = "";
-                ItemType type = ItemType.LOST;
+                ItemType type = ItemType.FOUND;
 
                 if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
-                    builder.setMessage("Item was not create: Please fill in required information");
+                    builder.setMessage("Item was not created: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
                 } else {
                     MyLocation location = new MyLocation("itemLocation");
@@ -151,8 +148,8 @@ public class FoundItemPost extends AppCompatActivity {
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
 
-                    if (Model.addItem(Model.getFoundList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, "", status, type, category))) {
-                        databaseReference.child("app").child("ItemFound").push().setValue(Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category));
+                    if (Model.addItem(Model.getFoundList(), Model.createNewFoundItem(Model.getCurrentUser(), name, description, date, location, status, type, category))) {
+                        databaseReference.child("app").child("FoundItem").push().setValue(Model.createNewFoundItem(Model.getCurrentUser(), name, description, date, location, status, type, category));
                         //the item was created and added to the foundItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");

@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.jaggia.wheresmystuff9.Model.Model;
+import com.example.jaggia.wheresmystuff9.model.Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -94,7 +94,7 @@ public class RegisterScreen extends AppCompatActivity {
                 final String pw2 = registerPW2.getText().toString();
                 final boolean userType = false;
 
-                if (Model.validatePassword(pw) && Model.validatePasswordMatch(pw, pw2) && (null == Model.findUser(username)) ) {
+                if (Model.validatePassword(pw) && Model.validatePasswordMatch(pw, pw2) && (null == Model.findUserByUsername(username)) ) {
                     Log.v(TAG, "It is attempting to make a new user");
                     myAuth.createUserWithEmailAndPassword(email, pw)
                             .addOnCompleteListener(RegisterScreen.this, new OnCompleteListener<AuthResult>() {
@@ -127,13 +127,13 @@ public class RegisterScreen extends AppCompatActivity {
                                         Log.d("LoginActivity", "Failed Registration", e);
                                         AlertDialog.Builder builder =
                                                 new AlertDialog.Builder(RegisterScreen.this);
-                                        builder.setMessage("Model Successful but database failed")
+                                        builder.setMessage("model Successful but database failed")
                                                 .setNegativeButton("Darn", null)
                                                 .create().show();
                                     }
                                 }
                             });
-                } else if (!(null == Model.findUser(username))){
+                } else if (!(null == Model.findUserByUsername(username))){
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
                     builder.setMessage("Register failed because the username has been taken")

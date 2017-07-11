@@ -1,5 +1,10 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model;
 
+
+
+import com.example.jaggia.wheresmystuff9.model.error_coding.ErrorCode;
+import com.example.jaggia.wheresmystuff9.model.item_system.*;
+import com.example.jaggia.wheresmystuff9.model.user_system.*;
 
 
 import java.util.Date;
@@ -84,9 +89,9 @@ public class Model {
 
     /**
      *
-     * @param currentItem set the current item
+     * @param currentItemObject set the current item
      */
-    public static void setCurrentItem(Item currentItem){ _currentItem = currentItem; }
+    public static void setCurrentItem(Item currentItemObject){ _currentItem = currentItemObject; }
 
 
 
@@ -164,14 +169,18 @@ public class Model {
      * @param type The type of item (lost, found, donated)
      * @param category The category the item fits into
      */
-    public static Item createNewItem(User user, String name, String description, Date date, MyLocation location,
-                                     String reward, ItemStatus status, ItemType type, ItemCategory category){
-        return new Item(user, name, description, date, location, reward, status, type, category);
+    public static Item createNewLostItem(User user, String name, String description, Date date, MyLocation location,
+                                         String reward, ItemStatus status, ItemType type, ItemCategory category){
+        return new LostItem(user, name, description, date, location, reward, status, type, category);
+    }
+    public static Item createNewFoundItem(User user, String name, String description, Date date, MyLocation location,
+                                         ItemStatus status, ItemType type, ItemCategory category){
+        return new FoundItem(user, name, description, date, location, status, type, category);
     }
     /**
-     * addItem to an item list
-     * @param itemList list to have item added to
-     * @param item item to be added
+     * addItem to an itemObject list
+     * @param itemList list to have itemObject added to
+     * @param item itemObject to be added
      * @return true if successful, false if not
      */
     public static boolean addItem(ItemList itemList, Item item){
@@ -190,8 +199,11 @@ public class Model {
         itemList.clearItems();
     }
 
-    public static User findUser(String username){
-        return _database.findUser(username);
+    public static User findUserByUsername(String username){
+        return _database.findUserByUsername(username);
+    }
+    public static User findUserByEmail(String email){
+        return _database.findUserByEmail(email);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model.user_system;
 
 import android.os.Parcel;
 import android.os.Parcelable;

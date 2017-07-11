@@ -1,11 +1,11 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model.error_coding;
 
 /**
  * Created by James on 6/15/2017.
  *
  * Enum class for ErrorCodes
  *
- * Model methods that can fail will return ErrorCodes
+ * model methods that can fail will return ErrorCodes
  */
 
 public enum ErrorCode {

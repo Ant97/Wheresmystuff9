@@ -1,4 +1,6 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model.user_system;
+
+import com.example.jaggia.wheresmystuff9.model.error_coding.ErrorCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +16,16 @@ public class UserDataBase {
 
     /**List<> containing all the users for this database*/
     private List<User> _users;
+    private UserSearchHandler userSearchHandler;
+    private PasswordHandler passwordHandler;
 
     /**number of Users in database -- not currently used, for future expansion*/
     private int _numUsers;
 
     /**constructor to initialize the list for the database*/
     public UserDataBase() {
+        userSearchHandler = new UserSearchHandler();
+        passwordHandler = new PasswordHandler();
         _users = new ArrayList<>();
         _numUsers = 0;
     }
@@ -77,27 +83,18 @@ public class UserDataBase {
      *
      */
     public ErrorCode validatePasswordMatch(String password1, String password2){
-        if(password1.equals(password2)){
-            return ErrorCode.SUCCESS;
-        }
-        return ErrorCode.PASSWORDMISMATCH;
+        return passwordHandler.validatePasswordMatch(password1, password2);
     }
 
     public ErrorCode validatePassword(String password){
-        if(password.length() > 6){
-            return ErrorCode.SUCCESS;
-        } else {
-            return ErrorCode.ILLEGALPASSWORD;
-        }
+        return passwordHandler.validatePassword(password);
     }
 
-    public User findUser(String username){
-        for(User u: _users){
-            if(u.getUsername().equals(username)){
-                return u;
-            }
-        }
-        return null;
+    public User findUserByUsername(String username){
+        return userSearchHandler.findUserByUsername(_users, username);
+    }
+    public User findUserByEmail(String email){
+        return userSearchHandler.findUserByEmail(_users, email);
     }
 }
 

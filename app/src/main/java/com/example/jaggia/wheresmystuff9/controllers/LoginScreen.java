@@ -1,5 +1,5 @@
 package com.example.jaggia.wheresmystuff9.controllers;
-import com.example.jaggia.wheresmystuff9.Model.*;
+import com.example.jaggia.wheresmystuff9.model.*;
 import com.example.jaggia.wheresmystuff9.R;
 
 import android.content.Intent;
@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.jaggia.wheresmystuff9.model.user_system.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -100,7 +100,7 @@ public class LoginScreen extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = myAuth.getCurrentUser();
-                                    Model.setCurrentUser(Model.findUser(username));
+                                    Model.setCurrentUser(Model.findUserByUsername(username));
                                     Intent loginIntent =
                                             new Intent(LoginScreen.this, MainUserScreen.class);
                                     LoginScreen.this.startActivity(loginIntent);

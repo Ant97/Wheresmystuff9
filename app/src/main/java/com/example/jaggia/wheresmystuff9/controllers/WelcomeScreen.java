@@ -4,20 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.jaggia.wheresmystuff9.Model.Item;
-import com.example.jaggia.wheresmystuff9.Model.Model;
-import com.example.jaggia.wheresmystuff9.Model.User;
 import com.example.jaggia.wheresmystuff9.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -30,8 +23,8 @@ public class WelcomeScreen extends AppCompatActivity {
     private final String TAG = "Welcome Screen";
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReferenceUsers = firebaseDatabase.getReference().child("Users");
-    DatabaseReference databaseReferenceItemFound = firebaseDatabase.getReference().child("ItemFound");
-    DatabaseReference databaseReferenceItemLost = firebaseDatabase.getReference().child("ItemLost");
+    DatabaseReference databaseReferenceItemFound = firebaseDatabase.getReference().child("FoundItem");
+    DatabaseReference databaseReferenceItemLost = firebaseDatabase.getReference().child("LostItem");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
