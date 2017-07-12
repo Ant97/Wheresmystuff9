@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -123,7 +124,7 @@ public class RegisterScreen extends AppCompatActivity {
                                                     }
                                                 }).create().show();
                                     } else {
-                                        FirebaseAuthException e = (FirebaseAuthException) task.getException();
+                                        FirebaseNetworkException e = (FirebaseNetworkException) task.getException();
                                         Log.d("LoginActivity", "Failed Registration", e);
                                         AlertDialog.Builder builder =
                                                 new AlertDialog.Builder(RegisterScreen.this);
