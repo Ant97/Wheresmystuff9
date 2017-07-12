@@ -126,8 +126,8 @@ public class FoundItemPost extends AppCompatActivity {
                 String reward = "";
                 ItemType type = ItemType.LOST;
 
-                if (name.length() == 0 || latitude.toString().length() > 0
-                        || longitude.toString().length() > 0){
+                if (name.length() == 0 || latitude.toString().length() <= 0
+                        || longitude.toString().length() <= 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                     builder.setMessage("Item was not create: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
