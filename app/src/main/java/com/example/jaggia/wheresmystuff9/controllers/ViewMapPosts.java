@@ -2,26 +2,47 @@ package com.example.jaggia.wheresmystuff9.controllers;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import com.example.jaggia.wheresmystuff9.R;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import com.example.jaggia.wheresmystuff9.Model.Item;
+import com.example.jaggia.wheresmystuff9.Model.Model;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.example.jaggia.wheresmystuff9.R;
+
+
 
 public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Model mFacade;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference().child("app");
+    public final String TAG = "MapsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_map_posts);
+        setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mFacade = Model.getInstance();
+
     }
 
 
@@ -38,9 +59,79 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        databaseReference.child("ItemFound").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> itemFoundChildren = dataSnapshot.getChildren();
+                Model.clearList(Model.getFoundList());
+                for (DataSnapshot child: itemFoundChildren) {
+                    Item value = child.getValue(Item.class);
+                    Model.addItem(Model.getFoundList(), value);
+                    LatLng loc = new LatLng(value.getLocation().getLatitude(),
+                            value.getLocation().getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(loc).
+                            title(value.getName()).snippet(value.getDescription()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, databaseError.getMessage());
+            }
+        });
+
+        databaseReference.child("ItemLost").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> itemLostChildren = dataSnapshot.getChildren();
+                Model.clearList(Model.getFoundList());
+                for (DataSnapshot child: itemLostChildren) {
+                    Item value = child.getValue(Item.class);
+                    Model.addItem(Model.getLostList(), value);
+                    LatLng loc = new LatLng(value.getLocation().getLatitude(),
+                            value.getLocation().getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(loc).
+                            title(value.getName()).snippet(value.getDescription()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, databaseError.getMessage());
+            }
+        });
+
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
     }
+
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+        CustomInfoWindowAdapter(){
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
+            tvTitle.setText(marker.getTitle());
+            TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
+            tvSnippet.setText(marker.getSnippet());
+
+            return myContentsView;
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+    }
+
 }
+
