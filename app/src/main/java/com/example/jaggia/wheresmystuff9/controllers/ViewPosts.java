@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.jaggia.wheresmystuff9.model.item_system.FoundItem;
 import com.example.jaggia.wheresmystuff9.model.item_system.LostItem;
 import com.example.jaggia.wheresmystuff9.model.Model;
 import com.example.jaggia.wheresmystuff9.R;
@@ -78,7 +79,7 @@ public class ViewPosts extends AppCompatActivity
                 Iterable<DataSnapshot> itemFoundChildren = dataSnapshot.getChildren();
                 Model.clearList(Model.getFoundList());
                 for (DataSnapshot  child: itemFoundChildren){
-                    LostItem value = child.getValue(LostItem.class);
+                    FoundItem value = child.getValue(FoundItem.class);
                     Model.addItem(Model.getFoundList(), value);
                     populateListView();
                     registerClick();

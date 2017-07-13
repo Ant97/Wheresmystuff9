@@ -30,7 +30,7 @@ public class LostItem extends Item {
         user = "default username";
         name = "default name";
         description = "default description";
-        date = new Date();
+        date = new Date(1,1,1);
         location = new MyLocation("default location");
         location.setLatitude(0.0);
         location.setLongitude(0.0);
@@ -76,13 +76,94 @@ public class LostItem extends Item {
         this.type = type;
         this.category = category;
     }
-
+    public String toString(){
+        return name + " Lost: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user;
+    }
     public String getReward(){
         return this.reward;
     }
     public void setReward(String r){
         this.reward = r;
     }
+    public String getUsername() {
+        return user;
+    }
+
+
+    public void setUsername(String u) {
+        this.user = u;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+
+    public MyLocation getLocation() {
+        return location;
+    }
+
+
+    public void setLocation(MyLocation location) {
+        this.location = location;
+    }
+
+
+    public ItemStatus getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(ItemStatus itemStatus) {
+        this.status = itemStatus;
+    }
+
+
+    public ItemType getType() {
+        return type;
+    }
+
+
+    public void setType(ItemType itemType) {
+        this.type = itemType;
+    }
+
+
+    public ItemCategory getCategory() {
+        return category;
+    }
+
+
+    public void setCategory(ItemCategory itemCategory) {
+        this.category = itemCategory;
+    }
+
 
     public static class Builder{
         private String user;

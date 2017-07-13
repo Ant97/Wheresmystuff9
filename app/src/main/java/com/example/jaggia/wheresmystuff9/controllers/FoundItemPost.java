@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class FoundItemPost extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
+    private static final String TAG = "FoundItemPost";
 
     EditText foundName;
     EditText foundDescription;
@@ -149,12 +151,15 @@ public class FoundItemPost extends AppCompatActivity {
                     int dateYear = (int) foundDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
-                    FoundItem itemToAdd = new  FoundItem.Builder(name, location).User(Model.getCurrentUsername())
+                    FoundItem itemToAdd = (new FoundItem.Builder(name, location).User(Model.getCurrentUsername())
                             .Description(description).Date(date)
-                            .ItemStatus(status).ItemCategory(category).Build();
+                            .ItemStatus(status).ItemCategory(category)).Build();
 
                     if (Model.addItem(Model.getFoundList(), itemToAdd)) {
+                        Log.w(TAG, "Attempting to load item to database");
+                        databaseReference.child("app").child("Test").push().setValue("test");
                         databaseReference.child("app").child("FoundItem").push().setValue(itemToAdd);
+                        Log.w(TAG, "Loaded item to database");
                         //the item was created and added to the foundItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");
