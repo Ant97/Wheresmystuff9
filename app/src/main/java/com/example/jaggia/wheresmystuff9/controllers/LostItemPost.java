@@ -24,6 +24,7 @@ import com.example.jaggia.wheresmystuff9.Model.Item;
 
 import com.example.jaggia.wheresmystuff9.Model.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,6 +39,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 public class LostItemPost extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final int REQUEST_CODE_PLACEPICKER = 1;
+    private static LatLng latLng = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +50,14 @@ public class LostItemPost extends AppCompatActivity {
 
         final EditText lostName = (EditText) findViewById(R.id.itemName);
         final EditText lostDescription = (EditText) findViewById(R.id.itemDescription);
-        final EditText lostLocationLat = (EditText) findViewById(R.id.longitude);
-        final EditText lostLocationLng = (EditText) findViewById(R.id.latitude);
+        //final EditText lostLocationLat = (EditText) findViewById(R.id.longitude);
+        //final EditText lostLocationLng = (EditText) findViewById(R.id.latitude);
         final Spinner lostCategory = (Spinner) findViewById(R.id.categorySpinner);
         final EditText lostReward = (EditText) findViewById(R.id.reward);
         final Spinner lostDateDay = (Spinner) findViewById(R.id.daySpinner);
         final Spinner lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
         final Spinner lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
+        final TextView addressTextBox = (TextView) findViewById(R.id.show_selected_location);
 
         Button post = (Button) findViewById(R.id.createButton);
         Button cancelPost = (Button) findViewById(R.id.cancelLost);
@@ -116,20 +119,21 @@ public class LostItemPost extends AppCompatActivity {
                 DatabaseReference databaseReference = database.getReference();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
-                String latitude = lostLocationLat.getText().toString();
-                String longitude = lostLocationLng.getText().toString();
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
                 ItemStatus status = ItemStatus.UNRESOLVED;
                 ItemCategory category = (ItemCategory) lostCategory.getSelectedItem();
                 String reward = lostReward.getText().toString();
                 ItemType type = ItemType.LOST;
-                if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
+                if (name.length() == 0 || latitude.toString().length() <= 0
+                        || longitude.toString().length() <= 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
                     builder.setMessage("Item was not create: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
                 } else {
                     MyLocation location = new MyLocation("itemLocation");
-                    location.setLatitude(Double.parseDouble(latitude));
-                    location.setLongitude(Double.parseDouble(longitude));
+                    location.setLatitude((latitude));
+                    location.setLongitude((longitude));
 
                     int dateDay = (int) lostDateDay.getSelectedItem();
                     int dateMonth = (int) lostDateMonth.getSelectedItem();
@@ -191,7 +195,7 @@ public class LostItemPost extends AppCompatActivity {
 
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
-
+        latLng = placeSelected.getLatLng();
         TextView enterCurrentLocation = (TextView) findViewById(R.id.show_selected_location);
         enterCurrentLocation.setText(name + ", " + address);
     }

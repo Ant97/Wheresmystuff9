@@ -60,31 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/longitude"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="50dp"
-                android:hint="Longitude*"
-                android:textColorHint="@color/button1"
-                android:textColor="@color/button2"
-                android:ems= "10"
-                android:inputType="numberDecimal"
-
-                />
-            <EditText
-                android:id="@+id/latitude"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="50dp"
-                android:hint="Latitude*"
-                android:textColorHint="@color/button1"
-                android:textColor="@color/button2"
-                android:ems= "10"
-                android:inputType="numberDecimal"
                 />
         </LinearLayout>
         <LinearLayout
@@ -169,14 +144,15 @@
             </Spinner>
         </LinearLayout>
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/show_selected_location"
-                android:text="Selected location will be shown here"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/button1" />
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:text="Selected location will be shown here"
+                android:textColor="@color/button1"/>
             <Button
                 android:id="@+id/mapButton"
                 android:layout_width="120dp"
