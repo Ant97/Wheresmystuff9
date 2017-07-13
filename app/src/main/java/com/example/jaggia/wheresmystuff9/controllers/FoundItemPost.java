@@ -43,10 +43,7 @@ public class FoundItemPost extends AppCompatActivity {
 
     EditText foundName;
     EditText foundDescription;
-    EditText foundLocationLat;
-    EditText foundLocationLng;
     Spinner foundCategory;
-    // EditText foundReward;
     Spinner foundDateDay;
     Spinner foundDateMonth;
     Spinner foundDateYear;
@@ -54,6 +51,7 @@ public class FoundItemPost extends AppCompatActivity {
     Button post;
     Button cancelPost;
     Button map;
+    private static LatLng latLng = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +62,6 @@ public class FoundItemPost extends AppCompatActivity {
 
         foundName = (EditText) findViewById(R.id.itemName);
         foundDescription = (EditText) findViewById(R.id.itemDescription);
-        foundLocationLat = (EditText) findViewById(R.id.longitude);
-        foundLocationLng = (EditText) findViewById(R.id.latitude);
         foundCategory = (Spinner) findViewById(R.id.categorySpinner);
         foundDateDay = (Spinner) findViewById(R.id.daySpinner);
         foundDateMonth = (Spinner) findViewById(R.id.monthSpinner);
@@ -131,20 +127,21 @@ public class FoundItemPost extends AppCompatActivity {
 
                 String name = foundName.getText().toString();
                 String description = foundDescription.getText().toString();
-                String latitude = foundLocationLat.getText().toString();
-                String longitude = foundLocationLng.getText().toString();
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
                 ItemStatus status = ItemStatus.UNRESOLVED;
                 ItemCategory category = (ItemCategory) foundCategory.getSelectedItem();
                 ItemType type = ItemType.FOUND;
 
-                if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
+                if (name.length() == 0 || latitude.toString().length() <= 0
+                        || longitude.toString().length() <= 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                     builder.setMessage("Item was not created: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
                 } else {
                     MyLocation location = new MyLocation("itemLocation");
-                    location.setLatitude(Double.parseDouble(latitude));
-                    location.setLongitude(Double.parseDouble(longitude));
+                    location.setLatitude((latitude));
+                    location.setLongitude((longitude));
 
                     int dateDay = (int) foundDateDay.getSelectedItem();
                     int dateMonth = ((int) foundDateMonth.getSelectedItem()) - 1;
@@ -156,10 +153,7 @@ public class FoundItemPost extends AppCompatActivity {
                             .ItemStatus(status).ItemCategory(category)).Build();
 
                     if (Model.addItem(Model.getFoundList(), itemToAdd)) {
-                        Log.w(TAG, "Attempting to load item to database");
-                        databaseReference.child("app").child("Test").push().setValue("test");
-                        databaseReference.child("app").child("FoundItem").push().setValue(itemToAdd);
-                        Log.w(TAG, "Loaded item to database");
+                       databaseReference.child("app").child("FoundItem").push().setValue(itemToAdd);
                         //the item was created and added to the foundItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");
@@ -208,11 +202,11 @@ public class FoundItemPost extends AppCompatActivity {
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(data, this);
-        LatLng location = placeSelected.getLatLng();
-        foundLocationLat.setText(Double.toString(location.latitude));
-        foundLocationLng.setText(Double.toString(location.longitude));
+
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
+
+        latLng = placeSelected.getLatLng();
 
         TextView enterCurrentLocation = (TextView) findViewById(R.id.show_selected_location);
         enterCurrentLocation.setText(name + ", " + address);

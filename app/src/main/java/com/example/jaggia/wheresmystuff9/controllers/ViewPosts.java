@@ -167,6 +167,10 @@ public class ViewPosts extends AppCompatActivity
             Intent logoutIntent =
                     new Intent(ViewPosts.this, LoginScreen.class);
             ViewPosts.this.startActivity(logoutIntent);
+        } else if (id == R.id.map_posts) {
+            Intent logoutIntent =
+                    new Intent(ViewPosts.this, ViewMapPosts.class);
+            ViewPosts.this.startActivity(logoutIntent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

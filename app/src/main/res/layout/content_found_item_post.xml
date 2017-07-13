@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.jaggia.wheresmystuff9.controllers.FoundItemPost"
-    tools:showIn="@layout/activity_lost_item_post">
+    tools:showIn="@layout/activity_found_item_post">
 
     <LinearLayout
         android:id="@+id/lost_post_form"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp">
 
@@ -20,9 +21,9 @@
             android:id="@+id/create_lost_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
+            android:gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="5dp"
             android:textSize="30sp"
             android:textColor="@color/colorPrimary"
             android:text="Create New Found Post"/>
@@ -45,7 +46,7 @@
             android:id="@+id/itemDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:hint="Item Description"
@@ -59,31 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/longitude"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
-                android:hint="Longitude*"
-                android:textColorHint="@color/button1"
-                android:textColor="@color/button2"
-                android:ems= "10"
-                android:inputType="numberDecimal"
-
-                />
-            <EditText
-                android:id="@+id/latitude"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="50dp"
-                android:hint="Latitude*"
-                android:textColorHint="@color/button1"
-                android:textColor="@color/button2"
-                android:ems= "10"
-                android:inputType="numberDecimal"
                 />
         </LinearLayout>
         <LinearLayout
@@ -95,7 +71,7 @@
             <TextView
                 android:id="@+id/categoryText"
                 android:layout_width="70dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="55dp"
                 android:textColor="@color/button1"
                 android:text="@string/category"
@@ -104,7 +80,7 @@
             <Spinner
                 android:id= "@+id/categorySpinner"
                 android:layout_width="190dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="50dp"
                 >
@@ -113,119 +89,120 @@
         </LinearLayout>
         <LinearLayout
             android:id = "@+id/dateLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/monthText"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="55dp"
-                android:textColor="@color/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
                 android:text="@string/month"
+                android:textColor="@color/button1"
                 android:textSize="14sp"
                 />
             <Spinner
                 android:id= "@+id/monthSpinner"
+                android:layout_marginLeft="25dp"
                 android:layout_width="30dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="10dp"
                 >
             </Spinner>
             <TextView
                 android:id="@+id/dayText"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="12dp"
-                android:textColor="@color/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
                 android:text="@string/day"
+                android:textColor="@color/button1"
                 android:textSize="14sp"
                 />
             <Spinner
                 android:id= "@+id/daySpinner"
                 android:layout_width="30dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="10dp"
                 >
             </Spinner>
             <TextView
                 android:id="@+id/yearText"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="12dp"
-                android:textColor="@color/button1"
                 android:text="@string/year"
+                android:textColor="@color/button1"
                 android:textSize="14sp"
                 />
             <Spinner
                 android:id= "@+id/yearSpinner"
                 android:layout_width="30dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="10dp"
                 >
             </Spinner>
         </LinearLayout>
+            <TextView
+                android:id="@+id/show_selected_location"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:text="Selected location will be shown here"
+                android:textColor="@color/button1"/>
+            <Button
+                android:id="@+id/mapButton"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_round_two"
+                android:text="Map"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp">
+
+            </Button>
+
         <LinearLayout
             android:id="@+id/buttonsLayout"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/createFound"
-                android:layout_width="80dp"
+                android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_centerInParent="true"
                 android:layout_marginLeft="50dp"
                 android:layout_weight="1"
-                android:background="@color/button1"
+                android:background="@drawable/button_round_two"
                 android:text="Create"
                 android:textColor="@color/colorAccent"
-                android:textSize="20sp"></Button>
+                android:textSize="20sp">
+
+            </Button>
 
             <Button
                 android:id="@+id/cancelFound"
-                android:layout_width="80dp"
+                android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="40dp"
                 android:layout_marginRight="50dp"
                 android:layout_weight="1"
-                android:background="@color/button2"
-                android:textSize="20sp"
+                android:background="@drawable/button_round_two"
+                android:text="Cancel"
                 android:textColor="@color/colorAccent"
-                android:text="Cancel"></Button>
+                android:textSize="20sp">
+
+            </Button>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/show_selected_location"
-                android:text="Selected location will be shown here"
-                android:layout_centerHorizontal="true"/>
-            <Button
-                android:id="@+id/mapButton"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1"
-                android:background="@color/button2"
-                android:text="Map"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:layout_centerHorizontal="true"></Button>
-
-        </RelativeLayout>
 
     </LinearLayout>
 

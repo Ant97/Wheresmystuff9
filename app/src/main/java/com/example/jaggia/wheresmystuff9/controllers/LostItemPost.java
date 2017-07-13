@@ -36,6 +36,7 @@ public class LostItemPost extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final int REQUEST_CODE_PLACEPICKER = 1;
     public static final String TAG = "LostItemPost";
+    private static LatLng latLng = null;
 
     EditText lostName;
     EditText lostDescription;
@@ -55,8 +56,6 @@ public class LostItemPost extends AppCompatActivity {
 
         lostName = (EditText) findViewById(R.id.itemName);
         lostDescription = (EditText) findViewById(R.id.itemDescription);
-        lostLocationLat = (EditText) findViewById(R.id.longitude);
-        lostLocationLng = (EditText) findViewById(R.id.latitude);
         lostCategory = (Spinner) findViewById(R.id.categorySpinner);
         lostReward = (EditText) findViewById(R.id.reward);
         lostDateDay = (Spinner) findViewById(R.id.daySpinner);
@@ -123,20 +122,21 @@ public class LostItemPost extends AppCompatActivity {
                 DatabaseReference databaseReference = database.getReference();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
-                String latitude = lostLocationLat.getText().toString();
-                String longitude = lostLocationLng.getText().toString();
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
                 ItemStatus status = ItemStatus.UNRESOLVED;
                 ItemCategory category = (ItemCategory) lostCategory.getSelectedItem();
                 String reward = lostReward.getText().toString();
                 ItemType type = ItemType.LOST;
-                if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
+                if (name.length() == 0 || latitude.toString().length() <= 0
+                        || longitude.toString().length() <= 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
                     builder.setMessage("Item was not created: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
                 } else {
                     MyLocation location = new MyLocation("itemLocation");
-                    location.setLatitude(Double.parseDouble(latitude));
-                    location.setLongitude(Double.parseDouble(longitude));
+                    location.setLatitude((latitude));
+                    location.setLongitude((longitude));
 
                     int dateDay = (int) lostDateDay.getSelectedItem();
                     int dateMonth = ((int) lostDateMonth.getSelectedItem()) - 1;
@@ -147,7 +147,6 @@ public class LostItemPost extends AppCompatActivity {
                             .Reward(reward).Description(description)
                             .Date(date).ItemStatus(status)
                             .ItemCategory(category).Build();
-                    Log.w(TAG, "Here is the date  " + itemToAdd.getDate().getMonth());
                     if (Model.addItem(Model.getLostList(), itemToAdd)) {
                         databaseReference.child("app").child("LostItem").push().setValue(itemToAdd);
                         //the item was created and added to the lostItems
@@ -199,12 +198,10 @@ public class LostItemPost extends AppCompatActivity {
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(data, this);
-        LatLng location = placeSelected.getLatLng();
-        lostLocationLat.setText(Double.toString(location.latitude));
-        lostLocationLng.setText(Double.toString(location.longitude));
+
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
-
+        latLng = placeSelected.getLatLng();
         TextView enterCurrentLocation = (TextView) findViewById(R.id.show_selected_location);
         enterCurrentLocation.setText(name + ", " + address);
     }
