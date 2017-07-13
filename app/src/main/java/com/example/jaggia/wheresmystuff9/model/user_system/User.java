@@ -28,7 +28,7 @@ public class User implements Parcelable{
     /*ErrorCode returned when creating the user*/
     //private ErrorCode _errorCode;
     /**Boolean to tell if user is an Admin*/
-    private boolean Admin;
+    private boolean admin;
     /**String to hold the users's email*/
     private String email;
 
@@ -50,7 +50,7 @@ public class User implements Parcelable{
         this.name = name;
         this.username = username;
         this.password = password;
-        this.Admin = false;
+        this.admin = false;
         this.email = "jamesg166@comcast.net";
     }
     /** makes a new User
@@ -63,7 +63,7 @@ public class User implements Parcelable{
      */
     public User(String name, String username, String password, boolean isAdmin){
         this(name, username,password);
-        this.Admin = isAdmin;
+        this.admin = isAdmin;
         this.email = "jamesg166@comcast.net";
     }
     public User(String name, String username, String password, boolean isAdmin, String email){
@@ -101,8 +101,8 @@ public class User implements Parcelable{
     //public ErrorCode getErrorCode() {return _errorCode; }
     public String getEmail() {return this.email;}
     public void setEmail(String email) {this.email = email;}
-    public boolean getAdmin(){return this.Admin;}
-    public void setAdmin(boolean isAdmin){this.Admin = isAdmin;}
+    public boolean getAdmin(){return this.admin;}
+    public void setAdmin(boolean isAdmin){this.admin = isAdmin;}
     /**
      *
      * @param username name to set as the user's username
@@ -146,6 +146,7 @@ public class User implements Parcelable{
         dest.writeString(username);
         dest.writeString(password);
         dest.writeString(email);
+        dest.writeSerializable(admin);
         dest.writeInt(id);
     }
 
@@ -155,6 +156,7 @@ public class User implements Parcelable{
         username = in.readString();
         password = in.readString();
         email = in.readString();
+        admin = (boolean) in.readSerializable();
         id = in.readInt();
     }
 

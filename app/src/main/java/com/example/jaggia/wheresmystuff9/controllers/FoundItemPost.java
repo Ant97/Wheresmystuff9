@@ -73,7 +73,7 @@ public class FoundItemPost extends AppCompatActivity {
         cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
         map = (Button) findViewById(R.id.mapButton);
 
-        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundCategory.setAdapter(adapter);
 
@@ -82,7 +82,7 @@ public class FoundItemPost extends AppCompatActivity {
             days[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, days);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundDateDay.setAdapter(adapter2);
 
@@ -92,7 +92,7 @@ public class FoundItemPost extends AppCompatActivity {
             months[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter3 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, months);
+        ArrayAdapter<Integer> adapter3 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, months);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundDateMonth.setAdapter(adapter3);
 
@@ -101,7 +101,7 @@ public class FoundItemPost extends AppCompatActivity {
             years[i] = (i + 1990);
         }
 
-        ArrayAdapter<Integer> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<Integer> adapter4 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, years);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         foundDateYear.setAdapter(adapter4);
 
@@ -149,10 +149,12 @@ public class FoundItemPost extends AppCompatActivity {
                     int dateYear = (int) foundDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
-                    FoundItem itemToAdd = new  FoundItem.Builder(name, location).Description(description).Date(date).ItemStatus(status).ItemCategory(category).Build();
+                    FoundItem itemToAdd = new  FoundItem.Builder(name, location).User(Model.getCurrentUsername())
+                            .Description(description).Date(date)
+                            .ItemStatus(status).ItemCategory(category).Build();
 
                     if (Model.addItem(Model.getFoundList(), itemToAdd)) {
-                        databaseReference.child("app").child("FoundItem").push().setValue(Model.createNewFoundItem(Model.getCurrentUser(), name, description, date, location, status, type, category));
+                        databaseReference.child("app").child("FoundItem").push().setValue(itemToAdd);
                         //the item was created and added to the foundItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
                         builder.setMessage("Item was created successfully!");

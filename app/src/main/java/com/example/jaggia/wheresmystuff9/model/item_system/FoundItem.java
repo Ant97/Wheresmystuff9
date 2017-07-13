@@ -8,9 +8,9 @@ import java.util.Date;
  * Created by James on 7/11/2017.
  */
 
-public class FoundItem implements Item {
+public class FoundItem extends Item {
 
-    private User user;
+    private String user;
     private String name;
     private String description;
     private Date date;
@@ -20,7 +20,7 @@ public class FoundItem implements Item {
     private ItemCategory category;
 
     public FoundItem(){
-        user = new User();
+        user = "default username";
         name = "default name";
         description = "default description";
         date = new Date();
@@ -41,7 +41,7 @@ public class FoundItem implements Item {
         this.type = b.type;
         this.category = b.category;
     }
-    public FoundItem(User user, String name, String description, Date date, MyLocation location, ItemStatus itemStatus, ItemType itemType, ItemCategory itemCategory){
+    public FoundItem(String user, String name, String description, Date date, MyLocation location, ItemStatus itemStatus, ItemType itemType, ItemCategory itemCategory){
         this.user = user;
         this.name = name;
         this.description = description;
@@ -53,91 +53,11 @@ public class FoundItem implements Item {
     }
     @Override
     public String toString() {
-        return name + " Date: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user.getUsername();
-    }
-
-    @Override
-    public User getUser() {
-        return user;
-    }
-
-    @Override
-    public void setUser(User u) {
-        this.user = u;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public Date getDate() {
-        return date;
-    }
-
-    @Override
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @Override
-    public MyLocation getLocation() {
-        return location;
-    }
-
-    @Override
-    public void setLocation(MyLocation location) {
-        this.location = location;
-    }
-
-    @Override
-    public ItemStatus getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(ItemStatus itemStatus) {
-        this.status = itemStatus;
-    }
-
-    @Override
-    public ItemType getType() {
-        return type;
-    }
-
-    @Override
-    public void setType(ItemType itemType) {
-        this.type = itemType;
-    }
-
-    @Override
-    public ItemCategory getCategory() {
-        return category;
-    }
-
-    @Override
-    public void setCategory(ItemCategory itemCategory) {
-        this.category = itemCategory;
+        return name + " Found: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user;
     }
 
     public static class Builder{
-        private User user;
+        private String user;
         final private String name;
         private String description;
         private Date date;
@@ -150,15 +70,13 @@ public class FoundItem implements Item {
             this.name = name;
             this.location = location;
             this.type = ItemType.FOUND;
-            User tempuser = new User();
-            tempuser.setName("Default item User");
-            this.user = tempuser;
+            this.user = "Default Username";
             this.description = "Default description";
-            this.date = new Date();
+            this.date = new Date(1,1,1);
             this.status = ItemStatus.UNRESOLVED;
             this.category = ItemCategory.MISC;
         }
-        public Builder User(User u){
+        public Builder User(String u){
             user = u;
             return this;
         }

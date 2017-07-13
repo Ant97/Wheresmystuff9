@@ -7,25 +7,22 @@ import java.util.List;
 /**
  * Created by James on 6/14/2017.
  *
- * Represents a UserDataBase that can contain many Users
+ * Represents a UserDatabase that can contain many Users
  *
  * Temporary class until extra credit database is implemented
  */
 
-public class UserDataBase {
+public class UserDatabase {
 
     /**List<> containing all the users for this database*/
     private List<User> _users;
-    private UserSearchHandler userSearchHandler;
-    private PasswordHandler passwordHandler;
+
 
     /**number of Users in database -- not currently used, for future expansion*/
     private int _numUsers;
 
     /**constructor to initialize the list for the database*/
-    public UserDataBase() {
-        userSearchHandler = new UserSearchHandler();
-        passwordHandler = new PasswordHandler();
+    public UserDatabase() {
         _users = new ArrayList<>();
         _numUsers = 0;
     }
@@ -59,9 +56,6 @@ public class UserDataBase {
      *         returns false if not found or password incorrect, or if null user is passed
      */
     public ErrorCode validateUser(String username, String password) {
-        if(null == username){
-            return ErrorCode.ILLEGALUSERNAME;
-        }
         for (User u : _users) {
             if (u.getUsername().equals(username)) {
                 if (u.getPassword().equals(password)) {
@@ -82,19 +76,28 @@ public class UserDataBase {
      * @return ErrorCode SUCCESS if successful, PASSWORDMISMATCH if not
      *
      */
-    public ErrorCode validatePasswordMatch(String password1, String password2){
-        return passwordHandler.validatePasswordMatch(password1, password2);
+    public boolean validatePasswordMatch(String password1, String password2){
+        return PasswordHandler.validatePasswordMatch(password1, password2);
     }
 
-    public ErrorCode validatePassword(String password){
-        return passwordHandler.validatePassword(password);
+    public boolean validatePassword(String password){
+        return PasswordHandler.validatePassword(password);
     }
 
     public User findUserByUsername(String username){
-        return userSearchHandler.findUserByUsername(_users, username);
+        return UserSearchHandler.findUserByUsername(_users, username);
     }
     public User findUserByEmail(String email){
-        return userSearchHandler.findUserByEmail(_users, email);
+        return UserSearchHandler.findUserByEmail(_users, email);
+    }
+    public boolean validateEmailFormat(String email){
+        return EmailHandler.validateEmailFormat(email);
+    }
+    public boolean validateLegalUsername(String username){
+        return UsernameHandler.validateLegalUsername(username);
+    }
+    public boolean validatePersonName(String name){
+        return UsernameHandler.validatePersonName(name);
     }
 }
 

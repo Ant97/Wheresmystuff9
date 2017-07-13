@@ -14,7 +14,7 @@ public class MyLocation extends Location {
         super("default location");
     }
     public MyLocation(String s){
-        super("s");
+        super(s);
     }
 
     public MyLocation(Location l) {
@@ -24,21 +24,6 @@ public class MyLocation extends Location {
     @Override
     public void set(Location l) {
         super.set(l);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-    }
-
-    @Override
-    public float distanceTo(Location dest) {
-        return super.distanceTo(dest);
-    }
-
-    @Override
-    public float bearingTo(Location dest) {
-        return super.bearingTo(dest);
     }
 
     @Override
@@ -107,16 +92,6 @@ public class MyLocation extends Location {
     }
 
     @Override
-    public void removeAltitude() {
-        super.removeAltitude();
-    }
-
-    @Override
-    public boolean hasSpeed() {
-        return super.hasSpeed();
-    }
-
-    @Override
     public float getSpeed() {
         return super.getSpeed();
     }
@@ -124,16 +99,6 @@ public class MyLocation extends Location {
     @Override
     public void setSpeed(float speed) {
         super.setSpeed(speed);
-    }
-
-    @Override
-    public void removeSpeed() {
-        super.removeSpeed();
-    }
-
-    @Override
-    public boolean hasBearing() {
-        return super.hasBearing();
     }
 
     @Override
@@ -147,16 +112,6 @@ public class MyLocation extends Location {
     }
 
     @Override
-    public void removeBearing() {
-        super.removeBearing();
-    }
-
-    @Override
-    public boolean hasAccuracy() {
-        return super.hasAccuracy();
-    }
-
-    @Override
     public float getAccuracy() {
         return super.getAccuracy();
     }
@@ -167,11 +122,6 @@ public class MyLocation extends Location {
     }
 
     @Override
-    public void removeAccuracy() {
-        super.removeAccuracy();
-    }
-
-    @Override
     public Bundle getExtras() {
         return super.getExtras();
     }
@@ -179,16 +129,6 @@ public class MyLocation extends Location {
     @Override
     public void setExtras(Bundle extras) {
         super.setExtras(extras);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    public void dump(Printer pw, String prefix) {
-        super.dump(pw, prefix);
     }
 
     @Override

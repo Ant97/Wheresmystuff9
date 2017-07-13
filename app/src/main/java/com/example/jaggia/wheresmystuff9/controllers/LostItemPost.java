@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 public class LostItemPost extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final int REQUEST_CODE_PLACEPICKER = 1;
+    public static final String TAG = "LostItemPost";
 
     EditText lostName;
     EditText lostDescription;
@@ -66,7 +68,7 @@ public class LostItemPost extends AppCompatActivity {
         Button map = (Button) findViewById(R.id.mapButton);
 
 
-        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostCategory.setAdapter(adapter);
 
@@ -75,7 +77,7 @@ public class LostItemPost extends AppCompatActivity {
             days[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, days);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateDay.setAdapter(adapter2);
 
@@ -85,7 +87,7 @@ public class LostItemPost extends AppCompatActivity {
             months[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter3 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, months);
+        ArrayAdapter<Integer> adapter3 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, months);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateMonth.setAdapter(adapter3);
 
@@ -94,7 +96,7 @@ public class LostItemPost extends AppCompatActivity {
             years[i] = (i + 1990);
         }
 
-        ArrayAdapter<Integer> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<Integer> adapter4 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, years);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateYear.setAdapter(adapter4);
 
@@ -141,10 +143,13 @@ public class LostItemPost extends AppCompatActivity {
                     int dateYear = (int) lostDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
-                    LostItem itemToAdd = new  LostItem.Builder(name, location).Description(description).Date(date).ItemStatus(status).ItemCategory(category).Build();
-
+                    LostItem itemToAdd = new  LostItem.Builder(name, location).User(Model.getCurrentUsername())
+                            .Reward(reward).Description(description)
+                            .Date(date).ItemStatus(status)
+                            .ItemCategory(category).Build();
+                    Log.w(TAG, "Here is the date  " + itemToAdd.getDate().getMonth());
                     if (Model.addItem(Model.getLostList(), itemToAdd)) {
-                        databaseReference.child("app").child("LostItem").push().setValue(Model.createNewLostItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category));
+                        databaseReference.child("app").child("LostItem").push().setValue(itemToAdd);
                         //the item was created and added to the lostItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
                         builder.setMessage("Item was created successfully!");

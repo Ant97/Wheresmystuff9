@@ -25,7 +25,7 @@ public class Model {
     }
 
     /** the user database */
-    private static UserDataBase _database;
+    private static UserDatabase _database;
     /**the current user logged in */
     private static User _currentUser;
     /**the current item being operated on */
@@ -38,7 +38,7 @@ public class Model {
      * make a new model
      */
     private Model() {
-        _database = new UserDataBase();
+        _database = new UserDatabase();
     }
 
     /* *****************************************
@@ -49,7 +49,7 @@ public class Model {
      *
      * @return  the user database
      */
-    public static UserDataBase getDataBase(){
+    public static UserDatabase getDataBase(){
         return _database;
     }
 
@@ -140,42 +140,12 @@ public class Model {
      * @return true if successful, false if not
      */
     public static boolean validatePasswordMatch(String password1, String password2){
-        if(_database.validatePasswordMatch(password1, password2) == ErrorCode.SUCCESS){
-            return true;
-        }
-        return false;
+        return _database.validatePasswordMatch(password1, password2);
+
     }
 
     public static boolean validatePassword(String password){
-        if(_database.validatePassword(password) == ErrorCode.SUCCESS){
-            return true;
-        }
-        return false;
-    }
-
-
-
-
-
-    /**
-     * Constructor for an item
-     * @param user The user creating the item
-     * @param name The name of the item
-     * @param description A description for the item
-     * @param date The date the item was found
-     * @param location The location the item was found
-     * @param reward The reward for finding the item
-     * @param status The current status of the item (resolved or unresolved)
-     * @param type The type of item (lost, found, donated)
-     * @param category The category the item fits into
-     */
-    public static Item createNewLostItem(User user, String name, String description, Date date, MyLocation location,
-                                         String reward, ItemStatus status, ItemType type, ItemCategory category){
-        return new LostItem(user, name, description, date, location, reward, status, type, category);
-    }
-    public static Item createNewFoundItem(User user, String name, String description, Date date, MyLocation location,
-                                         ItemStatus status, ItemType type, ItemCategory category){
-        return new FoundItem(user, name, description, date, location, status, type, category);
+        return _database.validatePassword(password);
     }
     /**
      * addItem to an itemObject list
@@ -204,6 +174,26 @@ public class Model {
     }
     public static User findUserByEmail(String email){
         return _database.findUserByEmail(email);
+    }
+
+    public static boolean validateEmailFormat(String email){
+        return _database.validateEmailFormat(email);
+    }
+    public static String getCurrentUsername(){
+        return _currentUser.getUsername();
+    }
+
+    public static boolean validateLegalUsername(String username){
+        return _database.validateLegalUsername(username);
+    }
+    public static boolean validatePersonName(String name){
+        return _database.validatePersonName(name);
+    }
+    public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2){
+        if(validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2) && (null == findUserByUsername(username)) && (null == findUserByEmail(email))){
+            return true;
+        }
+        return false;
     }
 
 }

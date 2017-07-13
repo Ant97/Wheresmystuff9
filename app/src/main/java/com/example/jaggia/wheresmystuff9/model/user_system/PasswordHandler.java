@@ -7,18 +7,12 @@ import com.example.jaggia.wheresmystuff9.model.error_coding.ErrorCode;
  */
 
 public class PasswordHandler {
-    public ErrorCode validatePasswordMatch(String password1, String password2){
-        if(password1.equals(password2)){
-            return ErrorCode.SUCCESS;
-        }
-        return ErrorCode.PASSWORDMISMATCH;
+    private static final int VALIDPASSWORDLENGTH = 6;
+    public static boolean validatePasswordMatch(String password1, String password2){
+        return (password1.equals(password2));
     }
 
-    public ErrorCode validatePassword(String password){
-        if(password.length() > 6){
-            return ErrorCode.SUCCESS;
-        } else {
-            return ErrorCode.ILLEGALPASSWORD;
-        }
+    public static boolean validatePassword(String password){
+        return !(password.length() < VALIDPASSWORDLENGTH);
     }
 }

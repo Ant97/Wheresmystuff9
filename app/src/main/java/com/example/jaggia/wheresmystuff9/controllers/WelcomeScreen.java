@@ -21,10 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class WelcomeScreen extends AppCompatActivity {
 
     private final String TAG = "Welcome Screen";
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReferenceUsers = firebaseDatabase.getReference().child("Users");
-    DatabaseReference databaseReferenceItemFound = firebaseDatabase.getReference().child("FoundItem");
-    DatabaseReference databaseReferenceItemLost = firebaseDatabase.getReference().child("LostItem");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

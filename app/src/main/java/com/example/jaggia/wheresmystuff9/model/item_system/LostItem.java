@@ -13,10 +13,10 @@ import java.util.Date;
  * Information holder class for item
  */
 
-public class LostItem implements Item {
+public class LostItem extends Item {
 
 
-    private User user;
+    private String user;
     private String name;
     private String description;
     private Date date;
@@ -27,7 +27,7 @@ public class LostItem implements Item {
     private ItemCategory category;
 
     public LostItem() {
-        user = new User();
+        user = "default username";
         name = "default name";
         description = "default description";
         date = new Date();
@@ -45,6 +45,7 @@ public class LostItem implements Item {
         this.name = b.name;
         this.description = b.description;
         this.date = b.date;
+        this.reward = b.reward;
         this.location = b.location;
         this.status = b.status;
         this.type = b.type;
@@ -64,7 +65,7 @@ public class LostItem implements Item {
      * @param type        The type of item (lost, found, donated)
      * @param category    The category the item fits into
      */
-    public LostItem(User user, String name, String description, Date date, MyLocation location, String reward, ItemStatus status, ItemType type, ItemCategory category) {
+    public LostItem(String user, String name, String description, Date date, MyLocation location, String reward, ItemStatus status, ItemType type, ItemCategory category) {
         this.user = user;
         this.name = name;
         this.description = description;
@@ -76,197 +77,19 @@ public class LostItem implements Item {
         this.category = category;
     }
 
-    /**
-     * toString method for item
-     *
-     * @return return the string name
-     */
-    @Override
-    public String toString() {
-        return name + " Date: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user.getUsername();
+    public String getReward(){
+        return this.reward;
     }
-
-
-    /**
-     * @return current User
-     */
-    @Override
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * Set current user to the paramater 'user'
-     *
-     * @param user user to be set
-     */
-    @Override
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
-    /**
-     * @return current name for the LostItem
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Set current LostItem name to the paramater 'name'
-     *
-     * @param name name for the item
-     */
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    /**
-     * @return current description for the LostItem
-     */
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Set current LostItem description to the paramater 'description'
-     *
-     * @param description description for the item
-     */
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    /**
-     * @return current date for the LostItem
-     */
-    @Override
-    public Date getDate() {
-        return date;
-    }
-
-    /**
-     * Set current LostItem date to the paramater 'date'
-     *
-     * @param date date for when the item was lost
-     */
-    @Override
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-
-    /**
-     * @return current Location for the LostItem
-     */
-    @Override
-    public MyLocation getLocation() {
-        return location;
-    }
-
-    /**
-     * Set current LostItem location to the paramater 'location'
-     *
-     * @param location location to set
-     */
-    @Override
-    public void setLocation(MyLocation location) {
-        this.location = location;
-    }
-
-
-    /**
-     * @return current reward for the LostItem
-     */
-    public String getReward() {
-        return reward;
-    }
-
-    /**
-     * Set current LostItem reward to the paramater 'reward'
-     *
-     * @param reward reward for the item
-     */
-    public void setReward(String reward) {
-        this.reward = reward;
-    }
-
-
-    /**
-     * @return current status for the LostItem
-     */
-    @Override
-    public ItemStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * Set current LostItem status to the paramater 'status'
-     *
-     * @param status the status of the item
-     */
-    @Override
-    public void setStatus(ItemStatus status) {
-        this.status = status;
-    }
-
-
-    /**
-     * @return current type for the LostItem
-     */
-    @Override
-    public ItemType getType() {
-        return type;
-    }
-
-    /**
-     * Set current LostItem type to the paramater 'type'
-     *
-     * @param type type of item
-     */
-    @Override
-    public void setType(ItemType type) {
-        this.type = type;
-    }
-
-
-    /**
-     * @return current LostItem Category
-     */
-    @Override
-    public ItemCategory getCategory() {
-        return category;
-    }
-
-    /**
-     * @return ItemCategory values
-     */
-    public static ItemCategory[] getItemCategoryValues() {
-        return ItemCategory.values();
-    }
-
-    /**
-     * Set current LostItem Category to the paramater 'category'
-     *
-     * @param category the category of the item
-     */
-    @Override
-    public void setCategory(ItemCategory category) {
-        this.category = category;
+    public void setReward(String r){
+        this.reward = r;
     }
 
     public static class Builder{
-        private User user;
+        private String user;
         final private String name;
         private String description;
         private Date date;
+        private String reward;
         final private MyLocation location;
         private ItemStatus status;
         final private ItemType type;
@@ -275,16 +98,15 @@ public class LostItem implements Item {
         public Builder(String name, MyLocation location){
             this.name = name;
             this.location = location;
-            this.type = ItemType.FOUND;
-            User tempuser = new User();
-            tempuser.setName("Default item User");
-            this.user = tempuser;
+            this.type = ItemType.LOST;
+            this.user = "Default username";
             this.description = "Default description";
-            this.date = new Date();
+            this.reward = "Default reward";
+            this.date = new Date(1,1,1);
             this.status = ItemStatus.UNRESOLVED;
             this.category = ItemCategory.MISC;
         }
-        public Builder User(User u){
+        public Builder User(String u){
             user = u;
             return this;
         }
@@ -302,6 +124,10 @@ public class LostItem implements Item {
         }
         public Builder ItemCategory(ItemCategory c){
             category = c;
+            return this;
+        }
+        public Builder Reward(String r){
+            reward = r;
             return this;
         }
         public LostItem Build(){

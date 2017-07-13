@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.jaggia.wheresmystuff9.model.Model;
+import com.example.jaggia.wheresmystuff9.model.user_system.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseNetworkException;
@@ -22,7 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -36,7 +41,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     private FirebaseAuth myAuth;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
+    DatabaseReference databaseReference = firebaseDatabase.getReference();
     EditText registerEmail;
     EditText registerName;
     EditText registerUsername;
@@ -67,10 +72,24 @@ public class RegisterScreen extends AppCompatActivity {
 
         String userTypes[] = {"User", "Admin"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, userTypes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, userTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         registerUserType.setAdapter(adapter);
+        databaseReference.child("app").child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> usersChildren = dataSnapshot.getChildren();
+                for (DataSnapshot  child: usersChildren){
+                    User value = child.getValue(User.class);
+                    Model.registerNewUser(value);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, databaseError.getMessage());
+            }
+        });
         cancelRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,8 +113,7 @@ public class RegisterScreen extends AppCompatActivity {
                 final String pw = registerPW.getText().toString();
                 final String pw2 = registerPW2.getText().toString();
                 final boolean userType = false;
-        //TODO fix this shit
-                if((username.length() > 4) && Model.validatePassword(pw) && Model.validatePasswordMatch(pw, pw2) && (null == Model.findUserByUsername(username)) ) {
+                if (Model.validateLegalRegistration(name, username, email, pw, pw2)) {
                     Log.v(TAG, "It is attempting to make a new user");
                     myAuth.createUserWithEmailAndPassword(email, pw)
                             .addOnCompleteListener(RegisterScreen.this, new OnCompleteListener<AuthResult>() {
@@ -124,7 +142,7 @@ public class RegisterScreen extends AppCompatActivity {
                                                     }
                                                 }).create().show();
                                     } else {
-                                        Exception e = (Exception) task.getException();
+                                        Exception e = task.getException();
                                         Log.w("LoginActivity", "Failed Registration", e);
                                         firebaseDatabase.getReference().child("app").child("Errors").push().setValue(e.getMessage());
                                         AlertDialog.Builder builder =
@@ -135,22 +153,46 @@ public class RegisterScreen extends AppCompatActivity {
                                     }
                                 }
                             });
+                } else if(!Model.validatePersonName(name)) {
+                        AlertDialog.Builder builder =
+                                new AlertDialog.Builder(RegisterScreen.this);
+                        builder.setMessage("Registration failed because a name was not entered")
+                                .setNegativeButton("Retry", null)
+                                .create().show();
+                } else if(!Model.validateLegalUsername(username)) {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(RegisterScreen.this);
+                    builder.setMessage("Registration failed because the username is not valid")
+                            .setNegativeButton("Retry", null)
+                            .create().show();
+                } else if(!Model.validateEmailFormat(email)){
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(RegisterScreen.this);
+                    builder.setMessage("Registration failed because the email is not valid")
+                            .setNegativeButton("Retry", null)
+                            .create().show();
                 } else if (!(null == Model.findUserByUsername(username))){
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Register failed because the username has been taken")
+                    builder.setMessage("Registration failed because the username has been taken")
+                            .setNegativeButton("Retry", null)
+                            .create().show();
+                } else if(!(null == Model.findUserByEmail(email))){
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(RegisterScreen.this);
+                    builder.setMessage("Registration failed because the email is already tied to another account")
                             .setNegativeButton("Retry", null)
                             .create().show();
                 } else if(!Model.validatePassword(pw)) {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Register failed because the password is illegal. Must be at least 7 characters")
+                    builder.setMessage("Registration failed because the password is illegal. Must be at least 7 characters")
                             .setNegativeButton("Retry", null)
                             .create().show();
                 } else if(!Model.validatePasswordMatch(pw, pw2)){
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Register failed because the passwords do not match")
+                    builder.setMessage("Registration failed because the passwords do not match")
                             .setNegativeButton("Retry", null)
                             .create().show();
                 }

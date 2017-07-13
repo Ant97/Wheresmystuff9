@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public class UserSearchHandler {
-    public User findUserByUsername(List<User> users, String username){
+    public static User findUserByUsername(List<User> users, String username){
         for(User u: users){
             if(u.getUsername().equals(username)){
                 return u;
@@ -15,7 +15,7 @@ public class UserSearchHandler {
         }
         return null;
     }
-    public User findUserByEmail(List<User> users, String email){
+    public static User findUserByEmail(List<User> users, String email){
         for (User u: users){
             if(u.getEmail().equals(email)){
                 return u;

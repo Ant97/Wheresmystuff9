@@ -8,33 +8,99 @@ import java.util.Date;
  * Created by James on 7/11/2017.
  */
 
-public interface Item {
+public abstract class Item {
 
-    String toString();
+    private String user;
+    private String name;
+    private String description;
+    private Date date;
+    private MyLocation location;
+    private ItemStatus status;
+    private ItemType type;
+    private ItemCategory category;
 
-    User getUser();
-    void setUser(User u);
+    public String toString(){
+        return name + " Date: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user;
+    }
 
-    String getName();
-    void setName(String name);
 
-    String getDescription();
-    void setDescription(String description);
+    public String getUsername() {
+        return user;
+    }
 
-    Date getDate();
-    void setDate(Date date);
 
-    MyLocation getLocation();
-    void setLocation(MyLocation location);
+    public void setUsername(String u) {
+        this.user = u;
+    }
 
-    ItemStatus getStatus();
-    void setStatus(ItemStatus itemStatus);
 
-    ItemType getType();
-    void setType(ItemType itemType);
+    public String getName() {
+        return name;
+    }
 
-    ItemCategory getCategory();
-    void setCategory(ItemCategory itemCategory);
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+
+    public MyLocation getLocation() {
+        return location;
+    }
+
+
+    public void setLocation(MyLocation location) {
+        this.location = location;
+    }
+
+
+    public ItemStatus getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(ItemStatus itemStatus) {
+        this.status = itemStatus;
+    }
+
+
+    public ItemType getType() {
+        return type;
+    }
+
+
+    public void setType(ItemType itemType) {
+        this.type = itemType;
+    }
+
+
+    public ItemCategory getCategory() {
+        return category;
+    }
+
+
+    public void setCategory(ItemCategory itemCategory) {
+        this.category = itemCategory;
+    }
 }
 
