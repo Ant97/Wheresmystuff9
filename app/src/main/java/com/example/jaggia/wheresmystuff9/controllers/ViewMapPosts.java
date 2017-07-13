@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.jaggia.wheresmystuff9.Model.Item;
-import com.example.jaggia.wheresmystuff9.Model.Model;
+import com.example.jaggia.wheresmystuff9.model.item_system.FoundItem;
+import com.example.jaggia.wheresmystuff9.model.item_system.Item;
+import com.example.jaggia.wheresmystuff9.model.Model;
+import com.example.jaggia.wheresmystuff9.model.item_system.LostItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -59,13 +61,13 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        databaseReference.child("ItemFound").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("FoundItem").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> itemFoundChildren = dataSnapshot.getChildren();
                 Model.clearList(Model.getFoundList());
                 for (DataSnapshot child: itemFoundChildren) {
-                    Item value = child.getValue(Item.class);
+                    FoundItem value = child.getValue(FoundItem.class);
                     Model.addItem(Model.getFoundList(), value);
                     LatLng loc = new LatLng(value.getLocation().getLatitude(),
                             value.getLocation().getLongitude());
@@ -81,13 +83,13 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        databaseReference.child("ItemLost").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("LostItem").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> itemLostChildren = dataSnapshot.getChildren();
-                Model.clearList(Model.getFoundList());
+                Model.clearList(Model.getLostList());
                 for (DataSnapshot child: itemLostChildren) {
-                    Item value = child.getValue(Item.class);
+                    LostItem value = child.getValue(LostItem.class);
                     Model.addItem(Model.getLostList(), value);
                     LatLng loc = new LatLng(value.getLocation().getLatitude(),
                             value.getLocation().getLongitude());
