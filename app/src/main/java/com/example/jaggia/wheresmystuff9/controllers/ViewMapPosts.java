@@ -60,7 +60,6 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(20, 20)));
 
         databaseReference.child("FoundItem").addValueEventListener(new ValueEventListener() {
             @Override
