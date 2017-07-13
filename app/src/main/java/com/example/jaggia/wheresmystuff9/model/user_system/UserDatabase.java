@@ -1,25 +1,28 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model.user_system;
+
+import com.example.jaggia.wheresmystuff9.model.error_coding.ErrorCode;
 
 import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by James on 6/14/2017.
  *
- * Represents a UserDataBase that can contain many Users
+ * Represents a UserDatabase that can contain many Users
  *
  * Temporary class until extra credit database is implemented
  */
 
-public class UserDataBase {
+public class UserDatabase {
 
     /**List<> containing all the users for this database*/
     private List<User> _users;
+
 
     /**number of Users in database -- not currently used, for future expansion*/
     private int _numUsers;
 
     /**constructor to initialize the list for the database*/
-    public UserDataBase() {
+    public UserDatabase() {
         _users = new ArrayList<>();
         _numUsers = 0;
     }
@@ -53,9 +56,6 @@ public class UserDataBase {
      *         returns false if not found or password incorrect, or if null user is passed
      */
     public ErrorCode validateUser(String username, String password) {
-        if(null == username){
-            return ErrorCode.ILLEGALUSERNAME;
-        }
         for (User u : _users) {
             if (u.getUsername().equals(username)) {
                 if (u.getPassword().equals(password)) {
@@ -68,28 +68,8 @@ public class UserDataBase {
         }
         return ErrorCode.USERNAMENOTFOUND;
     }
-
-    /**
-     * Validates that two passwords are the same
-     * @param password1 the first password
-     * @param password2 the second password
-     * @return ErrorCode SUCCESS if successful, PASSWORDMISMATCH if not
-     *
-     */
-    public ErrorCode validatePassword(String password1, String password2){
-        if(password1.equals(password2)){
-            return ErrorCode.SUCCESS;
-        }
-        return ErrorCode.PASSWORDMISMATCH;
-    }
-
-    public User findUser(String username){
-        for(User u: _users){
-            if(u.getUsername().equals(username)){
-                return u;
-            }
-        }
-        return null;
+    public List<User> getUsers(){
+        return _users;
     }
 }
 

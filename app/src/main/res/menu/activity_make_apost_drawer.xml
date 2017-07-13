@@ -11,6 +11,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="View posts" />
         <item
+            android:id="@+id/map_posts"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Map posts" />
+        <item
             android:id="@+id/logout"
             android:icon = "@drawable/ic_menu_gallery"
             android:title="Logout"

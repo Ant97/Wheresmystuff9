@@ -63,6 +63,29 @@ public class MakeAPost extends AppCompatActivity
                 MakeAPost.this.startActivity(donatePostIntent);
             }
         });
+
+    //Chane LostItemPost.class for found and donate once that iteration is reached
+        foundPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foundPostIntent = new Intent(MakeAPost.this, FoundItemPost.class);
+                MakeAPost.this.startActivity(foundPostIntent);
+            }
+        });
+        lostPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent lostPostIntent = new Intent(MakeAPost.this, LostItemPost.class);
+                MakeAPost.this.startActivity(lostPostIntent);
+            }
+        });
+        donatePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent donatePostIntent = new Intent(MakeAPost.this, LostItemPost.class);
+                MakeAPost.this.startActivity(donatePostIntent);
+            }
+        });
     }
 
     @Override
@@ -92,6 +115,10 @@ public class MakeAPost extends AppCompatActivity
         } else if (id == R.id.logout) {
             Intent logoutIntent =
                     new Intent(MakeAPost.this, LoginScreen.class);
+            MakeAPost.this.startActivity(logoutIntent);
+        } else if (id == R.id.map_posts) {
+            Intent logoutIntent =
+                    new Intent(MakeAPost.this, ViewMapPosts.class);
             MakeAPost.this.startActivity(logoutIntent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

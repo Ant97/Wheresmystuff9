@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -18,6 +20,7 @@ import com.example.jaggia.wheresmystuff9.R;
  */
 public class WelcomeScreen extends AppCompatActivity {
 
+    private final String TAG = "Welcome Screen";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

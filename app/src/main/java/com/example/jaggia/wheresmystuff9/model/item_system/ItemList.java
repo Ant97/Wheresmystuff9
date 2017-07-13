@@ -1,4 +1,4 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model.item_system;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,13 +17,13 @@ public class ItemList {
     }
 
     /**
-     * Get the itemList
+     * Get the itemObjectList
      *
-     * @return return the itemList
+     * @return return the itemObjectList
      */
-    public LinkedList<Item> getItemList(){return itemList; }
+    public LinkedList<Item> getItemObjectList(){return itemList; }
     /**
-     * Add the item to the linkedList itemList
+     * Add the itemObject to the linkedList itemObjectList
      *
      * @param item
      */
@@ -32,7 +32,7 @@ public class ItemList {
     }
 
     /**
-     * Remove the item from the linkedList itemList
+     * Remove the itemObject from the linkedList itemObjectList
      *
      * @param item
      */
@@ -41,7 +41,7 @@ public class ItemList {
     }
 
     /**
-     * Search for the item from the linkedList itemList
+     * Search for the item from the linkedList itemObjectList
      *
      * @param itemName the string name of the item
      * @return The item if found, null if not
@@ -67,6 +67,10 @@ public class ItemList {
             list.add(i.toString());
         }
         return list;
+    }
+
+    public void clearItems(){
+        itemList.clear();
     }
 
 }

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/colorAccent"
+    android:background="@drawable/background"
     tools:context="com.example.jaggia.wheresmystuff9.controllers.RegisterScreen">
 
     <!-- Login progress -->
@@ -30,103 +30,106 @@
             android:id="@+id/userName_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:orientation="vertical">
 
 
             <EditText
                 android:id="@+id/nameRegistering"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
+                android:layout_width="270dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
                 android:hint="Name"
-                android:textColor="@color/button1"
+                android:textColorHint="@color/textHintColor"
+                android:background="#fff"
+                android:textColor="@color/textColor"
                 android:inputType="textVisiblePassword|textNoSuggestions"
                 android:maxLines="1" />
 
 
             <EditText
                 android:id="@+id/userNameRegistering"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:textColor="@color/button2"
+                android:layout_width="270dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:background="#fff"
+                android:textColor="@color/textColor"
                 android:hint="Username"
+                android:textColorHint="@color/textHintColor"
                 android:inputType="textVisiblePassword|textNoSuggestions"
                 android:maxLines="1" />
 
             <EditText
                 android:id="@+id/emailRegistering"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:textColor="@color/button2"
+                android:layout_width="270dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/textColor"
+                android:background="#fff"
                 android:hint="Email"
+                android:textColorHint="@color/textHintColor"
                 android:inputType="textVisiblePassword|textEmailAddress"
-                android:maxLines="1" />/>
+                android:maxLines="1" />
+
 
 
 
             <EditText
                 android:id="@+id/passwordRegister"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_width="270dp"
+                android:layout_height="35dp"
                 android:hint="Password"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
+                android:textColorHint="@color/textHintColor"
+                android:background="#fff"
                 android:imeOptions="actionUnspecified"
-                android:textColor="@color/button1"
+                android:textColor="@color/textColor"
                 android:inputType="textPassword"
                 android:maxLines="1" />
 
 
             <EditText
                 android:id="@+id/password"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="270dp"
+                android:layout_height="35dp"
                 android:hint="Retype Password"
                 android:imeActionId="@+id/register"
                 android:imeActionLabel="@string/action_sign_in_short"
+                android:background="#fff"
+                android:textColorHint="@color/textHintColor"
                 android:imeOptions="actionUnspecified"
-                android:textColor="@color/button2"
+                android:textColor="@color/textColor"
                 android:inputType="textPassword"
                 android:maxLines="1" />
             <LinearLayout
                 android:id = "@+id/typeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
             <TextView
                 android:id="@+id/typeText"
                 android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:textColor="@color/button1"
+                android:layout_height="35dp"
+                android:textColor="@color/textColor"
                 android:text="@string/type"
+                android:background="#fff"
+                android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 />
             <Spinner
                 android:id= "@+id/typeSpinner"
                 android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="40dp"
+                android:background="#fff"
+
                 >
             </Spinner>
             </LinearLayout>
@@ -135,32 +138,30 @@
             android:id= "@+id/buttonRegLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
             <Button
                 android:id = "@+id/ButtonRegisterReg"
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_centerInParent="true"
                 android:layout_weight="1"
-                android:background="@color/button1"
+                android:background="@drawable/button_round"
                 android:text="@string/register"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"/>
             <Button
                 android:id = "@+id/ButtonCancelReg"
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="40dp"
                 android:layout_weight="1"
-                android:background="@color/button1"
+                android:background="@drawable/button_round"
                 android:text="@string/cancel"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"/>
         </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

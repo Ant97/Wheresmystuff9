@@ -2,29 +2,51 @@ package com.example.jaggia.wheresmystuff9.controllers;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.example.jaggia.wheresmystuff9.Model.Model;
-import com.example.jaggia.wheresmystuff9.Model.Item;
+import com.example.jaggia.wheresmystuff9.model.item_system.ItemCategory;
+import com.example.jaggia.wheresmystuff9.model.item_system.ItemStatus;
+import com.example.jaggia.wheresmystuff9.model.item_system.ItemType;
+import com.example.jaggia.wheresmystuff9.model.Model;
 
+import com.example.jaggia.wheresmystuff9.model.item_system.LostItem;
+import com.example.jaggia.wheresmystuff9.model.item_system.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
 import java.util.Date;
 
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 public class LostItemPost extends AppCompatActivity {
-    final Model mdl = Model.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final int REQUEST_CODE_PLACEPICKER = 1;
+    public static final String TAG = "LostItemPost";
+    private static LatLng latLng = null;
+
+    EditText lostName;
+    EditText lostDescription;
+    EditText lostLocationLat;
+    EditText lostLocationLng;
+    Spinner lostCategory;
+    EditText lostReward;
+    Spinner lostDateDay;
+    Spinner lostDateMonth;
+    Spinner lostDateYear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +54,20 @@ public class LostItemPost extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        final EditText lostName = (EditText) findViewById(R.id.itemName);
-        final EditText lostDescription = (EditText) findViewById(R.id.itemDescription);
-        final EditText lostLocationLat = (EditText) findViewById(R.id.longitude);
-        final EditText lostLocationLng = (EditText) findViewById(R.id.latitude);
-        final Spinner lostCategory = (Spinner) findViewById(R.id.categorySpinner);
-        final EditText lostReward = (EditText) findViewById(R.id.reward);
-        final Spinner lostDateDay = (Spinner) findViewById(R.id.daySpinner);
-        final Spinner lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
-        final Spinner lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
+        lostName = (EditText) findViewById(R.id.itemName);
+        lostDescription = (EditText) findViewById(R.id.itemDescription);
+        lostCategory = (Spinner) findViewById(R.id.categorySpinner);
+        lostReward = (EditText) findViewById(R.id.reward);
+        lostDateDay = (Spinner) findViewById(R.id.daySpinner);
+        lostDateMonth = (Spinner) findViewById(R.id.monthSpinner);
+        lostDateYear = (Spinner) findViewById(R.id.yearSpinner);
 
         Button post = (Button) findViewById(R.id.createButton);
         Button cancelPost = (Button) findViewById(R.id.cancelLost);
+        Button map = (Button) findViewById(R.id.mapButton);
 
 
-        ArrayAdapter<Item.ItemCategory> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Item.getItemCategoryValues());
+        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostCategory.setAdapter(adapter);
 
@@ -55,7 +76,7 @@ public class LostItemPost extends AppCompatActivity {
             days[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, days);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateDay.setAdapter(adapter2);
 
@@ -65,7 +86,7 @@ public class LostItemPost extends AppCompatActivity {
             months[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter3 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, months);
+        ArrayAdapter<Integer> adapter3 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, months);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateMonth.setAdapter(adapter3);
 
@@ -74,9 +95,17 @@ public class LostItemPost extends AppCompatActivity {
             years[i] = (i + 1990);
         }
 
-        ArrayAdapter<Integer> adapter4 = new ArrayAdapter(this,android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<Integer> adapter4 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, years);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lostDateYear.setAdapter(adapter4);
+
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startPlacePicker();
+            }
+        });
 
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,31 +119,36 @@ public class LostItemPost extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DatabaseReference databaseReference = database.getReference();
                 String name = lostName.getText().toString();
                 String description = lostDescription.getText().toString();
-                String latitude = lostLocationLat.getText().toString();
-                String longitude = lostLocationLng.getText().toString();
-                Item.ItemStatus status = Item.ItemStatus.UNRESOLVED;
-                Item.ItemCategory category = (Item.ItemCategory) lostCategory.getSelectedItem();
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
+                ItemStatus status = ItemStatus.UNRESOLVED;
+                ItemCategory category = (ItemCategory) lostCategory.getSelectedItem();
                 String reward = lostReward.getText().toString();
-                Item.ItemType type = Item.ItemType.LOST;
-                if(name.length() == 0 || latitude.length() == 0 || longitude.length() == 0){
+                ItemType type = ItemType.LOST;
+                if (name.length() == 0 || latitude.toString().length() <= 0
+                        || longitude.toString().length() <= 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
-                    builder.setMessage("Item was not create: Please fill in required information");
+                    builder.setMessage("Item was not created: Please fill in required information");
                     builder.setNegativeButton("Retry", null).create().show();
                 } else {
-                    Location location = new Location("itemLocation");
-                    location.setLatitude(Double.parseDouble(latitude));
-                    location.setLongitude(Double.parseDouble(longitude));
+                    MyLocation location = new MyLocation("itemLocation");
+                    location.setLatitude((latitude));
+                    location.setLongitude((longitude));
 
                     int dateDay = (int) lostDateDay.getSelectedItem();
-                    int dateMonth = (int) lostDateMonth.getSelectedItem();
+                    int dateMonth = ((int) lostDateMonth.getSelectedItem()) - 1;
                     int dateYear = (int) lostDateYear.getSelectedItem();
                     Date date = new Date(dateYear, dateMonth, dateDay);
 
-
-                    if (Model.addItem(Model.getLostList(), Model.createNewItem(Model.getCurrentUser(), name, description, date, location, reward, status, type, category))) {
+                    LostItem itemToAdd = new  LostItem.Builder(name, location).User(Model.getCurrentUsername())
+                            .Reward(reward).Description(description)
+                            .Date(date).ItemStatus(status)
+                            .ItemCategory(category).Build();
+                    if (Model.addItem(Model.getLostList(), itemToAdd)) {
+                        databaseReference.child("app").child("LostItem").push().setValue(itemToAdd);
                         //the item was created and added to the lostItems
                         AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
                         builder.setMessage("Item was created successfully!");
@@ -142,6 +176,34 @@ public class LostItemPost extends AppCompatActivity {
 
         });
 
+    }
+
+    private void startPlacePicker() {
+        PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+        // this would only work if you have your Google Places API working
+
+        try {
+            Intent intent = intentBuilder.build(this);
+            startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
+            displaySelectedPlaceFromPlacePicker(data);
+        }
+    }
+
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+        Place placeSelected = PlacePicker.getPlace(data, this);
+
+        String name = placeSelected.getName().toString();
+        String address = placeSelected.getAddress().toString();
+        latLng = placeSelected.getLatLng();
+        TextView enterCurrentLocation = (TextView) findViewById(R.id.show_selected_location);
+        enterCurrentLocation.setText(name + ", " + address);
     }
 
 }

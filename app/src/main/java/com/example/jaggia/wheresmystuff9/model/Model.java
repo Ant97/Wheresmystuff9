@@ -1,6 +1,11 @@
-package com.example.jaggia.wheresmystuff9.Model;
+package com.example.jaggia.wheresmystuff9.model;
 
-import android.location.Location;
+
+
+import com.example.jaggia.wheresmystuff9.model.error_coding.ErrorCode;
+import com.example.jaggia.wheresmystuff9.model.item_system.*;
+import com.example.jaggia.wheresmystuff9.model.user_system.*;
+
 
 import java.util.Date;
 import java.util.List;
@@ -20,7 +25,7 @@ public class Model {
     }
 
     /** the user database */
-    private static UserDataBase _database;
+    private static UserDatabase _database;
     /**the current user logged in */
     private static User _currentUser;
     /**the current item being operated on */
@@ -33,7 +38,7 @@ public class Model {
      * make a new model
      */
     private Model() {
-        _database = new UserDataBase();
+        _database = new UserDatabase();
     }
 
     /* *****************************************
@@ -44,7 +49,7 @@ public class Model {
      *
      * @return  the user database
      */
-    public static UserDataBase getDataBase(){
+    public static UserDatabase getDataBase(){
         return _database;
     }
 
@@ -84,9 +89,9 @@ public class Model {
 
     /**
      *
-     * @param currentItem set the current item
+     * @param currentItemObject set the current item
      */
-    public static void setCurrentItem(Item currentItem){ _currentItem = currentItem; }
+    public static void setCurrentItem(Item currentItemObject){ _currentItem = currentItemObject; }
 
 
 
@@ -98,8 +103,8 @@ public class Model {
      * @param userType boolean false means not admin, true means admin
      * @return return the user to the controller
      */
-    public static User createNewUser(String name, String username, String password, boolean userType){
-        return new User(name, username, password, userType);
+    public static User createNewUser(String name, String username, String password, boolean userType, String email){
+        return new User(name, username, password, userType, email);
     }
     /**
      * Register a new user to the database
@@ -134,37 +139,18 @@ public class Model {
      * @param password2 the second password
      * @return true if successful, false if not
      */
-    public static boolean validatePassword(String password1, String password2){
-        if(_database.validatePassword(password1, password2) == ErrorCode.SUCCESS){
-            return true;
-        }
-        return false;
+    public static boolean validatePasswordMatch(String password1, String password2){
+        return PasswordHandler.validatePasswordMatch(password1, password2);
+
     }
 
-
-
-
-
-    /**
-     * Constructor for an item
-     * @param user The user creating the item
-     * @param name The name of the item
-     * @param description A description for the item
-     * @param date The date the item was found
-     * @param location The location the item was found
-     * @param reward The reward for finding the item
-     * @param status The current status of the item (resolved or unresolved)
-     * @param type The type of item (lost, found, donated)
-     * @param category The category the item fits into
-     */
-    public static Item createNewItem(User user, String name, String description, Date date, Location location,
-                                     String reward, Item.ItemStatus status, Item.ItemType type, Item.ItemCategory category){
-        return new Item(user, name, description, date, location, reward, status, type, category);
+    public static boolean validatePassword(String password){
+        return PasswordHandler.validatePassword(password);
     }
     /**
-     * addItem to an item list
-     * @param itemList list to have item added to
-     * @param item item to be added
+     * addItem to an itemObject list
+     * @param itemList list to have itemObject added to
+     * @param item itemObject to be added
      * @return true if successful, false if not
      */
     public static boolean addItem(ItemList itemList, Item item){
@@ -179,7 +165,35 @@ public class Model {
         return itemList.listItems();
     }
 
-    public static User findUser(String username){
-        return _database.findUser(username);
+    public static void clearList(ItemList itemList){
+        itemList.clearItems();
     }
+
+    public static User findUserByUsername(String username){
+        return UserSearchHandler.findUserByUsername(_database.getUsers(), username);
+    }
+    public static User findUserByEmail(String email){
+        return UserSearchHandler.findUserByEmail(_database.getUsers(), email);
+    }
+
+    public static boolean validateEmailFormat(String email){
+        return EmailHandler.validateEmailFormat(email);
+    }
+    public static String getCurrentUsername(){
+        return _currentUser.getUsername();
+    }
+
+    public static boolean validateLegalUsername(String username){
+        return UsernameHandler.validateLegalUsername(username);
+    }
+    public static boolean validatePersonName(String name){
+        return UsernameHandler.validatePersonName(name);
+    }
+    public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2){
+        if(validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2) && (null == findUserByUsername(username)) && (null == findUserByEmail(email))){
+            return true;
+        }
+        return false;
+    }
+
 }
