@@ -68,36 +68,8 @@ public class UserDatabase {
         }
         return ErrorCode.USERNAMENOTFOUND;
     }
-
-    /**
-     * Validates that two passwords are the same
-     * @param password1 the first password
-     * @param password2 the second password
-     * @return ErrorCode SUCCESS if successful, PASSWORDMISMATCH if not
-     *
-     */
-    public boolean validatePasswordMatch(String password1, String password2){
-        return PasswordHandler.validatePasswordMatch(password1, password2);
-    }
-
-    public boolean validatePassword(String password){
-        return PasswordHandler.validatePassword(password);
-    }
-
-    public User findUserByUsername(String username){
-        return UserSearchHandler.findUserByUsername(_users, username);
-    }
-    public User findUserByEmail(String email){
-        return UserSearchHandler.findUserByEmail(_users, email);
-    }
-    public boolean validateEmailFormat(String email){
-        return EmailHandler.validateEmailFormat(email);
-    }
-    public boolean validateLegalUsername(String username){
-        return UsernameHandler.validateLegalUsername(username);
-    }
-    public boolean validatePersonName(String name){
-        return UsernameHandler.validatePersonName(name);
+    public List<User> getUsers(){
+        return _users;
     }
 }
 

@@ -140,12 +140,12 @@ public class Model {
      * @return true if successful, false if not
      */
     public static boolean validatePasswordMatch(String password1, String password2){
-        return _database.validatePasswordMatch(password1, password2);
+        return PasswordHandler.validatePasswordMatch(password1, password2);
 
     }
 
     public static boolean validatePassword(String password){
-        return _database.validatePassword(password);
+        return PasswordHandler.validatePassword(password);
     }
     /**
      * addItem to an itemObject list
@@ -170,24 +170,24 @@ public class Model {
     }
 
     public static User findUserByUsername(String username){
-        return _database.findUserByUsername(username);
+        return UserSearchHandler.findUserByUsername(_database.getUsers(), username);
     }
     public static User findUserByEmail(String email){
-        return _database.findUserByEmail(email);
+        return UserSearchHandler.findUserByEmail(_database.getUsers(), email);
     }
 
     public static boolean validateEmailFormat(String email){
-        return _database.validateEmailFormat(email);
+        return EmailHandler.validateEmailFormat(email);
     }
     public static String getCurrentUsername(){
         return _currentUser.getUsername();
     }
 
     public static boolean validateLegalUsername(String username){
-        return _database.validateLegalUsername(username);
+        return UsernameHandler.validateLegalUsername(username);
     }
     public static boolean validatePersonName(String name){
-        return _database.validatePersonName(name);
+        return UsernameHandler.validatePersonName(name);
     }
     public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2){
         if(validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2) && (null == findUserByUsername(username)) && (null == findUserByEmail(email))){
