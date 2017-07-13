@@ -11,22 +11,19 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp">
+        >
 
         <EditText
-            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/textColor"
+            android:id="@+id/search_bar"
+            />
 
         <ListView
-            android:id="@+id/postlist"
-            style="@style/ListFont"
+            android:id= "@+id/postlist"
             android:layout_width="368dp"
             android:layout_height="495dp"
-            android:layout_below="@+id/search_bar"
-            android:textColor="@color/black"
-            android:visibility="visible" />
+            android:layout_below="@+id/search_bar" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
