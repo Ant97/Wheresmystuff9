@@ -104,7 +104,7 @@ public class LoginScreen extends AppCompatActivity {
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                                         AlertDialog.Builder builder =
                                                 new AlertDialog.Builder(LoginScreen.this);
-                                        builder.setMessage("Login Failed: Username or PW incorrect")
+                                        builder.setMessage("Login Failed: Email or PW incorrect")
                                                 .setNegativeButton("Retry", null)
                                                 .create().show();
                                     }
