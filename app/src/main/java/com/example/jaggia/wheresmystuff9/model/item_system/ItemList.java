@@ -9,8 +9,9 @@ import java.util.List;
  * Created by jaggia on 6/21/17.
  */
 
+@SuppressWarnings("ALL")
 public class ItemList {
-    private LinkedList<Item> itemList;
+    private final LinkedList<Item> itemList;
 
     public ItemList(){
         itemList = new LinkedList<>();

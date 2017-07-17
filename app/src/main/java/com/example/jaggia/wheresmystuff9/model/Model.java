@@ -7,7 +7,6 @@ import com.example.jaggia.wheresmystuff9.model.item_system.*;
 import com.example.jaggia.wheresmystuff9.model.user_system.*;
 
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +16,7 @@ import java.util.List;
  *
  */
 
+@SuppressWarnings("ALL")
 public class Model {
     private static final Model _instance = new Model();
 
@@ -31,9 +31,9 @@ public class Model {
     /**the current item being operated on */
     private static Item _currentItem;
     /**the List of lost items */
-    private static ItemList _lostList = new ItemList();
+    private static final ItemList _lostList = new ItemList();
     /**the List of found items */
-    private static ItemList _foundList = new ItemList();
+    private static final ItemList _foundList = new ItemList();
     /**
      * make a new model
      */
@@ -113,10 +113,7 @@ public class Model {
      *          returns false if unsuccessful
      */
     public static boolean registerNewUser(User user){
-        if(_database.registerNewUser(user) == ErrorCode.SUCCESS){
-            return true;
-        }
-        return false;
+        return _database.registerNewUser(user) == ErrorCode.SUCCESS;
     }
 
     /**
@@ -127,10 +124,7 @@ public class Model {
      *          returns false if the user is not in the database
      */
     public static boolean validateUser(String username, String password){
-        if(_database.validateUser(username, password) == ErrorCode.SUCCESS) {
-            return true;
-        }
-        return false;
+        return _database.validateUser(username, password) == ErrorCode.SUCCESS;
     }
 
     /**
@@ -153,6 +147,7 @@ public class Model {
      * @param item itemObject to be added
      * @return true if successful, false if not
      */
+    @SuppressWarnings("SameReturnValue")
     public static boolean addItem(ItemList itemList, Item item){
         itemList.addItem(item);
         return true;
@@ -190,10 +185,7 @@ public class Model {
         return UsernameHandler.validatePersonName(name);
     }
     public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2){
-        if(validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2) && (null == findUserByUsername(username)) && (null == findUserByEmail(email))){
-            return true;
-        }
-        return false;
+        return validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2) && (null == findUserByUsername(username)) && (null == findUserByEmail(email));
     }
 
 }

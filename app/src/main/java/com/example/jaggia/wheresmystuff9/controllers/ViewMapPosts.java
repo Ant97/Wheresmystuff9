@@ -4,10 +4,10 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.jaggia.wheresmystuff9.model.item_system.FoundItem;
-import com.example.jaggia.wheresmystuff9.model.item_system.Item;
 import com.example.jaggia.wheresmystuff9.model.Model;
 import com.example.jaggia.wheresmystuff9.model.item_system.LostItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,13 +26,13 @@ import com.example.jaggia.wheresmystuff9.R;
 
 
 
+@SuppressWarnings("ALL")
 public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private Model mFacade;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference().child("app");
-    public final String TAG = "MapsActivity";
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference().child("app");
+    private final String TAG = "MapsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        mFacade = Model.getInstance();
+        Model mFacade = Model.getInstance();
 
     }
 
@@ -113,7 +113,7 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
         private final View myContentsView;
 
         CustomInfoWindowAdapter(){
-            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_contents, (ViewGroup)null);
         }
 
         @Override

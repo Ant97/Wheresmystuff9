@@ -1,12 +1,8 @@
 package com.example.jaggia.wheresmystuff9.model.item_system;
 
-import com.example.jaggia.wheresmystuff9.model.user_system.User;
-
+import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by James on 7/11/2017.
- */
 
 public class FoundItem extends Item {
 
@@ -23,7 +19,7 @@ public class FoundItem extends Item {
         user = "default username";
         name = "default name";
         description = "default description";
-        date = new Date(1,1,1);
+        date = new Date();
         location = new MyLocation("default location");
         location.setLatitude(0.0);
         location.setLongitude(0.0);
@@ -53,7 +49,10 @@ public class FoundItem extends Item {
     }
     @Override
     public String toString() {
-        return name + " Found: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return name + " Found: " + (cal.get(Calendar.MONTH) + 1) + "/" + (cal.get(Calendar.DATE)) + "/" +
+                (cal.get(Calendar.YEAR)) + " By: " + user;
     }
     public String getUsername() {
         return user;
@@ -150,7 +149,7 @@ public class FoundItem extends Item {
             this.type = ItemType.FOUND;
             this.user = "Default Username";
             this.description = "Default description";
-            this.date = new Date(1,1,1);
+            this.date = new Date();
             this.status = ItemStatus.UNRESOLVED;
             this.category = ItemCategory.MISC;
         }

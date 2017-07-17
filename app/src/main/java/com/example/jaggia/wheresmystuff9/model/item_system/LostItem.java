@@ -1,7 +1,6 @@
 package com.example.jaggia.wheresmystuff9.model.item_system;
 
 
-import com.example.jaggia.wheresmystuff9.model.user_system.User;
 //TODO Remove the need to import User
 
 import java.util.Date;
@@ -13,6 +12,7 @@ import java.util.Date;
  * Information holder class for item
  */
 
+@SuppressWarnings("ALL")
 public class LostItem extends Item {
 
 

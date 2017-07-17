@@ -2,10 +2,6 @@ package com.example.jaggia.wheresmystuff9.model.user_system;
 
 import java.util.List;
 
-/**
- * Created by James on 7/11/2017.
- */
-
 public class UserSearchHandler {
     public static User findUserByUsername(List<User> users, String username){
         for(User u: users){

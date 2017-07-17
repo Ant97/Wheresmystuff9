@@ -5,33 +5,32 @@
         <item
             android:id="@+id/make_post"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Make a post" />
+            android:title="@string/title_activity_make_apost" />
         <item
             android:id="@+id/view_posts"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="View posts" />
+            android:title="@string/title_activity_view_posts" />
         <item
             android:id="@+id/map_posts"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Map posts" />
-\
+            android:title="@string/title_activity_view_map_posts" />
         <item
             android:id="@+id/logout"
             android:icon = "@drawable/ic_menu_gallery"
-            android:title="Logout"
+            android:title="@string/logout"
             />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/share" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/send" />
         </menu>
     </item>
 

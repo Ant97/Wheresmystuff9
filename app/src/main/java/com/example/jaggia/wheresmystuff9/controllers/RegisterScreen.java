@@ -18,10 +18,8 @@ import com.example.jaggia.wheresmystuff9.model.Model;
 import com.example.jaggia.wheresmystuff9.model.user_system.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,20 +34,20 @@ import com.google.firebase.database.ValueEventListener;
  * @version 1.0
  */
 
+@SuppressWarnings("ALL")
 public class RegisterScreen extends AppCompatActivity {
     private final String TAG = "RegisterScreen";
 
     private FirebaseAuth myAuth;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference();
-    EditText registerEmail;
-    EditText registerName;
-    EditText registerUsername;
-    EditText registerPW;
-    EditText registerPW2;
-    Spinner registerUserType;
-    Button register;
-    Button cancelRegister;
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private EditText registerEmail;
+    private EditText registerName;
+    private EditText registerUsername;
+    private EditText registerPW;
+    private EditText registerPW2;
+    private Button register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         myAuth = FirebaseAuth.getInstance();
@@ -65,10 +63,10 @@ public class RegisterScreen extends AppCompatActivity {
                 (EditText) findViewById(R.id.passwordRegister);
         registerPW2 =
                 (EditText) findViewById(R.id.password);
-        registerUserType = (Spinner) findViewById(R.id.typeSpinner);
+        Spinner registerUserType = (Spinner) findViewById(R.id.typeSpinner);
 
         register = (Button) findViewById(R.id.ButtonRegisterReg);
-        cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);
+        Button cancelRegister = (Button) findViewById(R.id.ButtonCancelReg);
 
         String userTypes[] = {"User", "Admin"};
 

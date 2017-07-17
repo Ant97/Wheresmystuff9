@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.example.jaggia.wheresmystuff9.R;
 
+@SuppressWarnings("ALL")
 public class MapViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

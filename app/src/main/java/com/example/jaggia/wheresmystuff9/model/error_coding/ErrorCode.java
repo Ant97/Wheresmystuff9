@@ -8,6 +8,7 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  * model methods that can fail will return ErrorCodes
  */
 
+@SuppressWarnings("ALL")
 public enum ErrorCode {
     SUCCESS ("Success" , 0), //The method completed successfully
     NULLUSER ("Null User", 1), //The user passed in was NULL
@@ -19,9 +20,9 @@ public enum ErrorCode {
     PASSWORDMISMATCH ("Passwords do not match" , 7), //The passwords do match when registering
     ;
     //the string representation of the code
-    private String _representation;
+    private final String _representation;
     //the error's numerical code
-    private int _errorCode;
+    private final int _errorCode;
 
     ErrorCode(String representation, int errorCode){
         _representation = representation;

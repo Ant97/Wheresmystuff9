@@ -32,12 +32,13 @@ import java.util.List;
 
 //import static com.example.jaggia.wheresmystuff9.R.id.list_view;
 
+@SuppressWarnings("ALL")
 public class ViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public final String TAG = "ViewPosts";
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference().child("app");
+    private final String TAG = "ViewPosts";
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference().child("app");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,8 +98,8 @@ public class ViewPosts extends AppCompatActivity
     private void populateListView() {
 
 
-        List<String> postNames = Model.listItems(Model.getLostList());
-        List<String> postNamesFound = Model.listItems(Model.getFoundList());
+        List<String> postNames = (List<String>) Model.listItems(Model.getLostList());
+        List<String> postNamesFound = (List<String>) Model.listItems(Model.getFoundList());
         postNames.addAll(postNamesFound);
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, postNames);

@@ -6,10 +6,10 @@
     <color name="textColor">#BB7365</color>
     <color name="button1">#6D748C</color>
     <color name="button2">#3C4663</color>
-    <color name="button3">#4c5162</color>
+    <!--<color name="button3">#4c5162</color>-->
     <color name="textHintColor">#f7b5a3</color>
     <color name="navHeadColor">#f7b5a3</color>
     <color name="textColor2">#fbd6cc</color>
     <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
+    <!--<color name="white">#ffffff</color>-->
 </resources>

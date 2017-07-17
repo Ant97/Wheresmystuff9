@@ -1,46 +1,59 @@
 <resources>
     <string name="app_name">Where\'s My Stuff</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
-    <string name="welcome">Welcome...</string>
+    <string name="welcome">Welcome…</string>
     <string name="name">Name</string>
     <string name="month">Month</string>
     <string name="day">Day</string>
     <string name="year">Year</string>
     <string name="username">Username</string>
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="send">Send</string>
+    <string name="create">Create</string>
     <string name="itemname">Item Name</string>
+    <string name="lostItem">Lost Item</string>
+    <string name="foundItem">Found Item</string>
+    <string name="donatedItem">Donated Item</string>
+    <string name="importString">Import</string>
+    <string name="gallery">Gallery</string>
+    <string name="slideshow">Slideshow</string>
+    <string name="tools">Tools</string>
     <string name="type">User Type</string>
     <string name="category">Category</string>
     <string name="itemDescription">Item Description</string>
     <string name="reward">Reward (Optional)</string>
-    <string name="longitude">Longitude</string>
-    <string name="latitude">Latitude</string>
+    <!--<string name="longitude">Longitude</string>-->
+    <!--<string name="latitude">Latitude</string>-->
     <string name="password">Password</string>
     <string name="passwordAgain">Re-type Password</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <!--<string name="prompt_password">Password (optional)</string>-->
+    <!--<string name="action_sign_in">Sign in or register</string>-->
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_main_user_screen">MainUserScreen</string>
+    <!--<string name="error_invalid_email">This email address is invalid</string>-->
+    <!--<string name="error_invalid_password">This password is too short</string>-->
+    <!--<string name="error_incorrect_password">This password is incorrect</string>-->
+    <!--<string name="error_field_required">This field is required</string>-->
+    <!--<string name="permission_rationale">"Contacts permissions are needed for providing email-->
+        <!--completions."</string>-->
+    <!--<string name="title_activity_main_user_screen">MainUserScreen</string>-->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_make_apost">MakeAPost</string>
-    <string name="title_activity_lost_item_post">LostItemPost</string>
-    <string name="title_activity_view_posts">ViewPosts</string>
-    <string name="new_post">Make a new post for a...</string>
+    <string name="title_activity_make_apost">Make A Post</string>
+    <string name="title_activity_create_found_apost"> Create New Found Post</string>
+    <string name="title_activity_create_lost_apost"> Create New Lost Post</string>
+    <!--<string name="title_activity_lost_item_post">LostItemPost</string>-->
+    <string name="title_activity_view_posts">View Posts</string>
+    <string name="new_post">Make a new post for a…</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_map_view_posts">MapViewPosts</string>
-    <string name="title_activity_view_map_posts">ViewMapPosts</string>
-
+    <string name="title_activity_view_map_posts">View Map Posts</string>
+    <string name="selected_location">Selected location will be shown here</string>
+    <string name="navbarImgView">navbar imgView</string>
 </resources>

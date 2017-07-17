@@ -15,7 +15,7 @@ import java.util.List;
 public class UserDatabase {
 
     /**List<> containing all the users for this database*/
-    private List<User> _users;
+    private final List<User> _users;
 
 
     /**number of Users in database -- not currently used, for future expansion*/

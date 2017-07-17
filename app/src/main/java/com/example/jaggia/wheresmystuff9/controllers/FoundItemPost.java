@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,7 +19,6 @@ import com.example.jaggia.wheresmystuff9.model.item_system.ItemStatus;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemType;
 import com.example.jaggia.wheresmystuff9.model.Model;
 import com.example.jaggia.wheresmystuff9.model.item_system.MyLocation;
-import com.example.jaggia.wheresmystuff9.model.item_system.Item;
 import com.example.jaggia.wheresmystuff9.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
@@ -34,23 +32,21 @@ import java.util.Date;
  * Created by jaggia on 6/27/17.
  */
 
+@SuppressWarnings("ALL")
 public class FoundItemPost extends AppCompatActivity {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
     private static final String TAG = "FoundItemPost";
 
-    EditText foundName;
-    EditText foundDescription;
-    Spinner foundCategory;
-    Spinner foundDateDay;
-    Spinner foundDateMonth;
-    Spinner foundDateYear;
+    private EditText foundName;
+    private EditText foundDescription;
+    private Spinner foundCategory;
+    private Spinner foundDateDay;
+    private Spinner foundDateMonth;
+    private Spinner foundDateYear;
 
-    Button post;
-    Button cancelPost;
-    Button map;
     private static LatLng latLng = null;
 
     @Override
@@ -67,9 +63,9 @@ public class FoundItemPost extends AppCompatActivity {
         foundDateMonth = (Spinner) findViewById(R.id.monthSpinner);
         foundDateYear = (Spinner) findViewById(R.id.yearSpinner);
 
-        post = (Button) findViewById(R.id.createFound);
-        cancelPost = (Button) findViewById(R.id.cancelFound);//for view people
-        map = (Button) findViewById(R.id.mapButton);
+        Button post = (Button) findViewById(R.id.createFound);
+        Button cancelPost = (Button) findViewById(R.id.cancelFound);
+        Button map = (Button) findViewById(R.id.mapButton);
 
         ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

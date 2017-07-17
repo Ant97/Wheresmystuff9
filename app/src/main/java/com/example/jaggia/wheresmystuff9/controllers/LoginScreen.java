@@ -30,18 +30,19 @@ import com.google.firebase.database.ValueEventListener;
  * @author AnT. & Annette
  * @version 1.0
  */
+@SuppressWarnings("ALL")
 public class LoginScreen extends AppCompatActivity {
     private final String TAG = "LoginScreen";
 
     private FirebaseAuth myAuth;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
 
-    EditText loginUsername;
-    EditText loginEmail;
-    EditText loginPW;
-    Button login;
-    Button cancelLogin;
+    private EditText loginUsername;
+    private EditText loginEmail;
+    private EditText loginPW;
+    private Button login;
+    private Button cancelLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

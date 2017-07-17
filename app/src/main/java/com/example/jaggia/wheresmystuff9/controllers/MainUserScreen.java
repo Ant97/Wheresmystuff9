@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.example.jaggia.wheresmystuff9.R;
 
+@SuppressWarnings("ALL")
 public class MainUserScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

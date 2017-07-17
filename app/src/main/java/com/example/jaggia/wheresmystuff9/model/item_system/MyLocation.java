@@ -3,12 +3,12 @@ package com.example.jaggia.wheresmystuff9.model.item_system;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Parcel;
-import android.util.Printer;
 
 /**
  * Created by James on 7/10/2017.
  */
 
+@SuppressWarnings("ALL")
 public class MyLocation extends Location {
     public MyLocation(){
         super("default location");

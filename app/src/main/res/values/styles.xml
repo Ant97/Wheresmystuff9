@@ -3,9 +3,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme1" parent="android:Theme.DeviceDefault">
-        <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
+        <!--<item name="android:colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="android:colorAccent">@color/colorAccent</item> Commented out since moved to StylesV21-->
         <item name="android:textColorPrimary">@color/colorAccent</item>
     </style>
 

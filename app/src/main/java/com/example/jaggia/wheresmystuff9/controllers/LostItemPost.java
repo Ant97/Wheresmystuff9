@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,21 +31,22 @@ import java.util.Date;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+@SuppressWarnings("ALL")
 public class LostItemPost extends AppCompatActivity {
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final int REQUEST_CODE_PLACEPICKER = 1;
     public static final String TAG = "LostItemPost";
     private static LatLng latLng = null;
 
-    EditText lostName;
-    EditText lostDescription;
+    private EditText lostName;
+    private EditText lostDescription;
     EditText lostLocationLat;
     EditText lostLocationLng;
-    Spinner lostCategory;
-    EditText lostReward;
-    Spinner lostDateDay;
-    Spinner lostDateMonth;
-    Spinner lostDateYear;
+    private Spinner lostCategory;
+    private EditText lostReward;
+    private Spinner lostDateDay;
+    private Spinner lostDateMonth;
+    private Spinner lostDateYear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

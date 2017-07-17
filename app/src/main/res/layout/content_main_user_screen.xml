@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/welcome"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textColor="#BB7365"/>
 
 

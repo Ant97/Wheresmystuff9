@@ -13,12 +13,13 @@ import android.os.Parcelable;
  *
  */
 
+@SuppressWarnings("ALL")
 public class User implements Parcelable{
     //static variable to create unique id
     private static int Next_ID;
 
     /**unique id number*/
-    private int id;
+    private final int id;
     /**The users real life name*/
     private String name;
     /**unique username*/
