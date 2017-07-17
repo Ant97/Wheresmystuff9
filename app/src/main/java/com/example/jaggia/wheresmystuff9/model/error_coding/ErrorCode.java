@@ -8,7 +8,6 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  * model methods that can fail will return ErrorCodes
  */
 
-@SuppressWarnings("ALL")
 public enum ErrorCode {
     SUCCESS ("Success" , 0), //The method completed successfully
     NULLUSER ("Null User", 1), //The user passed in was NULL

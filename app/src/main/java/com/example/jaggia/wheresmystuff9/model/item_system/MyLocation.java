@@ -4,11 +4,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Parcel;
 
-/**
- * Created by James on 7/10/2017.
- */
-
-@SuppressWarnings("ALL")
 public class MyLocation extends Location {
     public MyLocation(){
         super("default location");

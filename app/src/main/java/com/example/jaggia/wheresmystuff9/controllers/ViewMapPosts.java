@@ -26,7 +26,6 @@ import com.example.jaggia.wheresmystuff9.R;
 
 
 
-@SuppressWarnings("ALL")
 public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -43,7 +42,7 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Model mFacade = Model.getInstance();
+//        Model mFacade = Model.getInstance();
 
     }
 
@@ -69,10 +68,10 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
                 for (DataSnapshot child: itemFoundChildren) {
                     FoundItem value = child.getValue(FoundItem.class);
                     Model.addItem(Model.getFoundList(), value);
-                    LatLng loc = new LatLng(value.getLocation().getLatitude(),
-                            value.getLocation().getLongitude());
+                    LatLng loc = new LatLng(value != null ? value.getLocation().getLatitude() : 0,
+                            value != null ? value.getLocation().getLongitude() : 0);
                     mMap.addMarker(new MarkerOptions().position(loc).
-                            title(value.getName()).snippet(value.getDescription()));
+                            title(value != null ? value.getName() : null).snippet(value != null ? value.getDescription() : null));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
 
                 }
@@ -91,10 +90,10 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
                 for (DataSnapshot child: itemLostChildren) {
                     LostItem value = child.getValue(LostItem.class);
                     Model.addItem(Model.getLostList(), value);
-                    LatLng loc = new LatLng(value.getLocation().getLatitude(),
-                            value.getLocation().getLongitude());
+                    LatLng loc = new LatLng(value != null ? value.getLocation().getLatitude() : 0,
+                            value != null ? value.getLocation().getLongitude() : 0);
                     mMap.addMarker(new MarkerOptions().position(loc).
-                            title(value.getName()).snippet(value.getDescription()));
+                            title(value != null ? value.getName() : null).snippet(value != null ? value.getDescription() : null));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
 
                 }
@@ -119,9 +118,9 @@ public class ViewMapPosts extends FragmentActivity implements OnMapReadyCallback
         @Override
         public View getInfoContents(Marker marker) {
 
-            TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
+            TextView tvTitle = myContentsView.findViewById(R.id.title);
             tvTitle.setText(marker.getTitle());
-            TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
+            TextView tvSnippet = myContentsView.findViewById(R.id.snippet);
             tvSnippet.setText(marker.getSnippet());
 
             return myContentsView;

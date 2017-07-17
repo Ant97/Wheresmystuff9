@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemCategory;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemStatus;
-import com.example.jaggia.wheresmystuff9.model.item_system.ItemType;
 import com.example.jaggia.wheresmystuff9.model.Model;
 
 import com.example.jaggia.wheresmystuff9.model.item_system.LostItem;
@@ -31,7 +29,6 @@ import java.util.Date;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
-@SuppressWarnings("ALL")
 public class LostItemPost extends AppCompatActivity {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final int REQUEST_CODE_PLACEPICKER = 1;
@@ -40,8 +37,6 @@ public class LostItemPost extends AppCompatActivity {
 
     private EditText lostName;
     private EditText lostDescription;
-    EditText lostLocationLat;
-    EditText lostLocationLng;
     private Spinner lostCategory;
     private EditText lostReward;
     private Spinner lostDateDay;
@@ -51,7 +46,7 @@ public class LostItemPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_item_post);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
         lostName = (EditText) findViewById(R.id.itemName);
@@ -127,7 +122,7 @@ public class LostItemPost extends AppCompatActivity {
                 ItemStatus status = ItemStatus.UNRESOLVED;
                 ItemCategory category = (ItemCategory) lostCategory.getSelectedItem();
                 String reward = lostReward.getText().toString();
-                ItemType type = ItemType.LOST;
+//                ItemType type = ItemType.LOST;
                 if (name.length() == 0 || latitude.toString().length() <= 0
                         || longitude.toString().length() <= 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);

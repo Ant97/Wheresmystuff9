@@ -2,11 +2,6 @@ package com.example.jaggia.wheresmystuff9.model.item_system;
 
 import java.util.Date;
 
-/**
- * Created by James on 7/11/2017.
- */
-
-@SuppressWarnings("ALL")
 public abstract class Item {
 
     private String user;

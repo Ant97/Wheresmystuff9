@@ -93,7 +93,6 @@
 
         <!--<activity-->
             <!--android:name=".controllers.MapViewPosts"-->
-            <!--android:label="@string/title_activity_map_view_posts"-->
             <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar">-->
         <!--</activity>-->
         <activity

@@ -20,7 +20,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +33,6 @@ import com.google.firebase.database.ValueEventListener;
  * @version 1.0
  */
 
-@SuppressWarnings("ALL")
 public class RegisterScreen extends AppCompatActivity {
     private final String TAG = "RegisterScreen";
 
@@ -101,7 +99,7 @@ public class RegisterScreen extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = myAuth.getCurrentUser();
+//        FirebaseUser currentUser = myAuth.getCurrentUser();
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,34 +116,36 @@ public class RegisterScreen extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Model.registerNewUser(Model.createNewUser(name, username, pw, userType, email));
-                                        firebaseDatabase.getReference().child("app").child("Users").push().setValue(Model.createNewUser(name, username, pw, userType, email));
-                                        AlertDialog.Builder builder =
-                                                new AlertDialog.Builder(RegisterScreen.this);
-                                        builder.setMessage("Registration Successful")
-                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        Intent registerIntent =
-                                                                new Intent(RegisterScreen.this, LoginScreen.class);
-                                                        RegisterScreen.this.startActivity(registerIntent);
-                                                    }
-                                                })
-                                                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                    @Override
-                                                    public void onDismiss(DialogInterface dialog) {
-                                                        Intent registerIntent =
-                                                                new Intent(RegisterScreen.this, LoginScreen.class);
-                                                        RegisterScreen.this.startActivity(registerIntent);
-                                                    }
-                                                }).create().show();
+                                        final boolean registered = Model.registerNewUser(Model.createNewUser(name, username, pw, userType, email));
+                                        if (registered) {
+                                            firebaseDatabase.getReference().child("app").child("Users").push().setValue(Model.createNewUser(name, username, pw, userType, email));
+                                            AlertDialog.Builder builder =
+                                                    new AlertDialog.Builder(RegisterScreen.this);
+                                            builder.setMessage("Registration Successful")
+                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            Intent registerIntent =
+                                                                    new Intent(RegisterScreen.this, LoginScreen.class);
+                                                            RegisterScreen.this.startActivity(registerIntent);
+                                                        }
+                                                    })
+                                                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                        @Override
+                                                        public void onDismiss(DialogInterface dialog) {
+                                                            Intent registerIntent =
+                                                                    new Intent(RegisterScreen.this, LoginScreen.class);
+                                                            RegisterScreen.this.startActivity(registerIntent);
+                                                        }
+                                                    }).create().show();
+                                        }
                                     } else {
                                         Exception e = task.getException();
                                         Log.w("LoginActivity", "Failed Registration", e);
-                                        firebaseDatabase.getReference().child("app").child("Errors").push().setValue(e.getMessage());
+                                        firebaseDatabase.getReference().child("app").child("Errors").push().setValue(e != null ? e.getMessage() : null);
                                         AlertDialog.Builder builder =
                                                 new AlertDialog.Builder(RegisterScreen.this);
-                                        builder.setMessage(e.getMessage())
+                                        builder.setMessage(e != null ? e.getMessage() : null)
                                                 .setNegativeButton("Retry", null)
                                                 .create().show();
                                     }

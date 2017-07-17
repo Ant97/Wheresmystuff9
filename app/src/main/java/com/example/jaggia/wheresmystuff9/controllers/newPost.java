@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.example.jaggia.wheresmystuff9.R;
 
-@SuppressWarnings("ALL")
 public class newPost extends AppCompatActivity {
 
     @Override

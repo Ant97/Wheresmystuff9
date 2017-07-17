@@ -2,6 +2,7 @@ package com.example.jaggia.wheresmystuff9.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 
 import com.example.jaggia.wheresmystuff9.R;
 
-@SuppressWarnings("ALL")
 public class MainUserScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,9 +32,8 @@ public class MainUserScreen extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

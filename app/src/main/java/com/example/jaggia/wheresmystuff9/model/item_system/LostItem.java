@@ -5,14 +5,7 @@ package com.example.jaggia.wheresmystuff9.model.item_system;
 
 import java.util.Date;
 
-/**
- * Created by jaggia on 6/21/17.
- * edited by James
- *
- * Information holder class for item
- */
 
-@SuppressWarnings("ALL")
 public class LostItem extends Item {
 
 

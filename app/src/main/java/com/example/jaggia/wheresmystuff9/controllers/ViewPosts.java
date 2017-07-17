@@ -2,6 +2,7 @@ package com.example.jaggia.wheresmystuff9.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -32,7 +33,6 @@ import java.util.List;
 
 //import static com.example.jaggia.wheresmystuff9.R.id.list_view;
 
-@SuppressWarnings("ALL")
 public class ViewPosts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -150,9 +150,8 @@ public class ViewPosts extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

@@ -5,11 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by jaggia on 6/21/17.
- */
-
-@SuppressWarnings("ALL")
 public class ItemList {
     private final LinkedList<Item> itemList;
 
@@ -26,7 +21,7 @@ public class ItemList {
     /**
      * Add the itemObject to the linkedList itemObjectList
      *
-     * @param item
+     * @param item the item to add
      */
     public void addItem(Item item) {
         itemList.add(item);
@@ -35,7 +30,7 @@ public class ItemList {
     /**
      * Remove the itemObject from the linkedList itemObjectList
      *
-     * @param item
+     * @param item the item to remove
      */
     public void removeItem(Item item) {
         itemList.remove(item);

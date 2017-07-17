@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.example.jaggia.wheresmystuff9.model.item_system.FoundItem;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemCategory;
 import com.example.jaggia.wheresmystuff9.model.item_system.ItemStatus;
-import com.example.jaggia.wheresmystuff9.model.item_system.ItemType;
 import com.example.jaggia.wheresmystuff9.model.Model;
 import com.example.jaggia.wheresmystuff9.model.item_system.MyLocation;
 import com.example.jaggia.wheresmystuff9.R;
@@ -28,17 +26,12 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.Date;
 
-/**
- * Created by jaggia on 6/27/17.
- */
-
-@SuppressWarnings("ALL")
 public class FoundItemPost extends AppCompatActivity {
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
-    private static final String TAG = "FoundItemPost";
+    // --Commented out by Inspection (7/17/17, 12:36 PM):private static final String TAG = "FoundItemPost";
 
     private EditText foundName;
     private EditText foundDescription;
@@ -53,7 +46,7 @@ public class FoundItemPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_item_post);//for view people
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
         foundName = (EditText) findViewById(R.id.itemName);
@@ -127,7 +120,7 @@ public class FoundItemPost extends AppCompatActivity {
                 Double longitude = latLng.longitude;
                 ItemStatus status = ItemStatus.UNRESOLVED;
                 ItemCategory category = (ItemCategory) foundCategory.getSelectedItem();
-                ItemType type = ItemType.FOUND;
+//                ItemType type = ItemType.FOUND;
 
                 if (name.length() == 0 || latitude.toString().length() <= 0
                         || longitude.toString().length() <= 0){

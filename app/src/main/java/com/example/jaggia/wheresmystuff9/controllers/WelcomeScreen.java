@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.jaggia.wheresmystuff9.R;
 
@@ -16,7 +15,6 @@ import com.example.jaggia.wheresmystuff9.R;
  * @author AnT. & Annette
  * @version 1.0
  */
-@SuppressWarnings("ALL")
 public class WelcomeScreen extends AppCompatActivity {
 
     // --Commented out by Inspection (7/16/17, 7:37 PM):private final String TAG = "Welcome Screen";
@@ -25,7 +23,7 @@ public class WelcomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        final TextView title = (TextView) findViewById(R.id.welcome);
+//        final TextView title = (TextView) findViewById(R.id.welcome);
         final Button registerbtn = (Button) findViewById(R.id.register);
         final Button loginbtn = (Button) findViewById(R.id.login);
 

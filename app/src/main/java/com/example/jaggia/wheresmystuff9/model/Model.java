@@ -16,7 +16,6 @@ import java.util.List;
  *
  */
 
-@SuppressWarnings("ALL")
 public class Model {
     private static final Model _instance = new Model();
 
@@ -147,10 +146,13 @@ public class Model {
      * @param item itemObject to be added
      * @return true if successful, false if not
      */
-    @SuppressWarnings("SameReturnValue")
     public static boolean addItem(ItemList itemList, Item item){
-        itemList.addItem(item);
-        return true;
+        if (item != null) {
+            itemList.addItem(item);
+            return true;
+        } else {
+            return false;
+        }
     }
     /**
      *@param itemList the list of items to be listed

@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
  * @author AnT. & Annette
  * @version 1.0
  */
-@SuppressWarnings("ALL")
 public class LoginScreen extends AppCompatActivity {
     private final String TAG = "LoginScreen";
 
@@ -96,7 +94,7 @@ public class LoginScreen extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Log.d(TAG, "signInWithEmail:success");
-                                        FirebaseUser user = myAuth.getCurrentUser();
+//                                        FirebaseUser user = myAuth.getCurrentUser();
                                         Model.setCurrentUser(Model.findUserByUsername(username));
                                         Intent loginIntent =
                                                 new Intent(LoginScreen.this, MainUserScreen.class);
