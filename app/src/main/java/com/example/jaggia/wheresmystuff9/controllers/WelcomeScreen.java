@@ -63,11 +63,6 @@ public class WelcomeScreen extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(WelcomeScreen.this);
-                builder.setMessage("Facebook Login Canceled")
-                        .setNegativeButton("Retry", null)
-                        .create().show();
             }
 
             @Override
