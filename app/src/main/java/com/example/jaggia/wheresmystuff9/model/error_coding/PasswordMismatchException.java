@@ -5,7 +5,7 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  */
 
 public class PasswordMismatchException extends Exception {
-    public String message;
+    private final String message;
     public PasswordMismatchException(){
         super();
         message = "The passwords do not match";

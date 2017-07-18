@@ -5,7 +5,7 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  */
 
 public class DuplicateEmailException extends Exception {
-    public String message;
+    private final String message;
     public DuplicateEmailException(){
         super();
         message = "The email is tied to another account";

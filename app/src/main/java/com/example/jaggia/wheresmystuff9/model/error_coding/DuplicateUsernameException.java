@@ -5,7 +5,7 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  */
 
 public class DuplicateUsernameException extends Exception {
-    public String message;
+    private final String message;
     public DuplicateUsernameException(){
         super();
         message = "The username has already been taken";

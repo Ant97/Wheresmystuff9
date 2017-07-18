@@ -60,37 +60,37 @@ public class FoundItemPost extends AppCompatActivity {
         Button cancelPost = (Button) findViewById(R.id.cancelFound);
         Button map = (Button) findViewById(R.id.mapButton);
 
-        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        foundCategory.setAdapter(adapter);
+        ArrayAdapter<ItemCategory> itemCategoryArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        itemCategoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        foundCategory.setAdapter(itemCategoryArrayAdapter);
 
         Integer days[] = new Integer[31];
         for(int i = 0; i<days.length; i++){
             days[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, days);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        foundDateDay.setAdapter(adapter2);
+        ArrayAdapter<Integer> dayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, days);
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        foundDateDay.setAdapter(dayAdapter);
 
         //String months[] = {"January", "Feburary", "March", "April","May","June","July","August","Septemeber", "October","November","December"};
         Integer months[] = new Integer[12];
-        for(int i = 0; i<months.length; i++){
+        for(int i = 0; i<months.length; i++) {
             months[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter3 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, months);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        foundDateMonth.setAdapter(adapter3);
+        ArrayAdapter<Integer> monthAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, months);
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        foundDateMonth.setAdapter(monthAdapter);
 
         Integer years[] = new Integer[100];
         for(int i = 0; i<years.length; i++){
             years[i] = (i + 1990);
         }
 
-        ArrayAdapter<Integer> adapter4 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, years);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        foundDateYear.setAdapter(adapter4);
+        ArrayAdapter<Integer> yearAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, years);
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        foundDateYear.setAdapter(yearAdapter);
 
         map.setOnClickListener(new View.OnClickListener() {
             @Override

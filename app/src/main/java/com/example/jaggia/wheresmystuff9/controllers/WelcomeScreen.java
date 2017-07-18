@@ -21,7 +21,7 @@ import com.facebook.login.widget.LoginButton;
  * @version 1.0
  */
 public class WelcomeScreen extends AppCompatActivity {
-    CallbackManager callbackManager;
+    private CallbackManager callbackManager;
     // --Commented out by Inspection (7/16/17, 7:37 PM):private final String TAG = "Welcome Screen";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

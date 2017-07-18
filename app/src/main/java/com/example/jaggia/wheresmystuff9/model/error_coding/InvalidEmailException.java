@@ -5,7 +5,7 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  */
 
 public class InvalidEmailException extends Exception {
-    public String message;
+    private final String message;
     public InvalidEmailException(){
         super();
         message = "The email is invalid";

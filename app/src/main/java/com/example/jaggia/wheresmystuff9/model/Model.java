@@ -134,12 +134,12 @@ public class Model {
      * @param password2 the second password
      * @return true if successful, false if not
      */
-    public static boolean validatePasswordMatch(String password1, String password2) throws PasswordMismatchException {
+    private static boolean validatePasswordMatch(String password1, String password2) throws PasswordMismatchException {
         return PasswordHandler.validatePasswordMatch(password1, password2);
 
     }
 
-    public static boolean validatePassword(String password) throws InvalidPasswordException {
+    private static boolean validatePassword(String password) throws InvalidPasswordException {
         return PasswordHandler.validatePassword(password);
     }
     /**
@@ -171,21 +171,21 @@ public class Model {
     public static User findUserByUsername(String username){
         return UserSearchHandler.findUserByUsername(_database.getUsers(), username);
     }
-    public static User findUserByEmail(String email){
+    private static User findUserByEmail(String email){
         return UserSearchHandler.findUserByEmail(_database.getUsers(), email);
     }
 
-    public static boolean validateEmailFormat(String email) throws InvalidEmailException{
+    private static boolean validateEmailFormat(String email) throws InvalidEmailException{
         return EmailHandler.validateEmailFormat(email);
     }
     public static String getCurrentUsername(){
         return _currentUser.getUsername();
     }
 
-    public static boolean validateLegalUsername(String username) throws InvalidUsernameException{
+    private static boolean validateLegalUsername(String username) throws InvalidUsernameException{
         return UsernameHandler.validateLegalUsername(username);
     }
-    public static boolean validatePersonName(String name) throws NoNameException{
+    private static boolean validatePersonName(String name) throws NoNameException{
         return UsernameHandler.validatePersonName(name);
     }
     public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2) throws NoNameException, InvalidUsernameException, InvalidPasswordException, InvalidEmailException, PasswordMismatchException, DuplicateEmailException, DuplicateUsernameException {
