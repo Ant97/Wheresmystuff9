@@ -2,11 +2,13 @@ package com.example.jaggia.wheresmystuff9.model;
 
 
 
-import com.example.jaggia.wheresmystuff9.model.error_coding.ErrorCode;
+
+import com.example.jaggia.wheresmystuff9.model.error_coding.*;
 import com.example.jaggia.wheresmystuff9.model.item_system.*;
 import com.example.jaggia.wheresmystuff9.model.user_system.*;
 
 
+import java.nio.channels.NonReadableChannelException;
 import java.util.List;
 
 /**
@@ -112,7 +114,7 @@ public class Model {
      *          returns false if unsuccessful
      */
     public static boolean registerNewUser(User user){
-        return _database.registerNewUser(user) == ErrorCode.SUCCESS;
+        return _database.registerNewUser(user);
     }
 
     /**
@@ -123,7 +125,7 @@ public class Model {
      *          returns false if the user is not in the database
      */
     public static boolean validateUser(String username, String password){
-        return _database.validateUser(username, password) == ErrorCode.SUCCESS;
+        return _database.validateUser(username, password);
     }
 
     /**
@@ -132,12 +134,12 @@ public class Model {
      * @param password2 the second password
      * @return true if successful, false if not
      */
-    public static boolean validatePasswordMatch(String password1, String password2){
+    public static boolean validatePasswordMatch(String password1, String password2) throws PasswordMismatchException {
         return PasswordHandler.validatePasswordMatch(password1, password2);
 
     }
 
-    public static boolean validatePassword(String password){
+    public static boolean validatePassword(String password) throws InvalidPasswordException {
         return PasswordHandler.validatePassword(password);
     }
     /**
@@ -173,20 +175,26 @@ public class Model {
         return UserSearchHandler.findUserByEmail(_database.getUsers(), email);
     }
 
-    public static boolean validateEmailFormat(String email){
+    public static boolean validateEmailFormat(String email) throws InvalidEmailException{
         return EmailHandler.validateEmailFormat(email);
     }
     public static String getCurrentUsername(){
         return _currentUser.getUsername();
     }
 
-    public static boolean validateLegalUsername(String username){
+    public static boolean validateLegalUsername(String username) throws InvalidUsernameException{
         return UsernameHandler.validateLegalUsername(username);
     }
-    public static boolean validatePersonName(String name){
+    public static boolean validatePersonName(String name) throws NoNameException{
         return UsernameHandler.validatePersonName(name);
     }
-    public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2){
+    public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2) throws NoNameException, InvalidUsernameException, InvalidPasswordException, InvalidEmailException, PasswordMismatchException, DuplicateEmailException, DuplicateUsernameException {
+        if(null != findUserByUsername(username)){
+            throw new DuplicateUsernameException();
+        }
+        if (null != findUserByEmail(email)) {
+            throw new DuplicateEmailException();
+        }
         return validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2) && (null == findUserByUsername(username)) && (null == findUserByEmail(email));
     }
 
