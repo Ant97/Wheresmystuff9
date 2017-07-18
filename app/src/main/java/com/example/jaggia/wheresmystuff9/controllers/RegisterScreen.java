@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.jaggia.wheresmystuff9.model.Model;
+import com.example.jaggia.wheresmystuff9.model.error_coding.*;
 import com.example.jaggia.wheresmystuff9.model.user_system.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RegisterScreen extends AppCompatActivity {
     private final String TAG = "RegisterScreen";
+    private final String ERRORTAG = "Registration failed becase: ";
 
     private FirebaseAuth myAuth;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -109,88 +111,54 @@ public class RegisterScreen extends AppCompatActivity {
                 final String pw = registerPW.getText().toString();
                 final String pw2 = registerPW2.getText().toString();
                 final boolean userType = false;
-                if (Model.validateLegalRegistration(name, username, email, pw, pw2)) {
-                    Log.v(TAG, "It is attempting to make a new user");
-                    myAuth.createUserWithEmailAndPassword(email, pw)
-                            .addOnCompleteListener(RegisterScreen.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        final boolean registered = Model.registerNewUser(Model.createNewUser(name, username, pw, userType, email));
-                                        if (registered) {
-                                            firebaseDatabase.getReference().child("app").child("Users").push().setValue(Model.createNewUser(name, username, pw, userType, email));
+                try {
+                    if (Model.validateLegalRegistration(name, username, email, pw, pw2)) {
+                        Log.v(TAG, "It is attempting to make a new user");
+                        myAuth.createUserWithEmailAndPassword(email, pw)
+                                .addOnCompleteListener(RegisterScreen.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            final boolean registered = Model.registerNewUser(Model.createNewUser(name, username, pw, userType, email));
+                                            if (registered) {
+                                                firebaseDatabase.getReference().child("app").child("Users").push().setValue(Model.createNewUser(name, username, pw, userType, email));
+                                                AlertDialog.Builder builder =
+                                                        new AlertDialog.Builder(RegisterScreen.this);
+                                                builder.setMessage("Registration Successful")
+                                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                Intent registerIntent =
+                                                                        new Intent(RegisterScreen.this, LoginScreen.class);
+                                                                RegisterScreen.this.startActivity(registerIntent);
+                                                            }
+                                                        })
+                                                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialog) {
+                                                                Intent registerIntent =
+                                                                        new Intent(RegisterScreen.this, LoginScreen.class);
+                                                                RegisterScreen.this.startActivity(registerIntent);
+                                                            }
+                                                        }).create().show();
+                                            }
+                                        } else {
+                                            Exception e = task.getException();
+                                            Log.w("LoginActivity", "Failed Registration", e);
+                                            firebaseDatabase.getReference().child("app").child("Errors").push().setValue(e != null ? e.getMessage() : null);
                                             AlertDialog.Builder builder =
                                                     new AlertDialog.Builder(RegisterScreen.this);
-                                            builder.setMessage("Registration Successful")
-                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            Intent registerIntent =
-                                                                    new Intent(RegisterScreen.this, LoginScreen.class);
-                                                            RegisterScreen.this.startActivity(registerIntent);
-                                                        }
-                                                    })
-                                                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                        @Override
-                                                        public void onDismiss(DialogInterface dialog) {
-                                                            Intent registerIntent =
-                                                                    new Intent(RegisterScreen.this, LoginScreen.class);
-                                                            RegisterScreen.this.startActivity(registerIntent);
-                                                        }
-                                                    }).create().show();
+                                            builder.setMessage(e != null ? e.getMessage() : null)
+                                                    .setNegativeButton("Retry", null)
+                                                    .create().show();
                                         }
-                                    } else {
-                                        Exception e = task.getException();
-                                        Log.w("LoginActivity", "Failed Registration", e);
-                                        firebaseDatabase.getReference().child("app").child("Errors").push().setValue(e != null ? e.getMessage() : null);
-                                        AlertDialog.Builder builder =
-                                                new AlertDialog.Builder(RegisterScreen.this);
-                                        builder.setMessage(e != null ? e.getMessage() : null)
-                                                .setNegativeButton("Retry", null)
-                                                .create().show();
                                     }
-                                }
-                            });
-                } else if(!Model.validatePersonName(name)) {
-                        AlertDialog.Builder builder =
-                                new AlertDialog.Builder(RegisterScreen.this);
-                        builder.setMessage("Registration failed because a name was not entered")
-                                .setNegativeButton("Retry", null)
-                                .create().show();
-                } else if(!Model.validateLegalUsername(username)) {
+                                });
+                    }
+                } catch (NoNameException | InvalidUsernameException | DuplicateEmailException | DuplicateUsernameException | InvalidEmailException | InvalidPasswordException | PasswordMismatchException e) {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Registration failed because the username is not valid")
-                            .setNegativeButton("Retry", null)
-                            .create().show();
-                } else if(!Model.validateEmailFormat(email)){
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Registration failed because the email is not valid")
-                            .setNegativeButton("Retry", null)
-                            .create().show();
-                } else if (!(null == Model.findUserByUsername(username))){
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Registration failed because the username has been taken")
-                            .setNegativeButton("Retry", null)
-                            .create().show();
-                } else if(!(null == Model.findUserByEmail(email))){
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Registration failed because the email is already tied to another account")
-                            .setNegativeButton("Retry", null)
-                            .create().show();
-                } else if(!Model.validatePassword(pw)) {
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Registration failed because the password is illegal. Must be at least 7 characters")
-                            .setNegativeButton("Retry", null)
-                            .create().show();
-                } else if(!Model.validatePasswordMatch(pw, pw2)){
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(RegisterScreen.this);
-                    builder.setMessage("Registration failed because the passwords do not match")
+                    builder.setMessage(ERRORTAG + e.getMessage())
                             .setNegativeButton("Retry", null)
                             .create().show();
                 }

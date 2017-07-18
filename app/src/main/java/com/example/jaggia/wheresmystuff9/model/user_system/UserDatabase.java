@@ -34,18 +34,18 @@ public class UserDatabase {
      *         NULLUSER means the user passed in is null
      *
      */
-    public ErrorCode registerNewUser(User nwUser) {
+    public boolean registerNewUser(User nwUser) {
         if(null == nwUser){
-            return ErrorCode.NULLUSER;
+            return false;
         }
         for (User u : _users) {
             if (u.getUsername().equals(nwUser.getUsername())) {
-                return ErrorCode.DUPLICATEUSERNAME;
+                return false;
             }
         }
         _users.add(nwUser);
         _numUsers++;
-        return ErrorCode.SUCCESS;
+        return true;
     }
 
     /**
@@ -55,18 +55,13 @@ public class UserDatabase {
      * @return returns true if user is found and has correct password,
      *         returns false if not found or password incorrect, or if null user is passed
      */
-    public ErrorCode validateUser(String username, String password) {
+    public boolean validateUser(String username, String password) {
         for (User u : _users) {
             if (u.getUsername().equals(username)) {
-                if (u.getPassword().equals(password)) {
-                    return ErrorCode.SUCCESS;
-                } else {
-                    //can be simplified but is left for later development
-                    return ErrorCode.INCORRECTPASSWORD;
-                }
+                return u.getPassword().equals(password);
             }
         }
-        return ErrorCode.USERNAMENOTFOUND;
+        return false;
     }
     public List<User> getUsers(){
         return _users;
