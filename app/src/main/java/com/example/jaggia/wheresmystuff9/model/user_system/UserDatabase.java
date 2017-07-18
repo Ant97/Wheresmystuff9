@@ -58,12 +58,7 @@ public class UserDatabase {
     public boolean validateUser(String username, String password) {
         for (User u : _users) {
             if (u.getUsername().equals(username)) {
-                if (u.getPassword().equals(password)) {
-                    return true;
-                } else {
-                    //can be simplified but is left for later development
-                    return false;
-                }
+                return u.getPassword().equals(password);
             }
         }
         return false;
