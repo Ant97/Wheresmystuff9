@@ -59,7 +59,6 @@ public class UserDatabase {
         for (User u : _users) {
             if (u.getUsername().equals(username)) {
                 if (u.getPassword().equals(password)) {
-
                     return true;
                 } else {
                     //can be simplified but is left for later development

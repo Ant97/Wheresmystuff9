@@ -37,13 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 public class RegisterScreen extends AppCompatActivity {
     private final String TAG = "RegisterScreen";
     private final String ERRORTAG = "Registration failed becase: ";
-    private final String NONAME = "Registration failed because a name was not entered";
-    private final String INVALIDUSERNAME = "Registration failed because the username is not valid";
-    private final String INVALIDEMAIL = "Registration failed because the email is not valid";
-    private final String DUPLICATEUSERNAME = "Registration failed because the username has been taken";
-    private final String DUPLICATEEMAIL = "Registration failed because the email is already tied to another account";
-    private final String ILLEGALPASSWORD = "Registration failed because the password is illegal. Must be at least 7 characters";
-    private final String PASSWORDMISMATCH = "Registration failed because the passwords do not match";
 
     private FirebaseAuth myAuth;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
