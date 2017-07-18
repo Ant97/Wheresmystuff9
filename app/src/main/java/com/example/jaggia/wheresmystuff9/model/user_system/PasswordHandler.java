@@ -5,18 +5,14 @@ import com.example.jaggia.wheresmystuff9.model.error_coding.PasswordMismatchExce
 
 public class PasswordHandler {
     private static final int VALIDPASSWORDLENGTH = 6;
-    public static boolean validatePasswordMatch(String password1, String password2) throws PasswordMismatchException{
-        if(password1.equals(password2)) {
-            return true;
-        } else {
-            throw new PasswordMismatchException();
-        }
+    public static boolean validatePasswordMatch(String password1, String password2){
+        return password1.equals(password2);
     }
 
-    public static boolean validatePassword(String password) throws InvalidPasswordException {
+    public static boolean validatePassword(String password)  {
         if(!(password.length() < VALIDPASSWORDLENGTH)){
             return true;
         }
-            throw new InvalidPasswordException();
+            return false;
     }
 }
