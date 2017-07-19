@@ -70,5 +70,9 @@ public class UserDatabase {
     public List<User> getUsers(){
         return _users;
     }
+
+    public int getNumUsers() {
+        return _numUsers;
+    }
 }
 
