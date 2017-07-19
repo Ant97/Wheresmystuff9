@@ -22,7 +22,6 @@ import java.util.LinkedList;
 
 public class ExampleUnitTest {
 
-    private List<User> users;
     private UserDatabase database;
     private List<User> list;
     @Before
@@ -110,7 +109,7 @@ public class ExampleUnitTest {
     }
     @Test
     public void testUserSearchHandler() {
-        users = new LinkedList<>();
+        List<User> users = new LinkedList<>();
         users.add(0, new User("Jaggia", "user1", "anadi2231", true, "anadi.jaggia@gmail.com"));
         users.add(1, new User("An", "user2", "pass1234", false, "an.young@gmail.com"));
         users.add(2, new User("Yuli", "user3", "word5678", false, "yuli917@gmail.com"));

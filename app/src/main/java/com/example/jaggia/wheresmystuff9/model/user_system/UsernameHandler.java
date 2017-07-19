@@ -1,8 +1,5 @@
 package com.example.jaggia.wheresmystuff9.model.user_system;
 
-import com.example.jaggia.wheresmystuff9.model.error_coding.InvalidUsernameException;
-import com.example.jaggia.wheresmystuff9.model.error_coding.NoNameException;
-
 public class UsernameHandler {
     private static final int VALIDUSERNAMELENGTH = 4;
     private static final int VALIDPERSONNAMELENGTH = 1;

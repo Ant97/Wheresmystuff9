@@ -1,7 +1,5 @@
 package com.example.jaggia.wheresmystuff9.model.user_system;
 
-import com.example.jaggia.wheresmystuff9.model.error_coding.ErrorCode;
-
 import java.util.ArrayList;
 import java.util.List;
 /**
