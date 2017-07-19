@@ -63,6 +63,11 @@ public class ExampleUnitTest {
             Field field = UserDatabase.class.getDeclaredField("_users");
             field.setAccessible(true);
             field.set(database, users);
+
+            Field field1 = UserDatabase.class.getDeclaredField("_numUsers");
+            field1.setAccessible(true);
+            field1.set(database, users.size());
+
         } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
@@ -113,6 +118,35 @@ public class ExampleUnitTest {
         assertNull(UserSearchHandler.findUserByUsername(users, "alskdfjlskdjf"));
         //assertEquals(users.get(1), UserSearchHandler.findUserByEmail(users, "an.young@gmail.com"));
         //assertNull(UserSearchHandler.findUserByEmail(users, "alskdfjlskdjf"));
+    }
+
+    @Test
+    public void testRegisterNewUserTrue() {
+        setUserList(database, list);
+        assertEquals(10, database.getNumUsers());
+        assertTrue(database.registerNewUser(new User("user1", "user1", "password")));
+        assertEquals(11, database.getNumUsers());
+        assertTrue(database.registerNewUser(new User("Yuli", "user2", "yuli=best1")));
+        assertEquals(12, database.getNumUsers());
+        list.add(new User("user1", "user1", "password"));
+        list.add(new User("Yuli", "user2", "yuli=best1"));
+        for (int i = 0; i < list.size(); i++) {
+            assertEquals(list.get(i), database.getUsers().get(i));
+        }
+    }
+
+    @Test
+    public void testRegisterNewUserFalse() {
+        setUserList(database, list);
+        assertEquals(10, database.getNumUsers());
+        assertFalse(database.registerNewUser(null));
+        assertEquals(10, database.getNumUsers());
+        assertFalse(database.registerNewUser(list.get(0)));
+        assertFalse(database.registerNewUser(list.get(5)));
+        assertFalse(database.registerNewUser(list.get(9)));
+        assertEquals(10, database.getNumUsers());
+        assertFalse(database.registerNewUser(new User("user1", "Yuli8", "password")));
+        assertEquals(10, database.getNumUsers());
     }
 
 
