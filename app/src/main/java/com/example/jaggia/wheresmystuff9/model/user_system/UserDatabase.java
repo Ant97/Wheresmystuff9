@@ -56,12 +56,16 @@ public class UserDatabase {
      *         returns false if not found or password incorrect, or if null user is passed
      */
     public boolean validateUser(String username, String password) {
-        for (User u : _users) {
-            if (u.getUsername().equals(username)) {
-                return u.getPassword().equals(password);
+        if (UsernameHandler.validateLegalUsername(username) && PasswordHandler.validatePassword(password)) {
+            for (User u : _users) {
+                if (u.getUsername().equals(username)) {
+                    return u.getPassword().equals(password);
+                }
             }
+            return false;
         }
         return false;
+
     }
     public List<User> getUsers(){
         return _users;

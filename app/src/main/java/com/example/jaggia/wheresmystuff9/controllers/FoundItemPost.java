@@ -65,7 +65,7 @@ public class FoundItemPost extends AppCompatActivity {
         foundCategory.setAdapter(itemCategoryArrayAdapter);
 
         Integer days[] = new Integer[31];
-        for(int i = 0; i<days.length; i++){
+        for(int i = 0; i< days.length; i++){
             days[i] = (i+1);
         }
 

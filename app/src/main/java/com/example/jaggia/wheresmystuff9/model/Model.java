@@ -135,12 +135,20 @@ public class Model {
      * @return true if successful, false if not
      */
     private static boolean validatePasswordMatch(String password1, String password2) throws PasswordMismatchException {
-        return PasswordHandler.validatePasswordMatch(password1, password2);
+         if(PasswordHandler.validatePasswordMatch(password1, password2)) {
+             return true;
+         } else {
+             throw new PasswordMismatchException();
+         }
 
     }
 
     private static boolean validatePassword(String password) throws InvalidPasswordException {
-        return PasswordHandler.validatePassword(password);
+        if(PasswordHandler.validatePassword(password)){
+            return true;
+        } else {
+            throw new InvalidPasswordException();
+        }
     }
     /**
      * addItem to an itemObject list

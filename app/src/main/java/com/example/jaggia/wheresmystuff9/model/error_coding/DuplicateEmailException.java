@@ -4,7 +4,7 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  * Created by James on 7/18/2017.
  */
 
-public class DuplicateEmailException extends Exception {
+public class DuplicateEmailException extends RuntimeException {
     private final String message;
     public DuplicateEmailException(){
         super();

@@ -4,7 +4,7 @@ package com.example.jaggia.wheresmystuff9.model.error_coding;
  * Created by James on 7/18/2017.
  */
 
-public class InvalidPasswordException extends Exception {
+public class InvalidPasswordException extends RuntimeException {
     private final String message;
     public InvalidPasswordException(){
         super();
