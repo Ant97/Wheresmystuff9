@@ -40,4 +40,12 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.24.0'
     testCompile 'junit:junit:4.12'
 }
+
+sourceSets {
+    test {
+        java {
+            srcDirs = ["test/jaggiaTest"]
+        }
+    }
+}
 apply plugin: 'com.google.gms.google-services'
