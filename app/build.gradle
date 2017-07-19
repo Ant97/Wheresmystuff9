@@ -44,7 +44,7 @@ dependencies {
 sourceSets {
     test {
         java {
-            srcDirs = ["test/jaggiaTest"]
+            srcDirs = ["test/*"]
         }
     }
 }
