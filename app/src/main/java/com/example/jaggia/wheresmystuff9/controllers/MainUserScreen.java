@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.jaggia.wheresmystuff9.R;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainUserScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,13 +48,15 @@ public class MainUserScreen extends AppCompatActivity
                     new Intent(MainUserScreen.this, ViewPosts.class);
             MainUserScreen.this.startActivity(viewPostIntent);
         } else if (id == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
             Intent logoutIntent =
-                    new Intent(MainUserScreen.this, LoginScreen.class);
+                    new Intent(MainUserScreen.this, WelcomeScreen.class);
             MainUserScreen.this.startActivity(logoutIntent);
         } else if (id == R.id.map_posts) {
-            Intent logoutIntent =
+            Intent viewMapPostIntent =
                     new Intent(MainUserScreen.this, ViewMapPosts.class);
-            MainUserScreen.this.startActivity(logoutIntent);
+            MainUserScreen.this.startActivity(viewMapPostIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

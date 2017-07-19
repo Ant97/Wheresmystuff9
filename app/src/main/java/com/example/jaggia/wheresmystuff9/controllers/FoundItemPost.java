@@ -65,7 +65,7 @@ public class FoundItemPost extends AppCompatActivity {
         foundCategory.setAdapter(itemCategoryArrayAdapter);
 
         Integer days[] = new Integer[31];
-        for(int i = 0; i< days.length; i++){
+        for(int i = 0; i < days.length; i++) {
             days[i] = (i+1);
         }
 
@@ -75,7 +75,7 @@ public class FoundItemPost extends AppCompatActivity {
 
         //String months[] = {"January", "Feburary", "March", "April","May","June","July","August","Septemeber", "October","November","December"};
         Integer months[] = new Integer[12];
-        for(int i = 0; i<months.length; i++) {
+        for(int i = 0; i < months.length; i++) {
             months[i] = (i+1);
         }
 
@@ -84,7 +84,7 @@ public class FoundItemPost extends AppCompatActivity {
         foundDateMonth.setAdapter(monthAdapter);
 
         Integer years[] = new Integer[100];
-        for(int i = 0; i<years.length; i++){
+        for(int i = 0; i < years.length; i++) {
             years[i] = (i + 1990);
         }
 

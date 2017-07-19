@@ -10,9 +10,6 @@ public class PasswordHandler {
     }
 
     public static boolean validatePassword(String password)  {
-        if(!(password.length() < VALIDPASSWORDLENGTH)){
-            return true;
-        }
-            return false;
+        return((password.length() > VALIDPASSWORDLENGTH));
     }
 }

@@ -9,11 +9,7 @@ public class UsernameHandler {
     public static boolean validateLegalUsername(String username) {
         return (null != username && !(username.length() < VALIDUSERNAMELENGTH));
     }
-    public static boolean validatePersonName(String name) throws NoNameException {
-        if(null != name && !(name.length() < VALIDPERSONNAMELENGTH)) {
-            return true;
-        }else {
-            throw new NoNameException();
-        }
+    public static boolean validatePersonName(String name)  {
+        return (null != name && !(name.length() < VALIDPERSONNAMELENGTH));
     }
 }

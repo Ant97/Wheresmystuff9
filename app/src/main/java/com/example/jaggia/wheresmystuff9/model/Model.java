@@ -184,17 +184,29 @@ public class Model {
     }
 
     private static boolean validateEmailFormat(String email) throws InvalidEmailException{
-        return EmailHandler.validateEmailFormat(email);
+        if(EmailHandler.validateEmailFormat(email)){
+            return true;
+        } else {
+            throw new InvalidEmailException();
+        }
     }
     public static String getCurrentUsername(){
         return _currentUser.getUsername();
     }
 
     private static boolean validateLegalUsername(String username) throws InvalidUsernameException{
-        return UsernameHandler.validateLegalUsername(username);
+        if(UsernameHandler.validateLegalUsername(username)){
+            return true;
+        } else {
+            throw new InvalidUsernameException();
+        }
     }
     private static boolean validatePersonName(String name) throws NoNameException{
-        return UsernameHandler.validatePersonName(name);
+        if(UsernameHandler.validatePersonName(name)){
+            return true;
+        } else {
+            throw new InvalidUsernameException();
+        }
     }
     public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2) throws NoNameException, InvalidUsernameException, InvalidPasswordException, InvalidEmailException, PasswordMismatchException, DuplicateEmailException, DuplicateUsernameException {
         if(null != findUserByUsername(username)){

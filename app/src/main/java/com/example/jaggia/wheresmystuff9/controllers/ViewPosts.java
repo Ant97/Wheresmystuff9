@@ -23,6 +23,8 @@ import com.example.jaggia.wheresmystuff9.model.item_system.FoundItem;
 import com.example.jaggia.wheresmystuff9.model.item_system.LostItem;
 import com.example.jaggia.wheresmystuff9.model.Model;
 import com.example.jaggia.wheresmystuff9.R;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -164,6 +166,8 @@ public class ViewPosts extends AppCompatActivity
                     new Intent(ViewPosts.this, ViewPosts.class);
             ViewPosts.this.startActivity(viewPostIntent);
         } else if (id == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
             Intent logoutIntent =
                     new Intent(ViewPosts.this, LoginScreen.class);
             ViewPosts.this.startActivity(logoutIntent);

@@ -15,6 +15,8 @@ import android.widget.Button;
 
 
 import com.example.jaggia.wheresmystuff9.R;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MakeAPost extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -109,6 +111,8 @@ public class MakeAPost extends AppCompatActivity
                     new Intent(MakeAPost.this, ViewPosts.class);
             MakeAPost.this.startActivity(viewPostIntent);
         } else if (id == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
             Intent logoutIntent =
                     new Intent(MakeAPost.this, LoginScreen.class);
             MakeAPost.this.startActivity(logoutIntent);

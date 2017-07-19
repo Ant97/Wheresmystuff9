@@ -103,7 +103,7 @@ public class LoginScreen extends AppCompatActivity {
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                                         AlertDialog.Builder builder =
                                                 new AlertDialog.Builder(LoginScreen.this);
-                                        builder.setMessage("Login Failed: Email or PW incorrect")
+                                        builder.setMessage("Login Failed: Email or PW incorrect. If you logged in with a Social Media app previously, please continue using said app login button.")
                                                 .setNegativeButton("Retry", null)
                                                 .create().show();
                                     }
