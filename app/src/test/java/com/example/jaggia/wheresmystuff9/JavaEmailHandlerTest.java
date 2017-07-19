@@ -10,9 +10,6 @@ import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by James on 7/19/2017.
- */
 
 public class JavaEmailHandlerTest {
     private final List<String> testStringsFail = new ArrayList<>();
