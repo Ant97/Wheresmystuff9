@@ -29,4 +29,16 @@ public class jaggiaTest {
         //assertEquals(users.get(1), UserSearchHandler.findUserByEmail(users, "an.young@gmail.com"));
         //assertNull(UserSearchHandler.findUserByEmail(users, "alskdfjlskdjf"));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExceptionUser() throws IllegalArgumentException {
+        UserSearchHandler.findUserByUsername(null, "kjsldf");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExceptionUser1() {
+        UserSearchHandler.findUserByUsername(users, null);
+    }
+
+
 }

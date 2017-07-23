@@ -190,7 +190,7 @@ public class FoundItemPost extends AppCompatActivity {
     }
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
-        Place placeSelected = PlacePicker.getPlace(data, this);
+        Place placeSelected = PlacePicker.getPlace(this, data);
 
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
