@@ -13,11 +13,10 @@ public class PasswordHandler {
      * @return true if passwords match false otherwise
      */
     public static boolean validatePasswordMatch(String password1, String password2){
-        if (password1 != null && password2 != null &&
-                validatePassword(password1) && validatePassword(password2)) {
-            return password1.equals(password2);
-        }
-        return false;
+
+        return password1 != null && password2 != null && validatePassword(password1)
+                && validatePassword(password2) && password1.equals(password2);
+
     }
 
     /**
@@ -26,9 +25,7 @@ public class PasswordHandler {
      * @return true if password is legal false otherwise
      */
     public static boolean validatePassword(String password) {
-        if (password != null) {
-            return ((password.length() > VALIDPASSWORDLENGTH));
-        }
-        return false;
+        return password != null && ((password.length() > VALIDPASSWORDLENGTH));
+
     }
 }

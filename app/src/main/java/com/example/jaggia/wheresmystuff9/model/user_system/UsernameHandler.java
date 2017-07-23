@@ -13,10 +13,8 @@ public class UsernameHandler {
      * @return true if is a valid username false otherwise
      */
     public static boolean validateLegalUsername(String username) {
-        if (username != null) {
             return (null != username && !(username.length() < VALIDUSERNAMELENGTH));
-        }
-        return false;
+
     }
 
     /**
@@ -25,9 +23,7 @@ public class UsernameHandler {
      * @return true if is a valid name false otherwise
      */
     public static boolean validatePersonName(String name)  {
-        if (name != null) {
             return (null != name && !(name.length() < VALIDPERSONNAMELENGTH));
-        }
-        return false;
+
     }
 }
