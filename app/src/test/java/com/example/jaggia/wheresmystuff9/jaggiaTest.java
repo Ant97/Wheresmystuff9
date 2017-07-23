@@ -35,10 +35,10 @@ public class jaggiaTest {
         UserSearchHandler.findUserByUsername(null, "kjsldf");
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testExceptionUser1() {
-        UserSearchHandler.findUserByUsername(users, null);
-    }
+    //@Test(expected = IllegalArgumentException.class)
+    //public void testExceptionUser1() {
+        //UserSearchHandler.findUserByUsername(users, null);
+    //}
 
 
 }

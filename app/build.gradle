@@ -48,4 +48,9 @@ sourceSets {
         }
     }
 }
+
+task gitPull(type: Exec) {
+    description 'Pulls git.'
+    commandLine "git", "pull"
+}
 apply plugin: 'com.google.gms.google-services'
