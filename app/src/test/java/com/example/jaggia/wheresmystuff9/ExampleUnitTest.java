@@ -67,7 +67,9 @@ public class ExampleUnitTest {
             field1.setAccessible(true);
             field1.set(database, users.size());
 
-        } catch (IllegalAccessException | NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
     }

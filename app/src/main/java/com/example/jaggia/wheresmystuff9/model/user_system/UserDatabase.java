@@ -65,10 +65,19 @@ public class UserDatabase {
         return false;
 
     }
+
+    /**
+     * This is a getter for user list
+     * @return the user list
+     */
     public List<User> getUsers(){
         return _users;
     }
 
+    /**
+     * This is a getter for numUsers
+     * @return number of numbers in database
+     */
     public int getNumUsers() {
         return _numUsers;
     }
