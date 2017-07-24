@@ -32,6 +32,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 public class LostItemPost extends AppCompatActivity {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final int REQUEST_CODE_PLACEPICKER = 1;
+    private boolean locationSelected = false;
     public static final String TAG = "LostItemPost";
     private static LatLng latLng = null;
 
@@ -114,58 +115,63 @@ public class LostItemPost extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference databaseReference = database.getReference();
-                String name = lostName.getText().toString();
-                String description = lostDescription.getText().toString();
-                Double latitude = latLng.latitude;
-                Double longitude = latLng.longitude;
-                ItemStatus status = ItemStatus.UNRESOLVED;
-                ItemCategory category = (ItemCategory) lostCategory.getSelectedItem();
-                String reward = lostReward.getText().toString();
-//                ItemType type = ItemType.LOST;
-                if (name.length() == 0 || latitude.toString().length() <= 0
-                        || longitude.toString().length() <= 0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
-                    builder.setMessage("Item was not created: Please fill in required information");
-                    builder.setNegativeButton("Retry", null).create().show();
-                } else {
-                    MyLocation location = new MyLocation("itemLocation");
-                    location.setLatitude((latitude));
-                    location.setLongitude((longitude));
-
-                    int dateDay = (int) lostDateDay.getSelectedItem();
-                    int dateMonth = ((int) lostDateMonth.getSelectedItem()) - 1;
-                    int dateYear = (int) lostDateYear.getSelectedItem();
-                    Date date = new Date(dateYear, dateMonth, dateDay);
-
-                    LostItem itemToAdd = new  LostItem.Builder(name, location).User(Model.getCurrentUsername())
-                            .Reward(reward).Description(description)
-                            .Date(date).ItemStatus(status)
-                            .ItemCategory(category).Build();
-                    if (Model.addItem(Model.getLostList(), itemToAdd)) {
-                        databaseReference.child("app").child("LostItem").push().setValue(itemToAdd);
-                        //the item was created and added to the lostItems
+                if(locationSelected) {
+                    DatabaseReference databaseReference = database.getReference();
+                    String name = lostName.getText().toString();
+                    String description = lostDescription.getText().toString();
+                    Double latitude = latLng.latitude;
+                    Double longitude = latLng.longitude;
+                    ItemStatus status = ItemStatus.UNRESOLVED;
+                    ItemCategory category = (ItemCategory) lostCategory.getSelectedItem();
+                    String reward = lostReward.getText().toString();
+                    //                ItemType type = ItemType.LOST;
+                    if (name.length() == 0 || latitude.toString().length() <= 0
+                            || longitude.toString().length() <= 0) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
-                        builder.setMessage("Item was created successfully!");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
-                                LostItemPost.this.startActivity(postIntent);
-                            }
-                        });
-                        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
-                                LostItemPost.this.startActivity(postIntent);
-                            }
-                        }).create().show();
+                        builder.setMessage("Item was not created: Please fill in required information");
+                        builder.setNegativeButton("Retry", null).create().show();
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
-                        builder.setMessage("Item was not created").setNegativeButton("Retry", null).create().show();
+                        MyLocation location = new MyLocation("itemLocation");
+                        location.setLatitude((latitude));
+                        location.setLongitude((longitude));
 
+                        int dateDay = (int) lostDateDay.getSelectedItem();
+                        int dateMonth = ((int) lostDateMonth.getSelectedItem()) - 1;
+                        int dateYear = (int) lostDateYear.getSelectedItem();
+                        Date date = new Date(dateYear, dateMonth, dateDay);
+
+                        LostItem itemToAdd = new LostItem.Builder(name, location).User(Model.getCurrentUsername())
+                                .Reward(reward).Description(description)
+                                .Date(date).ItemStatus(status)
+                                .ItemCategory(category).Build();
+                        if (Model.addItem(Model.getLostList(), itemToAdd)) {
+                            databaseReference.child("app").child("LostItem").push().setValue(itemToAdd);
+                            //the item was created and added to the lostItems
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                            builder.setMessage("Item was created successfully!");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
+                                    LostItemPost.this.startActivity(postIntent);
+                                }
+                            });
+                            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    Intent postIntent = new Intent(LostItemPost.this, ViewPosts.class);
+                                    LostItemPost.this.startActivity(postIntent);
+                                }
+                            }).create().show();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                            builder.setMessage("Item was not created").setNegativeButton("Retry", null).create().show();
+
+                        }
                     }
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LostItemPost.this);
+                    builder.setMessage("Please click map and select a location").setNegativeButton("Retry", null).create().show();
                 }
             }
 
@@ -193,7 +199,7 @@ public class LostItemPost extends AppCompatActivity {
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(this, data);
-
+        locationSelected = true;
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
         latLng = placeSelected.getLatLng();

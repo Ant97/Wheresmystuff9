@@ -32,7 +32,7 @@ public class FoundItemPost extends AppCompatActivity {
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
     // --Commented out by Inspection (7/17/17, 12:36 PM):private static final String TAG = "FoundItemPost";
-
+    private boolean locationSelected = false;
     private EditText foundName;
     private EditText foundDescription;
     private Spinner foundCategory;
@@ -111,60 +111,64 @@ public class FoundItemPost extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(locationSelected) {
+                    DatabaseReference databaseReference = database.getReference();
 
-                DatabaseReference databaseReference = database.getReference();
+                    String name = foundName.getText().toString();
+                    String description = foundDescription.getText().toString();
+                    Double latitude = latLng.latitude;
+                    Double longitude = latLng.longitude;
+                    ItemStatus status = ItemStatus.UNRESOLVED;
+                    ItemCategory category = (ItemCategory) foundCategory.getSelectedItem();
+                    //                ItemType type = ItemType.FOUND;
 
-                String name = foundName.getText().toString();
-                String description = foundDescription.getText().toString();
-                Double latitude = latLng.latitude;
-                Double longitude = latLng.longitude;
-                ItemStatus status = ItemStatus.UNRESOLVED;
-                ItemCategory category = (ItemCategory) foundCategory.getSelectedItem();
-//                ItemType type = ItemType.FOUND;
-
-                if (name.length() == 0 || latitude.toString().length() <= 0
-                        || longitude.toString().length() <= 0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
-                    builder.setMessage("Item was not created: Please fill in required information");
-                    builder.setNegativeButton("Retry", null).create().show();
-                } else {
-                    MyLocation location = new MyLocation("itemLocation");
-                    location.setLatitude((latitude));
-                    location.setLongitude((longitude));
-
-                    int dateDay = (int) foundDateDay.getSelectedItem();
-                    int dateMonth = ((int) foundDateMonth.getSelectedItem()) - 1;
-                    int dateYear = (int) foundDateYear.getSelectedItem();
-                    Date date = new Date(dateYear, dateMonth, dateDay);
-
-                    FoundItem itemToAdd = (new FoundItem.Builder(name, location).User(Model.getCurrentUsername())
-                            .Description(description).Date(date)
-                            .ItemStatus(status).ItemCategory(category)).Build();
-
-                    if (Model.addItem(Model.getFoundList(), itemToAdd)) {
-                       databaseReference.child("app").child("FoundItem").push().setValue(itemToAdd);
-                        //the item was created and added to the foundItems
+                    if (name.length() == 0 || latitude.toString().length() <= 0
+                            || longitude.toString().length() <= 0) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
-                        builder.setMessage("Item was created successfully!");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent postIntent = new Intent(FoundItemPost.this, ViewPosts.class);
-                                FoundItemPost.this.startActivity(postIntent);
-                            }
-                        });
-                        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                Intent postIntent = new Intent(FoundItemPost.this, ViewPosts.class);
-                                FoundItemPost.this.startActivity(postIntent);
-                            }
-                        }).create().show();
+                        builder.setMessage("Item was not created: Please fill in required information");
+                        builder.setNegativeButton("Retry", null).create().show();
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
-                        builder.setMessage("Item was not created").setNegativeButton("Retry", null).create().show();
+                        MyLocation location = new MyLocation("itemLocation");
+                        location.setLatitude((latitude));
+                        location.setLongitude((longitude));
 
+                        int dateDay = (int) foundDateDay.getSelectedItem();
+                        int dateMonth = ((int) foundDateMonth.getSelectedItem()) - 1;
+                        int dateYear = (int) foundDateYear.getSelectedItem();
+                        Date date = new Date(dateYear, dateMonth, dateDay);
+
+                        FoundItem itemToAdd = (new FoundItem.Builder(name, location).User(Model.getCurrentUsername())
+                                .Description(description).Date(date)
+                                .ItemStatus(status).ItemCategory(category)).Build();
+
+                        if (Model.addItem(Model.getFoundList(), itemToAdd)) {
+                            databaseReference.child("app").child("FoundItem").push().setValue(itemToAdd);
+                            //the item was created and added to the foundItems
+                            AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
+                            builder.setMessage("Item was created successfully!");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent postIntent = new Intent(FoundItemPost.this, ViewPosts.class);
+                                    FoundItemPost.this.startActivity(postIntent);
+                                }
+                            });
+                            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    Intent postIntent = new Intent(FoundItemPost.this, ViewPosts.class);
+                                    FoundItemPost.this.startActivity(postIntent);
+                                }
+                            }).create().show();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
+                            builder.setMessage("Item was not created").setNegativeButton("Retry", null).create().show();
+
+                        }
                     }
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FoundItemPost.this);
+                    builder.setMessage("Please click map and select a location").setNegativeButton("Retry", null).create().show();
                 }
             }
 
@@ -191,7 +195,7 @@ public class FoundItemPost extends AppCompatActivity {
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(this, data);
-
+        locationSelected = true;
         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
 
