@@ -32,6 +32,14 @@ public class User implements Parcelable{
     /**String to hold the users's email*/
     private String email;
 
+    private boolean accLock = false;
+
+    public void setAccLock(boolean accLock ){
+        this.accLock = accLock;
+    }
+    public boolean getAccLock(){
+        return this.accLock;
+    }
     /**no parameter constructor for controller*/
     public User(){
         this("default name" , "default username" , "default password");

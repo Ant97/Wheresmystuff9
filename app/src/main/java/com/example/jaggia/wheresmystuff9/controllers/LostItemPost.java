@@ -62,18 +62,18 @@ public class LostItemPost extends AppCompatActivity {
         Button map = (Button) findViewById(R.id.mapButton);
 
 
-        ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostCategory.setAdapter(adapter);
+        ArrayAdapter<ItemCategory> itemCategoryArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        itemCategoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostCategory.setAdapter(itemCategoryArrayAdapter);
 
         Integer days[] = new Integer[31];
         for(int i = 0; i<days.length; i++){
             days[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, days);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostDateDay.setAdapter(adapter2);
+        ArrayAdapter<Integer> dayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, days);
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostDateDay.setAdapter(dayAdapter);
 
         //String months[] = {"January", "Feburary", "March", "April","May","June","July","August","Septemeber", "October","November","December"};
         Integer months[] = new Integer[12];
@@ -81,18 +81,18 @@ public class LostItemPost extends AppCompatActivity {
             months[i] = (i+1);
         }
 
-        ArrayAdapter<Integer> adapter3 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, months);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostDateMonth.setAdapter(adapter3);
+        ArrayAdapter<Integer> monthAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, months);
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostDateMonth.setAdapter(monthAdapter);
 
         Integer years[] = new Integer[100];
         for(int i = 0; i<years.length; i++){
             years[i] = (i + 1990);
         }
 
-        ArrayAdapter<Integer> adapter4 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, years);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lostDateYear.setAdapter(adapter4);
+        ArrayAdapter<Integer> yearAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, years);
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lostDateYear.setAdapter(yearAdapter);
 
 
         map.setOnClickListener(new View.OnClickListener() {

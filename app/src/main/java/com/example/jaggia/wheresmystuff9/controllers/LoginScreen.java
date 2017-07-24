@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 /**
  * This is controller for Login Screen
@@ -41,6 +44,8 @@ public class LoginScreen extends AppCompatActivity {
     private EditText loginPW;
     private Button login;
     private Button cancelLogin;
+
+    LinkedHashMap<String, Integer> LoginAttempts = new LinkedHashMap<String, Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class LoginScreen extends AppCompatActivity {
     }
     protected void onStart(){
         super.onStart();
+
         cancelLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +93,9 @@ public class LoginScreen extends AppCompatActivity {
                 final String username = loginUsername.getText().toString();
                 final String email = loginEmail.getText().toString();
                 final String pw = loginPW.getText().toString();
+                if(!LoginAttempts.containsKey(username)) {
+                    LoginAttempts.put(username, 0);
+                }
                 if(Model.validateUser(username, pw)) {
                     myAuth.signInWithEmailAndPassword(email, pw)
                             .addOnCompleteListener(LoginScreen.this, new OnCompleteListener<AuthResult>() {
@@ -109,9 +118,15 @@ public class LoginScreen extends AppCompatActivity {
                                     }
                                 }
                             });
-                } else {
+                } else if(LoginAttempts.get(username) >= 2){
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginScreen.this);
-                    builder.setMessage("Login Failed: Username or PW is incorrect")
+                    builder.setMessage("This account is now locked after multiple failed attempts. Please contact an admin to unlock it")
+                            .setNegativeButton("Retry", null)
+                            .create().show();
+                } else {
+                    LoginAttempts.put(username, LoginAttempts.get(username)+1);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginScreen.this);
+                    builder.setMessage("Login Failed: Username or password not correct")
                             .setNegativeButton("Retry", null)
                             .create().show();
                 }

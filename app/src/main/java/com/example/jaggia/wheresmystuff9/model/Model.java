@@ -75,6 +75,14 @@ public class Model {
 
     /**
      *
+     * @return the current user's username
+     */
+    public static String getCurrentUsername(){
+        return _currentUser.getUsername();
+    }
+
+    /**
+     *
      * @param currentUser set the current user
      */
     public static void setCurrentUser(User currentUser){
@@ -101,6 +109,7 @@ public class Model {
      * @param username username for the new user
      * @param password password for the new user
      * @param userType boolean false means not admin, true means admin
+     * @param email The email the user is associated with
      * @return return the user to the controller
      */
     public static User createNewUser(String name, String username, String password, boolean userType, String email){
@@ -142,6 +151,12 @@ public class Model {
 
     }
 
+    /**
+     * Check that the password meets security requirements
+     * @param password string to be tested
+     * @return true if the password is acceptable
+     * @throws InvalidPasswordException throws if the password is not valid
+     */
     private static boolean validatePassword(String password) throws InvalidPasswordException {
         if(PasswordHandler.validatePassword(password)){
             return true;
@@ -164,6 +179,7 @@ public class Model {
         }
     }
     /**
+     * list the items in string format
      *@param itemList the list of items to be listed
      * @return returns a string list of the list of items in itemList
      */
@@ -171,13 +187,28 @@ public class Model {
         return itemList.listItems();
     }
 
+    /**
+     * clears the list of all items
+     * @param itemList the list to be cleared
+     */
     public static void clearList(ItemList itemList){
         itemList.clearItems();
     }
 
+    /**
+     * Find a user by their associated Username
+     * @param username the username to be searched for
+     * @return the user if found, null if not
+     */
     public static User findUserByUsername(String username){
         return UserSearchHandler.findUserByUsername(_database.getUsers(), username);
     }
+
+    /**
+     * Find a user by their assocaited Email
+     * @param email the email to be searched for
+     * @return the user if found, null if not
+     */
     private static User findUserByEmail(String email){
         return UserSearchHandler.findUserByEmail(_database.getUsers(), email);
     }
@@ -188,9 +219,6 @@ public class Model {
         } else {
             throw new InvalidEmailException();
         }
-    }
-    public static String getCurrentUsername(){
-        return _currentUser.getUsername();
     }
 
     private static boolean validateLegalUsername(String username) throws InvalidUsernameException{
@@ -207,6 +235,23 @@ public class Model {
             throw new InvalidUsernameException();
         }
     }
+
+    /**
+     * Validates that the information needed to register a new user is acceptable. Checks username requirements, password requirements, and that the email is of valid format
+     * @param name the real life name of the user
+     * @param username the publicly associated username
+     * @param email the email associated with the account
+     * @param pw the password the user desires to use
+     * @param pw2 the conformation password
+     * @return returns true if the registration information is valid, false if not
+     * @throws NoNameException  if no name is given
+     * @throws InvalidUsernameException  if the username is not a usable username
+     * @throws InvalidPasswordException  if the password does not meet password requirements
+     * @throws InvalidEmailException  if the email does not fit the required format
+     * @throws PasswordMismatchException  if the passwords do not match
+     * @throws DuplicateEmailException if the email is already tied to another account
+     * @throws DuplicateUsernameException if the username is already in use by another account
+     */
     public static boolean validateLegalRegistration(String name, String username, String email, String pw, String pw2) throws NoNameException, InvalidUsernameException, InvalidPasswordException, InvalidEmailException, PasswordMismatchException, DuplicateEmailException, DuplicateUsernameException {
         if(null != findUserByUsername(username)){
             throw new DuplicateUsernameException();
@@ -214,7 +259,7 @@ public class Model {
         if (null != findUserByEmail(email)) {
             throw new DuplicateEmailException();
         }
-        return validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2) && (null == findUserByUsername(username)) && (null == findUserByEmail(email));
+        return validatePersonName(name) && validateLegalUsername(username) && validateEmailFormat(email) && validatePassword(pw) && validatePasswordMatch(pw, pw2);
     }
 
 }
