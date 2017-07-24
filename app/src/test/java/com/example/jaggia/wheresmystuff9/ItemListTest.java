@@ -17,10 +17,6 @@ import java.util.LinkedList;
 import java.util.Date;
 import android.location.Location;
 
-/**
- * Created by tommyLafi on 7/22/17.
- */
-
 public class ItemListTest {
     private ItemList itemList;
     private List<Item> list;
@@ -101,9 +97,7 @@ public class ItemListTest {
             Field field = ItemList.class.getDeclaredField("itemList");
             field.setAccessible(true);
             field.set(itemList, list);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
     }

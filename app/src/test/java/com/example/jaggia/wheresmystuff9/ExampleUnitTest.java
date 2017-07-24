@@ -53,9 +53,9 @@ public class ExampleUnitTest {
 
     /**
      * this method sets userdatabase's users list to the user list passed in parameter
-     * @param database
-     * @param users
-     * @param <T>
+     * @param database the user Database
+     * @param users the list of users
+     * @param <T> the generic type
      */
     private <T> void setUserList(UserDatabase database, List<User> users) {
         try {
@@ -67,9 +67,7 @@ public class ExampleUnitTest {
             field1.setAccessible(true);
             field1.set(database, users.size());
 
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
     }

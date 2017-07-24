@@ -1,7 +1,7 @@
 package com.example.jaggia.wheresmystuff9;
 import com.example.jaggia.wheresmystuff9.model.user_system.User;
 import com.example.jaggia.wheresmystuff9.model.user_system.UserSearchHandler;
-import org.junit.Before;
+
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -16,18 +16,18 @@ import java.util.List;
 
 public class UserSearchHandlerTest {
     private List<User> users;
-    private User Yuli = new User("Yuli", "yuli97", "yuli=best", false, "yuliyliu.1997@gmail.com");
-    private User An = new User("An", "anT97", "yuli=best", false, "ant1128@gmail.com");
-    private User James = new User("James", "JamesG", "yuli=best", true, "jamesG@gmail.com");
-    private User Anadi = new User("Anadi", "AnadiJ", "yuli=best", false, "anadiJ@gmail.com");
-    private User Annette = new User("Annette", "AnnetteC", "yuli=best", false, "annetteC@gmail.com");
+    private final User Yuli = new User("Yuli", "yuli97", "yuli=best", false, "yuliyliu.1997@gmail.com");
+    private final User An = new User("An", "anT97", "yuli=best", false, "ant1128@gmail.com");
+    private final User James = new User("James", "JamesG", "yuli=best", true, "jamesG@gmail.com");
+    private final User Anadi = new User("Anadi", "AnadiJ", "yuli=best", false, "anadiJ@gmail.com");
+    private final User Annette = new User("Annette", "AnnetteC", "yuli=best", false, "annetteC@gmail.com");
 
     //----------------------helper methods--------------------------------
 
     /**
      * This method populate a list of users
      */
-    public void populateUsers() {
+    private void populateUsers() {
         users = new LinkedList<>();
         users.add(Yuli);
         users.add(An);
@@ -42,7 +42,7 @@ public class UserSearchHandlerTest {
      * @param expect expect user
      * @param actual actual user
      */
-    public void assertUserEqual(User expect, User actual) {
+    private void assertUserEqual(User expect, User actual) {
         assertEquals("User name does not match", expect.getName(), actual.getName());
         assertEquals("User username does not match", expect.getUsername(), actual.getUsername());
         assertEquals("User password does not match", expect.getPassword(), actual.getPassword());

@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 /**
@@ -45,7 +44,7 @@ public class LoginScreen extends AppCompatActivity {
     private Button login;
     private Button cancelLogin;
 
-    LinkedHashMap<String, Integer> LoginAttempts = new LinkedHashMap<String, Integer>();
+    private final LinkedHashMap<String, Integer> LoginAttempts = new LinkedHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
