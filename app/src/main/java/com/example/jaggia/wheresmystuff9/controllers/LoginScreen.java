@@ -44,7 +44,7 @@ public class LoginScreen extends AppCompatActivity {
     private Button login;
     private Button cancelLogin;
 
-    private final LinkedHashMap<String, Integer> LoginAttempts = new LinkedHashMap<>();
+    private static LinkedHashMap<String, Integer> LoginAttempts = new LinkedHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +102,6 @@ public class LoginScreen extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Log.d(TAG, "signInWithEmail:success");
-//                                        FirebaseUser user = myAuth.getCurrentUser();
                                         Model.setCurrentUser(Model.findUserByUsername(username));
                                         Intent loginIntent =
                                                 new Intent(LoginScreen.this, MainUserScreen.class);
