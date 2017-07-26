@@ -136,6 +136,12 @@ public class WelcomeScreen extends AppCompatActivity {
             if(result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+            } else {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(WelcomeScreen.this);
+                builder.setMessage("Failed to sign in with Google plus account")
+                        .setNegativeButton("Retry", null)
+                        .create().show();
             }
         }
         callbackManager.onActivityResult(requestCode, resultCode, data);
