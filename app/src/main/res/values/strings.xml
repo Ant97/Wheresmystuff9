@@ -4,6 +4,7 @@
     <string name="logout">Logout</string>
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
+    <string name="ResetPassword">Reset Password</string>
     <string name="welcome">Welcome…</string>
     <string name="name">Name</string>
     <string name="month">Month</string>

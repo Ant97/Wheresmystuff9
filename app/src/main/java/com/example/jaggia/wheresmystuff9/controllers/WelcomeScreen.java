@@ -47,6 +47,7 @@ public class WelcomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
+
         myAuth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
         super.onCreate(savedInstanceState);
@@ -120,6 +121,12 @@ public class WelcomeScreen extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

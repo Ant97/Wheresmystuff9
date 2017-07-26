@@ -164,6 +164,15 @@ public class Model {
             throw new InvalidPasswordException();
         }
     }
+
+    /**
+     * validates password for login
+     * @param password password to be validated
+     * @return true if valid, false if not
+     */
+    public static boolean validatePasswordLogin(String password){
+        return PasswordHandler.validatePassword(password);
+    }
     /**
      * addItem to an itemObject list
      * @param itemList list to have itemObject added to
@@ -200,7 +209,7 @@ public class Model {
      * @param username the username to be searched for
      * @return the user if found, null if not
      */
-    public static User findUserByUsername(String username){
+    private static User findUserByUsername(String username){
         return UserSearchHandler.findUserByUsername(_database.getUsers(), username);
     }
 
@@ -209,11 +218,11 @@ public class Model {
      * @param email the email to be searched for
      * @return the user if found, null if not
      */
-    private static User findUserByEmail(String email){
+    public static User findUserByEmail(String email){
         return UserSearchHandler.findUserByEmail(_database.getUsers(), email);
     }
 
-    private static boolean validateEmailFormat(String email) throws InvalidEmailException{
+    public static boolean validateEmailFormat(String email) throws InvalidEmailException{
         if(EmailHandler.validateEmailFormat(email)){
             return true;
         } else {
