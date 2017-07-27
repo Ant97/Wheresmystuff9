@@ -70,7 +70,7 @@ public class LostItem extends Item {
         this.category = category;
     }
     public String toString(){
-        return name + " Lost: " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getYear() + " By: " + user;
+        return name + " Lost ";
     }
     public String getReward(){
         return this.reward;

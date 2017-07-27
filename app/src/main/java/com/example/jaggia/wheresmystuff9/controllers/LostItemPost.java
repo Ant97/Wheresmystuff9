@@ -140,7 +140,7 @@ public class LostItemPost extends AppCompatActivity {
                         int dateYear = (int) lostDateYear.getSelectedItem();
                         Date date = new Date(dateYear, dateMonth, dateDay);
 
-                        LostItem itemToAdd = new LostItem.Builder(name, location).User(Model.getCurrentUsername())
+                        LostItem itemToAdd = new LostItem.Builder(name, location)
                                 .Reward(reward).Description(description)
                                 .Date(date).ItemStatus(status)
                                 .ItemCategory(category).Build();

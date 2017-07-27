@@ -51,8 +51,7 @@ public class FoundItem extends Item {
     public String toString() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        return name + " Found: " + (cal.get(Calendar.MONTH) + 1) + "/" + (cal.get(Calendar.DATE)) + "/" +
-                (cal.get(Calendar.YEAR)) + " By: " + user;
+        return name + " Found ";
     }
     public String getUsername() {
         return user;

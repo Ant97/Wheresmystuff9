@@ -137,7 +137,7 @@ public class FoundItemPost extends AppCompatActivity {
                         int dateYear = (int) foundDateYear.getSelectedItem();
                         Date date = new Date(dateYear, dateMonth, dateDay);
 
-                        FoundItem itemToAdd = (new FoundItem.Builder(name, location).User(Model.getCurrentUsername())
+                        FoundItem itemToAdd = (new FoundItem.Builder(name, location)
                                 .Description(description).Date(date)
                                 .ItemStatus(status).ItemCategory(category)).Build();
 
